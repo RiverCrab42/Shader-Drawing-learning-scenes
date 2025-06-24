@@ -21,10 +21,10 @@ const mat4 transform = mat4(vec4(1.0, 0.0, 0.0, 0.0),
 							vec4(0.0, 0.0, 1.0, 0.0),
 							vec4(t_x, t_y, t_z, 1.0));
 void vertex() {
-	VERTEX = (scale_matrix * vec4(VERTEX, 1.0)).xyz;
-	VERTEX = (rotation_matrix_x * vec4(VERTEX, 1.0)).xyz;
-	VERTEX = (transform * vec4(VERTEX, 1.0)).xyz;
-	VERTEX = (transform * rotation_matrix_x * scale_matrix * vec4(VERTEX, 1.0)).xyz;
+	//VERTEX = (scale_matrix * vec4(VERTEX, 1.0)).xyz;
+	//VERTEX = (rotation_matrix_x * vec4(VERTEX, 1.0)).xyz;
+	//VERTEX = (transform * vec4(VERTEX, 1.0)).xyz;
+	//VERTEX = (transform * rotation_matrix_x * scale_matrix * vec4(VERTEX, 1.0)).xyz;
 	
 	//VERTEX = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
 }
