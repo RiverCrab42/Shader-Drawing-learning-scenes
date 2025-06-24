@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmjnpdixr0tl1"]
 
-[ext_resource type="Shader" uid="uid://dyb8r5rqr2kau" path="res://scripts/shaders/transformation_matricies_example.gdshader" id="1_r7noj"]
+[ext_resource type="Shader" uid="uid://sf2g3vcs8yle" path="res://scripts/shaders/transformation_matricies_example.gdshader" id="1_r7noj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ulxj2"]
 render_priority = 0

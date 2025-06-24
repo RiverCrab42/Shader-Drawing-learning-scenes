@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bgv3twykk5keg"]
 
-[ext_resource type="Shader" uid="uid://3pesmicahnni" path="res://scripts/shaders/water_shader.gdshader" id="1_jirv6"]
+[ext_resource type="Shader" uid="uid://djk6gjdi6kdwg" path="res://scripts/shaders/water_shader.gdshader" id="1_jirv6"]
 [ext_resource type="Texture2D" uid="uid://cq0rpxu2t3uan" path="res://assets/textures/water_texture_2D.tres" id="2_tar7n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tar7n"]
