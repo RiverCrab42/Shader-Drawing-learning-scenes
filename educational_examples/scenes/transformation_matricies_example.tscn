@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmjnpdixr0tl1"]
+
+[ext_resource type="Shader" uid="uid://dyb8r5rqr2kau" path="res://scripts/shaders/transformation_matricies_example.gdshader" id="1_r7noj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ulxj2"]
+render_priority = 0
+shader = ExtResource("1_r7noj")
+
+[sub_resource type="Environment" id="Environment_r7noj"]
+background_mode = 1
+background_color = Color(0, 0.152941, 0.462745, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+material = SubResource("ShaderMaterial_ulxj2")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.13588)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r7noj")
