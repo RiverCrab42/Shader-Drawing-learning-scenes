@@ -1,0 +1,285 @@
+[gd_scene load_steps=22 format=3 uid="uid://2w1v2b1sajjm"]
+
+[ext_resource type="Texture2D" uid="uid://bbiek02leer8o" path="res://icon.svg" id="1_mqlkw"]
+
+[sub_resource type="Shader" id="Shader_mqlkw"]
+code = "shader_type canvas_item;
+//TASK A SOLUTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	COLOR = texture(TEXTURE, vec2(UV.x, 1.0 - UV.y));
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qtkd5"]
+shader = SubResource("Shader_mqlkw")
+
+[sub_resource type="Shader" id="Shader_qtkd5"]
+code = "shader_type canvas_item;
+//TASK A
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8hnfw"]
+shader = SubResource("Shader_qtkd5")
+
+[sub_resource type="Shader" id="Shader_8hnfw"]
+code = "shader_type canvas_item;
+//TASK B SOLUTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV * 3.0);
+	// Called for every pixel the material is visible on.
+}
+
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewm10"]
+shader = SubResource("Shader_8hnfw")
+
+[sub_resource type="Shader" id="Shader_tns0m"]
+code = "shader_type canvas_item;
+//TASK B
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dp6ux"]
+shader = SubResource("Shader_tns0m")
+
+[sub_resource type="Shader" id="Shader_c5m5p"]
+code = "shader_type canvas_item;
+//TASK C SOLUTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	COLOR = vec4(UV.x, 0.0, UV.y, 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w4qxb"]
+shader = SubResource("Shader_c5m5p")
+
+[sub_resource type="Shader" id="Shader_dp6ux"]
+code = "shader_type canvas_item;
+//TASK C
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xy4xv"]
+shader = SubResource("Shader_dp6ux")
+
+[sub_resource type="Shader" id="Shader_w4qxb"]
+code = "shader_type canvas_item;
+//TASK D SOLUTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	COLOR = texture(TEXTURE, vec2(UV.x * 2.0 + 0.5, UV.y));
+}
+
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tns0m"]
+shader = SubResource("Shader_w4qxb")
+
+[sub_resource type="Shader" id="Shader_xy4xv"]
+code = "shader_type canvas_item;
+//TASK D
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xp085"]
+shader = SubResource("Shader_xy4xv")
+
+[sub_resource type="Shader" id="Shader_ewm10"]
+code = "shader_type canvas_item;
+//TASK E SOLUTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+varying vec4 color;
+
+void vertex() {
+	color = vec4(UV, 0.0, 1.0);
+}
+
+void fragment() {
+	vec4 tex = texture(TEXTURE, UV * 2.0);
+	COLOR = tex * color;
+	// Called for every pixel the material is visible on.
+}
+
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c5m5p"]
+shader = SubResource("Shader_ewm10")
+
+[sub_resource type="Shader" id="Shader_xp085"]
+code = "shader_type canvas_item;
+//TASK E
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2wip"]
+shader = SubResource("Shader_xp085")
+
+[node name="Task01" type="Node2D"]
+
+[node name="A" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_qtkd5")
+position = Vector2(112, 192)
+texture = ExtResource("1_mqlkw")
+
+[node name="A_task" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8hnfw")
+position = Vector2(112, 336)
+texture = ExtResource("1_mqlkw")
+
+[node name="B" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ewm10")
+position = Vector2(344, 192)
+texture = ExtResource("1_mqlkw")
+
+[node name="B_task" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_dp6ux")
+position = Vector2(344, 336)
+texture = ExtResource("1_mqlkw")
+
+[node name="C" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_w4qxb")
+position = Vector2(576, 192)
+texture = ExtResource("1_mqlkw")
+
+[node name="C_task" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xy4xv")
+position = Vector2(576, 336)
+texture = ExtResource("1_mqlkw")
+
+[node name="D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tns0m")
+position = Vector2(808, 192)
+texture = ExtResource("1_mqlkw")
+
+[node name="D_task" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xp085")
+position = Vector2(808, 336)
+texture = ExtResource("1_mqlkw")
+
+[node name="E" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_c5m5p")
+position = Vector2(1040, 192)
+texture = ExtResource("1_mqlkw")
+
+[node name="E_task" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_h2wip")
+position = Vector2(1040, 336)
+texture = ExtResource("1_mqlkw")
