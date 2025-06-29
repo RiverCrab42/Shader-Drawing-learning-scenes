@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://cg08e2x8hgvl3"]
+
+[ext_resource type="Shader" uid="uid://c6k12drbiictx" path="res://scripts/shaders/advanced_post_processing_example.gdshader" id="1_ehiwy"]
+[ext_resource type="Shader" uid="uid://dmjk8lxmn24jd" path="res://scripts/shaders/gradient_next_pass_example.gdshader" id="2_aa35f"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_r2056"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehiwy"]
+render_priority = 0
+shader = ExtResource("1_ehiwy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tnjl4"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3rlf"]
+render_priority = 0
+shader = ExtResource("2_aa35f")
+shader_parameter/color_bottom = Color(0, 0, 1, 1)
+shader_parameter/color_top = Color(0, 1, 0, 1)
+shader_parameter/min_height = -0.5
+shader_parameter/max_height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3rlf"]
+next_pass = SubResource("ShaderMaterial_x3rlf")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="PostProcessQuad" type="MeshInstance3D" parent="Camera3D"]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_r2056")
+surface_material_override/0 = SubResource("ShaderMaterial_ehiwy")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, -2.6)
+size = Vector3(1, 1.03076, 1)
+material = SubResource("StandardMaterial3D_tnjl4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, -2.6)
+size = Vector3(1, 1.03076, 1)
+material = SubResource("StandardMaterial3D_x3rlf")
