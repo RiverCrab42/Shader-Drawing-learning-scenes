@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cet0ahagu3cnk"]
+
+[ext_resource type="PackedScene" uid="uid://tq1yi7ep5gli" path="res://assets/fbx/wall_corner_small.fbx" id="1_ab35k"]
+[ext_resource type="Material" uid="uid://bovc5u42v2tlq" path="res://assets/materials/common.tres" id="2_64pf4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4xfhe"]
+size = Vector3(1, 4.00378, 1.49854)
+
+[node name="wall_corner_small" instance=ExtResource("1_ab35k")]
+
+[node name="wall_corner_small" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_64pf4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00189, 0.249268)
+shape = SubResource("BoxShape3D_4xfhe")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.24081, 1.99702, -0.00962567)
+shape = SubResource("BoxShape3D_4xfhe")

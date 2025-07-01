@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch4628slb0l0l"]
+
+[ext_resource type="PackedScene" uid="uid://ea4nk7uu5foh" path="res://assets/fbx/wall_half.fbx" id="1_04snh"]
+[ext_resource type="Material" uid="uid://bovc5u42v2tlq" path="res://assets/materials/common.tres" id="2_4n7wk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nxxwv"]
+size = Vector3(2, 4, 1)
+
+[node name="wall_half" instance=ExtResource("1_04snh")]
+
+[node name="wall_half" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_4n7wk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
+shape = SubResource("BoxShape3D_nxxwv")
