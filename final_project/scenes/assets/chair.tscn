@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://gwdsosqtypm0"]
+
+[ext_resource type="PackedScene" uid="uid://bmgjiadgdkawf" path="res://assets/fbx/chair.fbx" id="1_xknas"]
+[ext_resource type="Texture2D" uid="uid://bups6jv5qfuee" path="res://assets/textures/dungeon_texture.png" id="2_kkrxh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ge4i"]
+albedo_texture = ExtResource("2_kkrxh")
+albedo_texture_force_srgb = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xknas"]
+size = Vector3(0.751953, 0.504883, 0.749023)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kkrxh"]
+size = Vector3(0.207336, 0.71283, 0.748291)
+
+[node name="chair" instance=ExtResource("1_xknas")]
+
+[node name="chair" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4ge4i")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.247559, 0)
+shape = SubResource("BoxShape3D_xknas")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.255829, 0.86026, 0)
+shape = SubResource("BoxShape3D_kkrxh")

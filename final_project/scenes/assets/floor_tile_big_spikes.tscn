@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwn6k2mptf7m2"]
+
+[ext_resource type="PackedScene" uid="uid://clkci2rb2grru" path="res://assets/fbx/floor_tile_big_spikes.fbx" id="1_agxry"]
+[ext_resource type="Material" uid="uid://cub3xsmx6xvov" path="res://materials/import3.tres" id="2_0c7pl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wppae"]
+size = Vector3(4, 0.118, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_edk2q"]
+size = Vector3(2, 2, 2)
+
+[node name="floor_tile_big_spikes" instance=ExtResource("1_agxry")]
+
+[node name="floor_tile_big_spikes" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_0c7pl")
+
+[node name="spikes" parent="floor_tile_big_spikes" index="0"]
+surface_material_override/0 = ExtResource("2_0c7pl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0)
+shape = SubResource("BoxShape3D_wppae")
+
+[node name="Area3D" type="Area3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_edk2q")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsg3nri2j2a8v"]
+
+[ext_resource type="PackedScene" uid="uid://cptdkvqowuhh1" path="res://assets/fbx/floor_foundation_diagonal_corner.fbx" id="1_ylvom"]
+[ext_resource type="Material" uid="uid://cub3xsmx6xvov" path="res://materials/import3.tres" id="2_igk6g"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_uytgd"]
+points = PackedVector3Array(1, 0, 1.1, -1.1, 0, -1, 1, 0, -1, 1, 2, 1.1, -1.1, 2, -1, 1, 2, -1)
+
+[node name="floor_foundation_diagonal_corner" instance=ExtResource("1_ylvom")]
+
+[node name="floor_foundation_diagonal_corner" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_igk6g")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_uytgd")

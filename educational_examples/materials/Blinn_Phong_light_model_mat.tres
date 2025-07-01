@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b6so8voe6b1cc"]
+
+[ext_resource type="Shader" uid="uid://bg2aj5u7mb0o2" path="res://solution/shaders/blinn_phong/Blinn_Phong_light_model_example.gdshader" id="1_u2kdw"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_u2kdw")
+shader_parameter/light_dir = Vector3(0.47, 0.342, 0.814)
+shader_parameter/ambient_light = Vector3(0.05, 0.05, 0.05)
+shader_parameter/camera_pos = Vector3(0, 0, 0)

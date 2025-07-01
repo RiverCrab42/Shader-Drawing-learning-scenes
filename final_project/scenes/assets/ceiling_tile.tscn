@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://q7y4urvroqev"]
+
+[ext_resource type="PackedScene" uid="uid://dy6etsmro6yfo" path="res://assets/fbx/ceiling_tile.fbx" id="1_lks6c"]
+[ext_resource type="Material" uid="uid://ceyort1jqgjre" path="res://materials/import.tres" id="2_ms0kd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b3v6e"]
+size = Vector3(4, 0.118, 4)
+
+[node name="ceiling_tile" instance=ExtResource("1_lks6c")]
+
+[node name="ceiling_tile" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_ms0kd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_b3v6e")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu2oxh51r7hl4"]
+
+[ext_resource type="PackedScene" uid="uid://0erbj7beomww" path="res://assets/fbx/keg.fbx" id="1_em8rk"]
+[ext_resource type="Material" uid="uid://cub3xsmx6xvov" path="res://materials/import3.tres" id="2_u8myk"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_em8rk"]
+radius = 0.85
+
+[node name="keg" instance=ExtResource("1_em8rk")]
+
+[node name="keg" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_u8myk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.000241075, 1.15009, -0.039227)
+shape = SubResource("CylinderShape3D_em8rk")

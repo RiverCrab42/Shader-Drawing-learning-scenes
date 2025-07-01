@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpf2f2ufcp4ic"]
+
+[ext_resource type="PackedScene" uid="uid://cyshvmwr3kqno" path="res://assets/fbx/floor_tile_big_grate_open.fbx" id="1_uull2"]
+[ext_resource type="Material" uid="uid://cub3xsmx6xvov" path="res://materials/import3.tres" id="2_jwnhc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5kjgt"]
+size = Vector3(4, 0.118, 4)
+
+[node name="floor_tile_big_grate_open" instance=ExtResource("1_uull2")]
+
+[node name="floor_tile_big_grate_open" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_jwnhc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0)
+shape = SubResource("BoxShape3D_5kjgt")

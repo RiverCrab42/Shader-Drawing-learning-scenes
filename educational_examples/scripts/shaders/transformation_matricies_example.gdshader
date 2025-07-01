@@ -16,7 +16,7 @@ const mat4 rotation_matrix_x = mat4(vec4(cos(r_x), 0.0, -sin(r_x), 0.0),
 const float t_x = 1.0;
 const float t_y = 1.0;
 const float t_z = 0.5;
-const mat4 transform = mat4(vec4(1.0, 0.0, 0.0, 0.0), 
+const mat4 transform = mat4(vec4(1.0, 0.0, 0.0, 0.0),
 							vec4(0.0, 1.0, 0.0, 0.0),
 							vec4(0.0, 0.0, 1.0, 0.0),
 							vec4(t_x, t_y, t_z, 1.0));
@@ -25,7 +25,7 @@ void vertex() {
 	//VERTEX = (rotation_matrix_x * vec4(VERTEX, 1.0)).xyz;
 	//VERTEX = (transform * vec4(VERTEX, 1.0)).xyz;
 	//VERTEX = (transform * rotation_matrix_x * scale_matrix * vec4(VERTEX, 1.0)).xyz;
-	
+
 	//VERTEX = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
 }
 

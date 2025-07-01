@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dst854ko6n4sv"]
+
+[ext_resource type="PackedScene" uid="uid://dj4b3gpsdq0ln" path="res://assets/fbx/floor_foundation_front.fbx" id="1_phmrf"]
+[ext_resource type="Material" uid="uid://cub3xsmx6xvov" path="res://materials/import3.tres" id="2_dctxh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e2lgk"]
+size = Vector3(2.01465, 1.96875, 2.10107)
+
+[node name="floor_foundation_front" instance=ExtResource("1_phmrf")]
+
+[node name="floor_foundation_front" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_dctxh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.0432129)
+shape = SubResource("BoxShape3D_e2lgk")

@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://ba5celflb58ax"]
+
+[ext_resource type="Script" uid="uid://b41hjh6d7r12h" path="res://scripts/character_body_3d.gd" id="1_rkhd4"]
+[ext_resource type="Script" uid="uid://ckov5pb3dh4tv" path="res://scripts/camera_3d.gd" id="2_lrhn5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t1x3v"]
+
+[sub_resource type="Environment" id="Environment_dp8ca"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_0lw5n"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = false
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+metadata/_custom_type_script = "uid://b4mh3s2gm3wao"
+
+[sub_resource type="Compositor" id="Compositor_2cgup"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_0lw5n")])
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkhd4"]
+albedo_color = Color(0, 0.0745098, 1, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_rkhd4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_t1x3v")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490497, 0)
+environment = SubResource("Environment_dp8ca")
+compositor = SubResource("Compositor_2cgup")
+script = ExtResource("2_lrhn5")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+material = SubResource("StandardMaterial3D_rkhd4")

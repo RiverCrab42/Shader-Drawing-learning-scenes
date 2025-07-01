@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://dh4p85w57fmwc"]
+
+[ext_resource type="PackedScene" uid="uid://c75sdier8wpnk" path="res://assets/fbx/bed_decorated.fbx" id="1_a46l0"]
+[ext_resource type="Texture2D" uid="uid://bups6jv5qfuee" path="res://assets/textures/dungeon_texture.png" id="2_5ivey"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dt0fm"]
+albedo_texture = ExtResource("2_5ivey")
+albedo_texture_force_srgb = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a46l0"]
+size = Vector3(1.50757, 0.69751, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ivey"]
+size = Vector3(0.807861, 0.785889, 0.806519)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dt0fm"]
+size = Vector3(1.00317, 1.00024, 0.999878)
+
+[node name="bed_decorated" instance=ExtResource("1_a46l0")]
+
+[node name="bed_decorated" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_dt0fm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.347111, 0)
+shape = SubResource("BoxShape3D_a46l0")
+debug_fill = false
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" index="0"]
+transform = Transform3D(0.970296, 0, 0.241922, 0, 1, 0, -0.241922, 0, 0.970296, 1.35194, 0.411255, 0.942093)
+shape = SubResource("BoxShape3D_5ivey")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35194, 0.411255, 0.942093)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" index="0"]
+transform = Transform3D(0.992542, 0, 0.121869, 0, 1, 0, -0.121869, 0, 0.992542, -0.051968, 0.0911865, -1.939)
+shape = SubResource("BoxShape3D_dt0fm")
