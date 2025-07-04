@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3kimpf5hg2he"]
 
 [ext_resource type="PackedScene" uid="uid://i3ayeeey6ujx" path="res://assets/fbx/floor_dirt_small_B.fbx" id="1_xmcym"]
-[ext_resource type="Material" uid="uid://ceyort1jqgjre" path="res://materials/import.tres" id="2_socmw"]
+[ext_resource type="Material" uid="uid://bovc5u42v2tlq" path="res://assets/materials/common.tres" id="2_socmw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_socmw"]
 size = Vector3(2, 0.118, 2)

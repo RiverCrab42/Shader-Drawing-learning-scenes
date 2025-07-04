@@ -1,14 +1,17 @@
 extends Camera3D
 
+var character : Node3D
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	character = get_parent_node_3d()
 
 func _process(_delta):
-	rotation.x = clamp(rotation.x, -1, 1)
+	rotation.x = clamp(rotation.x, -1.2, 1.2)
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		rotate(Vector3.UP,
+		character.rotate(Vector3.UP,
 			event.relative.x * -0.005
 		)
 		rotate_object_local(Vector3.RIGHT,

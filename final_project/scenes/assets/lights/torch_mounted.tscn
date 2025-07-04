@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4ome1rfnjcj1"]
+
+[ext_resource type="PackedScene" uid="uid://c2air05a365p0" path="res://assets/fbx/torch_mounted.fbx" id="1_sdf1s"]
+[ext_resource type="Texture2D" uid="uid://bups6jv5qfuee" path="res://assets/textures/dungeon_texture.png" id="2_ot5pk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_robsl"]
+albedo_texture = ExtResource("2_ot5pk")
+
+[node name="torch_mounted" instance=ExtResource("1_sdf1s")]
+
+[node name="torch_mounted" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_robsl")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://b31570xm17us0"]
+
+[ext_resource type="Script" uid="uid://wy75g7yf76wd" path="res://scripts/utility/depth_camera_3d.gd" id="1_6a4xg"]
+[ext_resource type="Script" uid="uid://d1uk3fxsy6i1m" path="res://compositor/scripts/re_depth_capture.gd" id="2_6a4xg"]
+[ext_resource type="Script" uid="uid://b3pnqbg7j63db" path="res://scripts/utility/camera_to_depthcamera.gd" id="3_cek1s"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_6a4xg"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("2_6a4xg")
+metadata/_custom_type_script = "uid://d1uk3fxsy6i1m"
+
+[sub_resource type="Compositor" id="Compositor_uleht"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_6a4xg")])
+
+[node name="DepthCamera3D" type="Node3D" node_paths=PackedStringArray("viewport")]
+script = ExtResource("1_6a4xg")
+viewport = NodePath("SubViewport")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(1024, 1024)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+compositor = SubResource("Compositor_uleht")
+fov = 90.0
+script = ExtResource("3_cek1s")

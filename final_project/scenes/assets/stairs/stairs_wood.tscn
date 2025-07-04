@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dywrvy7jp2vv4"]
+
+[ext_resource type="PackedScene" uid="uid://d0xb0eus8nydw" path="res://assets/fbx/stairs_wood.fbx" id="1_rqyny"]
+[ext_resource type="Texture2D" uid="uid://bups6jv5qfuee" path="res://assets/textures/dungeon_texture.png" id="2_f50v3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_so2b7"]
+albedo_texture = ExtResource("2_f50v3")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6h8eq"]
+points = PackedVector3Array(1.5, 0, 0, 1.5, 0, 6, 1.5, 4.05, 0, -1.5, 0, 0, -1.5, 0, 6, -1.5, 4.05, 0)
+
+[node name="stairs_wood" instance=ExtResource("1_rqyny")]
+
+[node name="stairs_wood" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_so2b7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_6h8eq")

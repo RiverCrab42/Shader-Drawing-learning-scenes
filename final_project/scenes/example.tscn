@@ -1,67 +1,161 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbyoe46viirjl"]
+[gd_scene load_steps=13 format=3 uid="uid://cbyoe46viirjl"]
 
-[ext_resource type="PackedScene" uid="uid://b3llyhi2b75yy" path="res://scenes/assets/floor_dirt_small_weeds.tscn" id="1_klr1q"]
-[ext_resource type="PackedScene" uid="uid://n80416i1ws4y" path="res://scenes/assets/floor_foundation_allsides.tscn" id="2_4vkub"]
-[ext_resource type="PackedScene" uid="uid://syx00kieaoxo" path="res://scenes/assets/floor_dirt_small_d.tscn" id="3_1ywam"]
-[ext_resource type="PackedScene" uid="uid://c8b8voier1d3h" path="res://scenes/assets/floor_dirt_small_c.tscn" id="4_ba3wm"]
-[ext_resource type="PackedScene" uid="uid://c3kimpf5hg2he" path="res://scenes/assets/floor_dirt_small_b.tscn" id="5_3hvnp"]
-[ext_resource type="PackedScene" uid="uid://c785le0jye60w" path="res://scenes/assets/floor_dirt_small_a.tscn" id="6_sbkjb"]
+[ext_resource type="PackedScene" uid="uid://b3llyhi2b75yy" path="res://scenes/assets/floors/floor_dirt_small_weeds.tscn" id="1_klr1q"]
+[ext_resource type="PackedScene" uid="uid://n80416i1ws4y" path="res://scenes/assets/floors/floor_foundation_allsides.tscn" id="2_4vkub"]
+[ext_resource type="PackedScene" uid="uid://syx00kieaoxo" path="res://scenes/assets/floors/floor_dirt_small_d.tscn" id="3_1ywam"]
+[ext_resource type="PackedScene" uid="uid://b31570xm17us0" path="res://scenes/utils/depth_camera_3d.tscn" id="3_3hvnp"]
+[ext_resource type="PackedScene" uid="uid://c8b8voier1d3h" path="res://scenes/assets/floors/floor_dirt_small_c.tscn" id="4_ba3wm"]
+[ext_resource type="PackedScene" uid="uid://1bbkwe5mfq1b" path="res://assets/fbx/bottle_A_brown.fbx" id="4_sbkjb"]
+[ext_resource type="PackedScene" uid="uid://c3kimpf5hg2he" path="res://scenes/assets/floors/floor_dirt_small_b.tscn" id="5_3hvnp"]
+[ext_resource type="Material" uid="uid://cp4d0ousa6s5b" path="res://solution/shaders/depth_example.tres" id="5_sbkjb"]
+[ext_resource type="PackedScene" uid="uid://c785le0jye60w" path="res://scenes/assets/floors/floor_dirt_small_a.tscn" id="6_sbkjb"]
 [ext_resource type="PackedScene" uid="uid://cijivo5wnu5ip" path="res://scenes/utils/activatable_area.tscn" id="7_1ywam"]
-[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/character.tscn" id="8_ba3wm"]
+[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="8_ba3wm"]
+
+[sub_resource type="Environment" id="Environment_ba3wm"]
+background_mode = 1
+ambient_light_source = 2
 
 [node name="Node3D" type="Node3D"]
 
-[node name="floor_dirt_small_weeds" parent="." instance=ExtResource("1_klr1q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
-
-[node name="floor_foundation_allsides" parent="." instance=ExtResource("2_4vkub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
-
-[node name="floor_foundation_allsides2" parent="." instance=ExtResource("2_4vkub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
-
-[node name="floor_dirt_small_D" parent="." instance=ExtResource("3_1ywam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-
-[node name="floor_dirt_small_D2" parent="." instance=ExtResource("3_1ywam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
-
-[node name="floor_dirt_small_D3" parent="." instance=ExtResource("3_1ywam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
-
-[node name="floor_dirt_small_D4" parent="." instance=ExtResource("3_1ywam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
-
-[node name="floor_dirt_small_D5" parent="." instance=ExtResource("3_1ywam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
-
-[node name="floor_dirt_small_D6" parent="." instance=ExtResource("3_1ywam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -2)
-
-[node name="floor_dirt_small_weeds2" parent="." instance=ExtResource("1_klr1q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -4)
-
-[node name="floor_dirt_small_weeds3" parent="." instance=ExtResource("1_klr1q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -4)
-
-[node name="floor_dirt_small_C" parent="." instance=ExtResource("4_ba3wm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
-
-[node name="floor_dirt_small_C2" parent="." instance=ExtResource("4_ba3wm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-
-[node name="floor_dirt_small_B" parent="." instance=ExtResource("5_3hvnp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 2)
-
-[node name="floor_dirt_small_A" parent="." instance=ExtResource("6_sbkjb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -4)
-
 [node name="ActivatableArea" parent="." instance=ExtResource("7_1ywam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+visible = false
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("8_ba3wm")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 1, 0)
-metadata/character = true
+
+[node name="Camera3D" parent="CharacterBody3D" index="1"]
+environment = SubResource("Environment_ba3wm")
+
+[node name="CSGCylinder3D" parent="CharacterBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.317436, 0, 0)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 0)
+omni_range = 8.127
+
+[node name="DepthCamera3D" parent="OmniLight3D" instance=ExtResource("3_3hvnp")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="SubViewport" parent="OmniLight3D/DepthCamera3D" index="0"]
+size = Vector2i(2048, 2048)
+
+[node name="Camera3D" parent="OmniLight3D/DepthCamera3D/SubViewport" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 3, 0)
+
+[node name="bottle_A_brown" parent="OmniLight3D/DepthCamera3D" instance=ExtResource("4_sbkjb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.286659, -2.981, -3.48094)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="floor_dirt_small_weeds" parent="Node" instance=ExtResource("1_klr1q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="floor_dirt_small_weeds" parent="Node/floor_dirt_small_weeds" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_foundation_allsides" parent="Node" instance=ExtResource("2_4vkub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+
+[node name="floor_foundation_allsides" parent="Node/floor_foundation_allsides" index="0"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, -0.0919473, -0.0118428, -4.11085)
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_foundation_allsides2" parent="Node" instance=ExtResource("2_4vkub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
+
+[node name="floor_foundation_allsides" parent="Node/floor_foundation_allsides2" index="0"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, -0.076436, 0, 3.54598)
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_D" parent="Node" instance=ExtResource("3_1ywam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="floor_dirt_small_D" parent="Node/floor_dirt_small_D" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_D2" parent="Node" instance=ExtResource("3_1ywam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="floor_dirt_small_D" parent="Node/floor_dirt_small_D2" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_D3" parent="Node" instance=ExtResource("3_1ywam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+
+[node name="floor_dirt_small_D" parent="Node/floor_dirt_small_D3" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_D4" parent="Node" instance=ExtResource("3_1ywam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
+
+[node name="floor_dirt_small_D" parent="Node/floor_dirt_small_D4" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_D5" parent="Node" instance=ExtResource("3_1ywam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+
+[node name="floor_dirt_small_D" parent="Node/floor_dirt_small_D5" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_D6" parent="Node" instance=ExtResource("3_1ywam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -2)
+
+[node name="floor_dirt_small_D" parent="Node/floor_dirt_small_D6" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_weeds2" parent="Node" instance=ExtResource("1_klr1q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -4)
+
+[node name="floor_dirt_small_weeds" parent="Node/floor_dirt_small_weeds2" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_weeds3" parent="Node" instance=ExtResource("1_klr1q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -4)
+
+[node name="floor_dirt_small_weeds" parent="Node/floor_dirt_small_weeds3" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_C" parent="Node" instance=ExtResource("4_ba3wm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
+
+[node name="floor_dirt_small_C" parent="Node/floor_dirt_small_C" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_C2" parent="Node" instance=ExtResource("4_ba3wm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="floor_dirt_small_C" parent="Node/floor_dirt_small_C2" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_B" parent="Node" instance=ExtResource("5_3hvnp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 2)
+
+[node name="floor_dirt_small_B" parent="Node/floor_dirt_small_B" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[node name="floor_dirt_small_A" parent="Node" instance=ExtResource("6_sbkjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -4)
+
+[node name="floor_dirt_small_A" parent="Node/floor_dirt_small_A" index="0"]
+surface_material_override/0 = ExtResource("5_sbkjb")
+
+[editable path="ActivatableArea"]
+[editable path="CharacterBody3D"]
+[editable path="OmniLight3D/DepthCamera3D"]
+[editable path="Node/floor_dirt_small_weeds"]
+[editable path="Node/floor_foundation_allsides"]
+[editable path="Node/floor_foundation_allsides2"]
+[editable path="Node/floor_dirt_small_D"]
+[editable path="Node/floor_dirt_small_D2"]
+[editable path="Node/floor_dirt_small_D3"]
+[editable path="Node/floor_dirt_small_D4"]
+[editable path="Node/floor_dirt_small_D5"]
+[editable path="Node/floor_dirt_small_D6"]
+[editable path="Node/floor_dirt_small_weeds2"]
+[editable path="Node/floor_dirt_small_weeds3"]
+[editable path="Node/floor_dirt_small_C"]
+[editable path="Node/floor_dirt_small_C2"]
+[editable path="Node/floor_dirt_small_B"]
+[editable path="Node/floor_dirt_small_A"]

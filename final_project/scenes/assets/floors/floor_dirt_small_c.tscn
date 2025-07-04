@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8b8voier1d3h"]
+[gd_scene load_steps=5 format=3 uid="uid://c8b8voier1d3h"]
 
 [ext_resource type="PackedScene" uid="uid://wn6egu2hmqo8" path="res://assets/fbx/floor_dirt_small_C.fbx" id="1_6f8kr"]
-[ext_resource type="Material" uid="uid://ceyort1jqgjre" path="res://materials/import.tres" id="2_itbqd"]
+[ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="2_8ye4u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqu6g"]
+albedo_texture = ExtResource("2_8ye4u")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_757fa"]
 size = Vector3(2, 0.118, 2)
@@ -9,7 +12,7 @@ size = Vector3(2, 0.118, 2)
 [node name="floor_dirt_small_C" instance=ExtResource("1_6f8kr")]
 
 [node name="floor_dirt_small_C" parent="." index="0"]
-surface_material_override/0 = ExtResource("2_itbqd")
+surface_material_override/0 = SubResource("StandardMaterial3D_aqu6g")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
 

@@ -7,19 +7,20 @@ const JUMP_VELOCITY = 4.5
 var prev_mouse_pos : Vector2
 
 @onready var camera_3d: Camera3D = $Camera3D
+@onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
+	
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
+	
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backwards")
-	var direction := -(camera_3d.transform.basis * Vector3(-input_dir.y, 0, input_dir.x)).normalized()
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	#(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -27,5 +28,19 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	
+	check_raycast()
+	
 	move_and_slide()
+
+func recursive_find_selected(obj : Node) -> void:
+	if obj is Selectable:
+		SelectableManager.select(obj as Selectable)
+	var parent = obj.get_parent()
+	if parent:
+		recursive_find_selected(parent)
+
+func check_raycast() -> void:
+	var obj = ray_cast_3d.get_collider()
+	if obj:
+		recursive_find_selected(obj)

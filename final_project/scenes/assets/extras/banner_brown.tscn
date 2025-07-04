@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cidjp4vaqi0u7"]
+
+[ext_resource type="PackedScene" uid="uid://dxenyw1bhhb12" path="res://assets/fbx/banner_brown.fbx" id="1_vm6np"]
+[ext_resource type="Material" uid="uid://bovc5u42v2tlq" path="res://assets/materials/common.tres" id="2_2pko7"]
+
+[node name="banner_brown" instance=ExtResource("1_vm6np")]
+
+[node name="banner_brown" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_2pko7")

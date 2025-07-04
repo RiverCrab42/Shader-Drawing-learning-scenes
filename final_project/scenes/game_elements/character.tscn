@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba5celflb58ax"]
+
+[ext_resource type="Script" uid="uid://b41hjh6d7r12h" path="res://scripts/game_elements/character_body_3d.gd" id="1_rkhd4"]
+[ext_resource type="Script" uid="uid://ckov5pb3dh4tv" path="res://scripts/game_elements/camera_3d.gd" id="2_lrhn5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t1x3v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkhd4"]
+albedo_color = Color(0, 0.0745098, 1, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_rkhd4")
+metadata/character = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_t1x3v")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490497, 0)
+script = ExtResource("2_lrhn5")
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -10)
+hit_back_faces = false
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+material = SubResource("StandardMaterial3D_rkhd4")
