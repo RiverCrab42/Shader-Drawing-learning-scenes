@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://cj8tciluimle8"]
+
+[ext_resource type="Script" uid="uid://kme2aio80ah4" path="res://scripts/dir_light_uniform_setter.gd" id="1_fqfvu"]
+[ext_resource type="Material" uid="uid://b6so8voe6b1cc" path="res://materials/Blinn_Phong_light_model_mat.tres" id="2_khfuy"]
+[ext_resource type="Script" uid="uid://buqi63kvpx8a6" path="res://scripts/camera_setter.gd" id="4_fpmi0"]
+[ext_resource type="Script" uid="uid://doi1b78wcv83y" path="res://scripts/omni_light_uniform_setter.gd" id="5_fpmi0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6h4gs"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_xbjq0"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fpmi0"]
+size = Vector2(8, 8)
+
+[node name="BlinnPhongLightModelExample" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." node_paths=PackedStringArray("shader_objects")]
+transform = Transform3D(1, 0, 0, 0, 0.962522, 0.271205, 0, -0.271205, 0.962522, 4, 2, 4)
+script = ExtResource("1_fqfvu")
+shader_objects = [NodePath("../Sphere"), NodePath("../Tourus"), NodePath("../Plane")]
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("SphereMesh_6h4gs")
+surface_material_override/0 = ExtResource("2_khfuy")
+
+[node name="Tourus" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+mesh = SubResource("TorusMesh_xbjq0")
+surface_material_override/0 = ExtResource("2_khfuy")
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.46823, 0)
+mesh = SubResource("PlaneMesh_fpmi0")
+surface_material_override/0 = ExtResource("2_khfuy")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.595754, 2.26764, 5.28984)
+script = ExtResource("4_fpmi0")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." node_paths=PackedStringArray("shader_objects")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.269267, 0.0281007, 1.25955)
+visible = false
+script = ExtResource("5_fpmi0")
+shader_objects = [NodePath("../Sphere"), NodePath("../Tourus"), NodePath("../Plane")]

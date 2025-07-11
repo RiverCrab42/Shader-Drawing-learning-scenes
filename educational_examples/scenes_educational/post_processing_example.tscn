@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0dlducfos4hv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_2ruuk"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_y0nqe"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8airt"]
+size = Vector2(8, 8)
+
+[sub_resource type="QuadMesh" id="QuadMesh_8w2k4"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="Shader" id="Shader_4mnp5"]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D scr_tex : hint_screen_texture, repeat_disable;
+uniform sampler2D dpt_tex : hint_depth_texture, repeat_disable;
+uniform sampler2D distance_curve;
+
+void vertex() {
+	POSITION = vec4(VERTEX.xy, 1.0, 1.0);
+}
+
+void fragment() {
+	float depth = 1.0 - texture(dpt_tex, SCREEN_UV).r;
+	ALBEDO.r = texture(scr_tex, SCREEN_UV + vec2(0.01, 0.0) * depth).r;
+	ALBEDO.g = texture(scr_tex, SCREEN_UV + vec2(-0.01, 0.0) * depth).g;
+	ALBEDO.b = texture(scr_tex, SCREEN_UV + vec2(0.0, 0.01) * depth).b;
+
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="Curve" id="Curve_2ruuk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.559322, 0.426966), 0.0, 0.0, 0, 0, Vector2(1, 0.977528), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_y0nqe"]
+curve = SubResource("Curve_2ruuk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1a0t2"]
+render_priority = 0
+shader = SubResource("Shader_4mnp5")
+shader_parameter/distance_curve = SubResource("CurveTexture_y0nqe")
+
+[node name="PostProcessingExample" type="Node3D"]
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+mesh = SubResource("SphereMesh_2ruuk")
+
+[node name="Tourus" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2.04448, -7.91018)
+mesh = SubResource("TorusMesh_y0nqe")
+
+[node name="Plane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.46823, 0)
+mesh = SubResource("PlaneMesh_8airt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_8w2k4")
+surface_material_override/0 = SubResource("ShaderMaterial_1a0t2")

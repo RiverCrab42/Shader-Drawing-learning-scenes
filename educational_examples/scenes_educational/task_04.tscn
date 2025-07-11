@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck0u3omx5epxp"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pdgyi"]
+size = Vector2(10, 10)
+subdivide_width = 32
+subdivide_depth = 32
+
+[sub_resource type="Shader" id="Shader_q7npc"]
+code = "shader_type spatial;
+
+//TO DO 1:
+//Задайте поверхность таким образом, чтобы y = sin(x) + sin(z) / 2
+//TO DO 2:
+//Исправьте нормали
+
+//TO DO 3:
+//Меняйте цвет объекта от красного до зеленого в соответствии с высотой террейна
+//(в самой нижней точке цвет должен быть красным, в самом верху зеленым)
+varying vec3 color;
+
+void vertex() {
+
+}
+
+void fragment() {
+	//ALBEDO = color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cgmsu"]
+render_priority = 0
+shader = SubResource("Shader_q7npc")
+
+[node name="Task03" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_pdgyi")
+surface_material_override/0 = SubResource("ShaderMaterial_cgmsu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.410173, 0.641476, -0.648279, 0.342983, 0.767143, 0.542084, 0.845057, -1.25923e-07, -0.534677, -8.4464, 2.35788, 0)

@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
@@ -33,14 +32,20 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+var selected_this_frame : bool = false
+
 func recursive_find_selected(obj : Node) -> void:
 	if obj is Selectable:
 		SelectableManager.select(obj as Selectable)
+		selected_this_frame = true
 	var parent = obj.get_parent()
 	if parent:
 		recursive_find_selected(parent)
 
 func check_raycast() -> void:
 	var obj = ray_cast_3d.get_collider()
+	selected_this_frame = false
 	if obj:
 		recursive_find_selected(obj)
+	if !selected_this_frame:
+		SelectableManager.unselect_all()

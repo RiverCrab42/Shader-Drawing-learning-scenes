@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://daos1e744ckqj"]
+
+[ext_resource type="PackedScene" uid="uid://bn0mctsh6ovtg" path="res://assets/fbx/barrier_colum_half.fbx" id="1_edpyg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qet38"]
+size = Vector3(2, 1.1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q6l2n"]
+size = Vector3(0.7, 1.19421, 0.7)
+
+[node name="barrier_colum_half" instance=ExtResource("1_edpyg")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.55, 0)
+shape = SubResource("BoxShape3D_qet38")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.597107, 0)
+shape = SubResource("BoxShape3D_q6l2n")

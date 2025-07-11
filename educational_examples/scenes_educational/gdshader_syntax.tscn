@@ -1,10 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqtynckl3wif7"]
+[gd_scene load_steps=4 format=3 uid="uid://cqtynckl3wif7"]
 
 [ext_resource type="Texture2D" uid="uid://bbiek02leer8o" path="res://icon.svg" id="1_t7q40"]
+
+[sub_resource type="Shader" id="Shader_t7q40"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3jtwc"]
+shader = SubResource("Shader_t7q40")
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_repeat = 2
+material = SubResource("ShaderMaterial_3jtwc")
 position = Vector2(448, 204)
 texture = ExtResource("1_t7q40")

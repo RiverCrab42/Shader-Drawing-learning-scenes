@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://xw64m8oiwkra"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0pccn"]
+
+[sub_resource type="Shader" id="Shader_bq6tg"]
+code = "shader_type spatial;
+//render_mode skip_vertex_transform;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o71oq"]
+render_priority = 0
+shader = SubResource("Shader_bq6tg")
+
+[node name="CoordinatSpaces" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
+mesh = SubResource("BoxMesh_0pccn")
+surface_material_override/0 = SubResource("ShaderMaterial_o71oq")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 2)

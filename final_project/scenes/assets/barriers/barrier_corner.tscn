@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://34d7gs4v6tca"]
+
+[ext_resource type="PackedScene" uid="uid://4ntuy2engh5v" path="res://assets/fbx/barrier_corner.fbx" id="1_iwlic"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jrrtg"]
+size = Vector3(2, 1.1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lwiyy"]
+size = Vector3(0.7, 1.19421, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_27tni"]
+size = Vector3(2, 1.1, 0.5)
+
+[node name="barrier_corner" instance=ExtResource("1_iwlic")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.55, 0)
+shape = SubResource("BoxShape3D_jrrtg")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.1, 0.6, 0.1)
+shape = SubResource("BoxShape3D_lwiyy")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.55, 1)
+shape = SubResource("BoxShape3D_27tni")

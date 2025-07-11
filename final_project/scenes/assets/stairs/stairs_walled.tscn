@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://g0xa0qvph3bk"]
+
+[ext_resource type="PackedScene" uid="uid://ckwdrejdnb2r5" path="res://assets/fbx/stairs_walled.fbx" id="1_oa0vm"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7pyfd"]
+points = PackedVector3Array(-1.5, 0, 0, -1.5, 0, 4, -1.5, 4, 0, 1.5, 0, 0, 1.5, 0, 4, 1.5, 4, 0)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_knw5n"]
+points = PackedVector3Array(1.5, 0, 0, 1.5, 0, 4, 1.5, 4, 4, 1.5, 4, 0, 2.5, 0, 0, 2.5, 0, 4, 2.5, 4, 4, 2.5, 4, 0)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7nqge"]
+points = PackedVector3Array(-1.5, 0, 0, -1.5, 0, 4, -1.5, 4, 4, -1.5, 4, 0, -2.5, 0, 0, -2.5, 0, 4, -2.5, 4, 4, -2.5, 4, 0)
+
+[node name="stairs_walled" instance=ExtResource("1_oa0vm")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_7pyfd")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+shape = SubResource("ConvexPolygonShape3D_knw5n")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+shape = SubResource("ConvexPolygonShape3D_7nqge")

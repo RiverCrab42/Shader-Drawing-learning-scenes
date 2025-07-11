@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4mvnsjsvavfl"]
+
+[ext_resource type="PackedScene" uid="uid://cm8igtascx5hr" path="res://assets/fbx/stairs_narrow.fbx" id="1_x78o5"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jw1g8"]
+points = PackedVector3Array(-1.25, 0, 0, -1.25, 0, 4, -1.25, 4, 0, 1.25, 0, 0, 1.25, 0, 4, 1.25, 4, 0)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7vo3i"]
+points = PackedVector3Array(1.25, 0, 0, 1.25, 0, 4, 1.25, 1.1, 4, 1.25, 5.1, 0, 1.75, 0, 0, 1.75, 0, 4, 1.75, 1.1, 4, 1.75, 5.1, 0)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d8df6"]
+points = PackedVector3Array(-1.25, 0, 0, -1.25, 0, 4, -1.25, 1.1, 4, -1.25, 5.1, 0, -1.75, 0, 0, -1.75, 0, 4, -1.75, 1.1, 4, -1.75, 5.1, 0)
+
+[node name="stairs_narrow" instance=ExtResource("1_x78o5")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_jw1g8")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+shape = SubResource("ConvexPolygonShape3D_7vo3i")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+shape = SubResource("ConvexPolygonShape3D_d8df6")

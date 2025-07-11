@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://bq0dcihhlbc05"]
+
+[ext_resource type="PackedScene" uid="uid://cufti78y3350f" path="res://assets/fbx/key.fbx" id="1_oerwj"]
+[ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="2_1s1hf"]
+[ext_resource type="Script" uid="uid://dwlqvipsondsv" path="res://scripts/game_elements/interactbles/key.gd" id="2_gnc3v"]
+[ext_resource type="PackedScene" uid="uid://cijivo5wnu5ip" path="res://scenes/utils/activatable_area.tscn" id="4_gnc3v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gnc3v"]
+albedo_texture = ExtResource("2_1s1hf")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kl14x"]
+size = Vector3(0.00890869, 0.00488281, 0.00415039)
+
+[sub_resource type="Animation" id="Animation_gnc3v"]
+resource_name = "pick_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("key:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kl14x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("key:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kl14x"]
+_data = {
+&"RESET": SubResource("Animation_kl14x"),
+&"pick_up": SubResource("Animation_gnc3v")
+}
+
+[node name="key" instance=ExtResource("1_oerwj")]
+script = ExtResource("2_gnc3v")
+
+[node name="key" parent="." index="0"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, -0.29036, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_gnc3v")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="key" index="0"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="key/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.84217e-14, 0, 2.84217e-14, 1, 0.00257398, 0, 0)
+shape = SubResource("BoxShape3D_kl14x")
+
+[node name="ActivatableArea" parent="." index="1" instance=ExtResource("4_gnc3v")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_kl14x")
+}

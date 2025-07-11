@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmd5yktwtfbqp"]
+
+[ext_resource type="PackedScene" uid="uid://dtija55qly3gd" path="res://assets/fbx/banner_red.fbx" id="1_tqo3d"]
+[ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="2_oq2bh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wf6sn"]
+albedo_texture = ExtResource("2_oq2bh")
+
+[node name="banner_red" instance=ExtResource("1_tqo3d")]
+
+[node name="banner_red" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wf6sn")

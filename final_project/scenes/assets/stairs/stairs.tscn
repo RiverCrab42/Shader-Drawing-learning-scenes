@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctrwoktx44fox"]
+
+[ext_resource type="PackedScene" uid="uid://b21bqmkb1u8jw" path="res://assets/fbx/stairs.fbx" id="1_8gula"]
+[ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="2_0op4t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dilb"]
+albedo_texture = ExtResource("2_0op4t")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8gula"]
+points = PackedVector3Array(-1.75, 0, 0, -1.75, 0, 4, -1.75, 4, 0, 1.75, 0, 0, 1.75, 0, 4, 1.75, 4, 0)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0op4t"]
+points = PackedVector3Array(1.75, 0, 0, 1.75, 0, 4, 1.75, 1.1, 4, 1.75, 5.1, 0, 2.5, 0, 0, 2.5, 0, 4, 2.5, 1.1, 4, 2.5, 5.1, 0)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4dilb"]
+points = PackedVector3Array(-1.75, 0, 0, -1.75, 0, 4, -1.75, 1.1, 4, -1.75, 5.1, 0, -2.5, 0, 0, -2.5, 0, 4, -2.5, 1.1, 4, -2.5, 5.1, 0)
+
+[node name="stairs" instance=ExtResource("1_8gula")]
+
+[node name="stairs" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4dilb")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_8gula")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+shape = SubResource("ConvexPolygonShape3D_0op4t")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+shape = SubResource("ConvexPolygonShape3D_4dilb")

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl0k34pvbao1x"]
+
+[ext_resource type="Shader" uid="uid://0pn7x886i4gl" path="res://scripts/shaders/terrain_creation_example.gdshader" id="1_y04uy"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bdufi"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umxmu"]
+render_priority = 0
+shader = ExtResource("1_y04uy")
+
+[node name="TerrainCreationExample" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_bdufi")
+surface_material_override/0 = SubResource("ShaderMaterial_umxmu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.101549, -0.11433, 0.988239, -0.0116868, 0.993443, 0.113731, -0.994762, 1.1407e-09, -0.10222, 8.35535, 1.05388, 0)

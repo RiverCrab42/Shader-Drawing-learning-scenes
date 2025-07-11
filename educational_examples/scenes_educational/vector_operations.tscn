@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2x7td78du7vu"]
+
+[ext_resource type="Texture2D" uid="uid://bbiek02leer8o" path="res://icon.svg" id="1_5lcxk"]
+
+[sub_resource type="Shader" id="Shader_0k1t5"]
+code = "shader_type canvas_item;
+
+vec2 rotate(vec2 point, float angle){
+	//TO DO:
+	//...
+	return vec2(0.0);
+}
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_la0tr"]
+shader = SubResource("Shader_0k1t5")
+
+[node name="VectorOperations" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_la0tr")
+position = Vector2(0, 4)
+texture = ExtResource("1_5lcxk")
