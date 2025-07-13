@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=3 uid="uid://b00ybfys84nqr"]
+
+[ext_resource type="Texture2D" uid="uid://bbiek02leer8o" path="res://icon.svg" id="1_mgu1k"]
+[ext_resource type="Texture2D" uid="uid://cmohensjl800b" path="res://assets/textures/awesomeface.png" id="2_j1672"]
+
+[sub_resource type="Shader" id="Shader_mgu1k"]
+code = "shader_type canvas_item;
+//TASK A SOLUTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	if (UV.x > 0.5) {
+		COLOR = texture(TEXTURE, UV);
+	} else {
+		COLOR = texture(TEXTURE, vec2(UV.x, 1.0 - UV.y));
+	}
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1672"]
+shader = SubResource("Shader_mgu1k")
+
+[sub_resource type="Shader" id="Shader_j1672"]
+code = "shader_type canvas_item;
+//TASK A
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_160mg"]
+shader = SubResource("Shader_j1672")
+
+[sub_resource type="Shader" id="Shader_160mg"]
+code = "shader_type canvas_item;
+//TASK B SOLUTION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void vertex() {
+	VERTEX = vec2(0.0, 1.0) * VERTEX.x + vec2(-1.0, 0.0) * VERTEX.y;
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	//COLOR = texture(TEXTURE, vec2(UV.y, 1.0 - UV.x));
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uo2mf"]
+shader = SubResource("Shader_160mg")
+
+[node name="Task01Extra" type="Node2D"]
+
+[node name="A" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_j1672")
+position = Vector2(180, 160)
+texture = ExtResource("1_mgu1k")
+
+[node name="A_Task" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_160mg")
+position = Vector2(180, 400)
+texture = ExtResource("1_mgu1k")
+
+[node name="B" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uo2mf")
+position = Vector2(560, 160)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_j1672")
+
+[node name="B_Task" type="Sprite2D" parent="."]
+position = Vector2(560, 400)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_j1672")

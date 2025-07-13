@@ -16,7 +16,6 @@ code = "shader_type spatial;
 render_mode unshaded;
 
 uniform sampler2D scr_tex : hint_screen_texture, repeat_disable;
-uniform sampler2D dpt_tex : hint_depth_texture, repeat_disable;
 uniform sampler2D distance_curve;
 
 void vertex() {
@@ -24,10 +23,9 @@ void vertex() {
 }
 
 void fragment() {
-	float depth = 1.0 - texture(dpt_tex, SCREEN_UV).r;
-	ALBEDO.r = texture(scr_tex, SCREEN_UV + vec2(0.01, 0.0) * depth).r;
-	ALBEDO.g = texture(scr_tex, SCREEN_UV + vec2(-0.01, 0.0) * depth).g;
-	ALBEDO.b = texture(scr_tex, SCREEN_UV + vec2(0.0, 0.01) * depth).b;
+	//ALBEDO.r = texture(scr_tex, SCREEN_UV + vec2(0.01, 0.0)).r;
+	//ALBEDO.g = texture(scr_tex, SCREEN_UV + vec2(-0.01, 0.0)).g;
+	//ALBEDO.b = texture(scr_tex, SCREEN_UV + vec2(0.0, 0.01)).b;
 
 	// Called for every pixel the material is visible on.
 }
@@ -65,6 +63,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.46823, 0)
 mesh = SubResource("PlaneMesh_8airt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_8w2k4")
 surface_material_override/0 = SubResource("ShaderMaterial_1a0t2")

@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1pu2cjsxob11"]
+[gd_scene load_steps=7 format=3 uid="uid://d1pu2cjsxob11"]
 
 [ext_resource type="PackedScene" uid="uid://dapam35jdhg1d" path="res://assets/fbx/wall_doorway_sides.fbx" id="1_0kgbk"]
-[ext_resource type="Material" uid="uid://ceyort1jqgjre" path="res://materials/import.tres" id="2_nq24e"]
+[ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="2_qbqx2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyfrk"]
+albedo_texture = ExtResource("2_qbqx2")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kenbq"]
 size = Vector3(3, 1.16797, 1)
@@ -15,7 +18,7 @@ size = Vector3(0.487793, 2.82214, 1)
 [node name="wall_doorway_sides" instance=ExtResource("1_0kgbk")]
 
 [node name="wall_doorway_sides" parent="." index="0"]
-surface_material_override/0 = ExtResource("2_nq24e")
+surface_material_override/0 = SubResource("StandardMaterial3D_xyfrk")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
 
