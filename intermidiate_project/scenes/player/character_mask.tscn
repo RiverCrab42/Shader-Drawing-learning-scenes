@@ -1,9 +1,14 @@
-[gd_scene load_steps=31 format=3 uid="uid://bdn2w2lglevw1"]
+[gd_scene load_steps=36 format=3 uid="uid://bdn2w2lglevw1"]
 
 [ext_resource type="Texture2D" uid="uid://bn0jyjch8rf6n" path="res://assets/sprite_pack/Main Characters/Mask Dude/Idle (32x32).png" id="1_g4sjs"]
 [ext_resource type="Script" uid="uid://cemknq2plr08x" path="res://scripts/character.gd" id="1_jlaot"]
 [ext_resource type="Texture2D" uid="uid://bl5ytuxbeyofx" path="res://assets/sprite_pack/Main Characters/Mask Dude/Jump (32x32).png" id="2_jlaot"]
+[ext_resource type="Shader" uid="uid://dfcvwn8hh0d0k" path="res://shaders/character_mask.gdshader" id="2_ng4h5"]
 [ext_resource type="Texture2D" uid="uid://bqt0qdj5n8lbk" path="res://assets/sprite_pack/Main Characters/Mask Dude/Run (32x32).png" id="3_ng4h5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gf0wi"]
+shader = ExtResource("2_ng4h5")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gf0wi"]
 atlas = ExtResource("1_g4sjs")
@@ -195,11 +200,48 @@ animations = [{
 radius = 8.0
 height = 26.0
 
+[sub_resource type="Animation" id="Animation_f31je"]
+resource_name = "hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/modulate_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.22, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tjkcg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/modulate_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p0dsy"]
+_data = {
+&"RESET": SubResource("Animation_tjkcg"),
+&"hit": SubResource("Animation_f31je")
+}
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_jlaot")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_gf0wi")
 sprite_frames = SubResource("SpriteFrames_usmea")
 animation = &"idle"
 frame_progress = 0.529694
@@ -207,3 +249,8 @@ frame_progress = 0.529694
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_c2jsj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p0dsy")
+}

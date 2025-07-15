@@ -14,6 +14,11 @@ config/name="intermidiate_project"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://scripts/global/game_manager.gd"
+GlobalSignals="*res://scripts/global/global_signals.gd"
+
 [input]
 
 move_left={

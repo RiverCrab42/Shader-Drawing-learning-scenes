@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://l3il2yp68r6u"]
+[gd_scene load_steps=5 format=3 uid="uid://l3il2yp68r6u"]
 
 [ext_resource type="PackedScene" uid="uid://do1aqnosnk0bn" path="res://scenes/assets/terrain/dirt.tscn" id="1_q4lcn"]
 [ext_resource type="PackedScene" uid="uid://4ir5vnwhhjvj" path="res://scenes/assets/terrain/dirt_orange.tscn" id="2_dt51k"]
 [ext_resource type="PackedScene" uid="uid://bdn2w2lglevw1" path="res://scenes/player/character_mask.tscn" id="3_x20b1"]
+[ext_resource type="PackedScene" uid="uid://cdosf77gjjtn7" path="res://scenes/collectables/arrow.tscn" id="4_dt51k"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -81,3 +82,7 @@ position = Vector2(1104, 624)
 
 [node name="Dirt15" parent="." instance=ExtResource("1_q4lcn")]
 position = Vector2(1152, 624)
+
+[node name="Arrow" parent="." instance=ExtResource("4_dt51k")]
+texture_filter = 1
+position = Vector2(648, 528)
