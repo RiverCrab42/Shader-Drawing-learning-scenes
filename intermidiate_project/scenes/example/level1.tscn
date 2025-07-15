@@ -14,7 +14,11 @@ position = Vector2(480, 624)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_x20b1")]
 position = Vector2(432, 528)
-acceleration_air = 1000.0
+speed = 200.0
+gravity = 1000.0
+acceleration_ground = 50000.0
+acceleration_air = 660.0
+jump_velocity = -800.0
 coyote_time = 0.2
 
 [node name="Dirt3" parent="." instance=ExtResource("1_q4lcn")]
