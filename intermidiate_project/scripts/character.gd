@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+const arrow = preload("res://scenes/collectables/arrow.tscn")
 
 @export var speed : float = 200.0
 @export var gravity : float = 2000.0
@@ -12,6 +13,8 @@ extends CharacterBody2D
 
 var lastOnFloor = 0.0
 var level_viewport : Vector2i
+
+const arrow_offset : float = 5.0
 
 func _ready() -> void:
 	add_to_group("player")
@@ -51,9 +54,20 @@ func _physics_process(delta: float) -> void:
 		global_position.y = 0.0
 	elif global_position.y < 0.0:
 		global_position.y = level_viewport.y
-	
+		
+	check_shoot()
 	animate(direction)
 	move_and_slide()
+
+func check_shoot() -> void:
+	if Input.is_action_just_pressed("shoot"):
+		var arrow_obj = arrow.instantiate()
+		get_tree().root.add_child(arrow_obj)
+		var target = get_global_mouse_position()
+		var direction = (target - global_position).normalized()
+		arrow_obj.direction = direction
+		arrow_obj.global_position = global_position + direction * arrow_offset
+		GlobalSignals.shoot_arrow.emit()
 
 func animate(direction : float) -> void:
 	if not(is_on_floor()):
