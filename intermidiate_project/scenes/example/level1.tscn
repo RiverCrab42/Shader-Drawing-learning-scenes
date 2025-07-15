@@ -9,16 +9,38 @@
 [node name="Dirt" parent="." instance=ExtResource("1_q4lcn")]
 position = Vector2(432, 624)
 
+[node name="Dirt16" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(384, 624)
+
+[node name="Dirt17" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(336, 624)
+
+[node name="Dirt18" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(288, 624)
+
+[node name="Dirt19" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(240, 624)
+
+[node name="Dirt20" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(192, 624)
+
+[node name="Dirt21" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(144, 624)
+
+[node name="Dirt22" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(96, 624)
+
+[node name="Dirt23" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(48, 624)
+
+[node name="Dirt24" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 624)
+
 [node name="Dirt2" parent="." instance=ExtResource("2_dt51k")]
 position = Vector2(480, 624)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_x20b1")]
 position = Vector2(432, 528)
-speed = 200.0
-gravity = 1000.0
-acceleration_ground = 50000.0
-acceleration_air = 660.0
-jump_velocity = -800.0
 coyote_time = 0.2
 
 [node name="Dirt3" parent="." instance=ExtResource("1_q4lcn")]
@@ -29,3 +51,33 @@ position = Vector2(576, 624)
 
 [node name="Dirt5" parent="." instance=ExtResource("1_q4lcn")]
 position = Vector2(624, 624)
+
+[node name="Dirt6" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(720, 624)
+
+[node name="Dirt7" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(768, 624)
+
+[node name="Dirt8" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(816, 624)
+
+[node name="Dirt9" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(864, 624)
+
+[node name="Dirt10" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(912, 624)
+
+[node name="Dirt11" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(960, 624)
+
+[node name="Dirt12" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(1008, 624)
+
+[node name="Dirt13" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(1056, 624)
+
+[node name="Dirt14" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(1104, 624)
+
+[node name="Dirt15" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 624)

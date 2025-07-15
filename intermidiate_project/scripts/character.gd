@@ -1,23 +1,27 @@
 extends CharacterBody2D
 
 
-@export var speed : float = 300.0
-@export var gravity : float = 1500.0
-@export var acceleration_ground : float = 20000.0
+@export var speed : float = 200.0
+@export var gravity : float = 2000.0
+@export var acceleration_ground : float = 50000.0
 @export var acceleration_air = 3600.0
-@export var jump_velocity = -600.0
+@export var jump_velocity = -800.0
+@export var max_fall_speed = 800.0
 @export var coyote_time = 0.1
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 var lastOnFloor = 0.0
+var level_viewport : Vector2i
 
 func _ready() -> void:
-	
+	level_viewport = get_viewport_rect().size
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += Vector2(0.0, gravity * delta)
+		if velocity.y > max_fall_speed:
+			velocity.y = max_fall_speed
 		lastOnFloor += delta
 	else: 
 		lastOnFloor = 0.0
@@ -35,6 +39,17 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, direction * speed, acceleration_ground * delta)
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed * 1.5)
+	
+	#if the character crosses the screen - teleport him to the other side
+	if global_position.x > level_viewport.x:
+		global_position.x = 0.0
+	elif global_position.x < 0.0:
+		global_position.x = level_viewport.x
+	
+	if global_position.y > level_viewport.y:
+		global_position.y = 0.0
+	elif global_position.y < 0.0:
+		global_position.y = level_viewport.y
 	
 	animate(direction)
 	move_and_slide()
