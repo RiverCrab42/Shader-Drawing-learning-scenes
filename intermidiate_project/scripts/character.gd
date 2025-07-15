@@ -11,14 +11,8 @@ extends CharacterBody2D
 
 var lastOnFloor = 0.0
 
-var slide = false
-
-func set_slide(value : bool) -> void:
-	slide = value
-	if slide:
-		acceleration_ground = 700.0
-	else:
-		acceleration_ground = 1000.0
+func _ready() -> void:
+	
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -40,10 +34,7 @@ func _physics_process(delta: float) -> void:
 		if direction:
 			velocity.x = move_toward(velocity.x, direction * speed, acceleration_ground * delta)
 		else:
-			if slide:
-				move_toward(velocity.x, direction * speed, acceleration_ground * delta)
-			else:
-				velocity.x = move_toward(velocity.x, 0, speed * 1.5)
+			velocity.x = move_toward(velocity.x, 0, speed * 1.5)
 	
 	animate(direction)
 	move_and_slide()
