@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfdumbiw2e5jb"]
+
+[ext_resource type="Script" uid="uid://p7fogykvmaga" path="res://scripts/enemies/spawn.gd" id="1_6o2ki"]
+[ext_resource type="Texture2D" uid="uid://qi5f75nsuidf" path="res://assets/sprite_pack/Enemies/Portal/portal.png" id="1_7l1mj"]
+
+[sub_resource type="Animation" id="Animation_6o2ki"]
+resource_name = "summon"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqefk"]
+_data = {
+&"summon": SubResource("Animation_6o2ki")
+}
+
+[node name="Spawn" type="Node2D"]
+script = ExtResource("1_6o2ki")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -30)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_7l1mj")
+region_enabled = true
+region_rect = Rect2(40, 10, 300, 300)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dqefk")
+}

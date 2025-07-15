@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://l3il2yp68r6u"]
+[gd_scene load_steps=6 format=3 uid="uid://l3il2yp68r6u"]
 
 [ext_resource type="PackedScene" uid="uid://do1aqnosnk0bn" path="res://scenes/assets/terrain/dirt.tscn" id="1_q4lcn"]
 [ext_resource type="PackedScene" uid="uid://4ir5vnwhhjvj" path="res://scenes/assets/terrain/dirt_orange.tscn" id="2_dt51k"]
 [ext_resource type="PackedScene" uid="uid://bdn2w2lglevw1" path="res://scenes/player/character_mask.tscn" id="3_x20b1"]
+[ext_resource type="PackedScene" uid="uid://dfdumbiw2e5jb" path="res://scenes/enemies/spawn.tscn" id="5_fcrv7"]
 [ext_resource type="PackedScene" uid="uid://bihrtr6avjvul" path="res://scenes/enemies/slime.tscn" id="5_x20b1"]
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(72, 168)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_x20b1")]
-position = Vector2(432, 528)
+position = Vector2(432, 401)
 coyote_time = 0.2
 
 [node name="Terrain" type="Node" parent="."]
@@ -238,4 +240,19 @@ position = Vector2(480, 24)
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Slime" parent="Enemies" instance=ExtResource("5_x20b1")]
-position = Vector2(768, 584)
+position = Vector2(768, 600)
+frame_progress = 0.122498
+
+[node name="Spawn" parent="Enemies" instance=ExtResource("5_fcrv7")]
+position = Vector2(576, 456)
+enemy_type = "slime"
+spawn_time = 1.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

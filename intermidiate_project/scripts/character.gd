@@ -16,6 +16,7 @@ const arrow = preload("res://scenes/collectables/arrow.tscn")
 
 var lastOnFloor = 0.0
 var lastShot = 0.0
+var lastHit = 0.0
 var level_viewport : Vector2i
 
 const arrow_offset : float = 5.0
@@ -25,6 +26,7 @@ func _ready() -> void:
 	level_viewport = get_viewport_rect().size
 
 func _physics_process(delta: float) -> void:
+	lastHit += delta
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += Vector2(0.0, gravity * delta)
@@ -94,3 +96,4 @@ func animate(direction : float) -> void:
 func get_hit() -> void:
 	animation_player.play("hit")
 	GlobalSignals.took_damage
+	lastHit = 0.0

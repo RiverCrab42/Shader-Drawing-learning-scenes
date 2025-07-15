@@ -87,11 +87,14 @@ size = Vector2(26, 23)
 
 [node name="Ghost Idle" type="AnimatedSprite2D"]
 texture_filter = 1
+position = Vector2(0, 15)
 sprite_frames = SubResource("SpriteFrames_jjup5")
 animation = &"idle"
+offset = Vector2(0, -15)
 script = ExtResource("2_mu7b7")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -15)
 script = ExtResource("3_isgci")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
