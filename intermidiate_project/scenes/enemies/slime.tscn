@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://bihrtr6avjvul"]
+[gd_scene load_steps=15 format=3 uid="uid://bihrtr6avjvul"]
 
-[ext_resource type="Texture2D" uid="uid://b70fjt8quj86a" path="res://assets/sprite_pack/Enemies/Slime/Idle-Run (44x30).png" id="1_rldp6"]
+[ext_resource type="Texture2D" uid="uid://bds8r8avlybot" path="res://assets/sprite_pack/Enemies/Slime/Idle-Run (44x30).png" id="1_rldp6"]
+[ext_resource type="Script" uid="uid://wfiw6q0e2a4s" path="res://scripts/slime.gd" id="2_ahq63"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ahq63"]
 atlas = ExtResource("1_rldp6")
@@ -81,15 +82,33 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfyvu"]
-size = Vector2(26, 23)
+size = Vector2(26, 24)
 
 [node name="Slime" type="AnimatedSprite2D"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_jjup5")
-frame_progress = 0.0811797
+frame = 9
+frame_progress = 0.0675746
+script = ExtResource("2_ahq63")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 2.5)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_wfyvu")
+
+[node name="RightRay" type="RayCast2D" parent="."]
+position = Vector2(0, 3)
+target_position = Vector2(19, 0)
+
+[node name="LeftRay" type="RayCast2D" parent="."]
+position = Vector2(0, 3)
+target_position = Vector2(-19, 0)
+
+[node name="DownRightRay" type="RayCast2D" parent="."]
+position = Vector2(19, 3)
+target_position = Vector2(0, 18)
+
+[node name="DownLeftRay" type="RayCast2D" parent="."]
+position = Vector2(-19, 3)
+target_position = Vector2(0, 18)

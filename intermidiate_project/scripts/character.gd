@@ -14,6 +14,7 @@ var lastOnFloor = 0.0
 var level_viewport : Vector2i
 
 func _ready() -> void:
+	add_to_group("player")
 	level_viewport = get_viewport_rect().size
 
 func _physics_process(delta: float) -> void:
