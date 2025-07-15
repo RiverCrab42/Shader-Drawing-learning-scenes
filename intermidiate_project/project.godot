@@ -16,8 +16,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://scripts/global/game_manager.gd"
 GlobalSignals="*res://scripts/global/global_signals.gd"
+GameManager="*res://scenes/global/game_manager.tscn"
 
 [input]
 

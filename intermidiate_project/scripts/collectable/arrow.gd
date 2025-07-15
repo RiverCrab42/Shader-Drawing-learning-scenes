@@ -8,6 +8,8 @@ extends Node2D
 @export var max_fall_speed : float = 10.0
 @export var speed : float = 300.0
 
+var enemies_damaged : Array
+
 var direction : Vector2 = Vector2(1.0, 0.0)
 var stuck : bool
 var level_viewport : Vector2i
