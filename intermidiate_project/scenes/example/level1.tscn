@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://l3il2yp68r6u"]
+
+[ext_resource type="PackedScene" uid="uid://do1aqnosnk0bn" path="res://scenes/assets/terrain/dirt.tscn" id="1_q4lcn"]
+[ext_resource type="PackedScene" uid="uid://4ir5vnwhhjvj" path="res://scenes/assets/terrain/dirt_orange.tscn" id="2_dt51k"]
+[ext_resource type="PackedScene" uid="uid://bdn2w2lglevw1" path="res://scenes/player/character_mask.tscn" id="3_x20b1"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Dirt" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(432, 624)
+
+[node name="Dirt2" parent="." instance=ExtResource("2_dt51k")]
+position = Vector2(480, 624)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_x20b1")]
+position = Vector2(432, 528)
+gravity = 347.0
+speed = 150.0
+speed_air = 80.0
+jump_velocity = 330.0
+
+[node name="Dirt3" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(528, 624)
+
+[node name="Dirt4" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(576, 624)
+
+[node name="Dirt5" parent="." instance=ExtResource("1_q4lcn")]
+position = Vector2(624, 624)
