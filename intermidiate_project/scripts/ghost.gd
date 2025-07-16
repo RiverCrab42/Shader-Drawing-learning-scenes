@@ -9,7 +9,7 @@ extends Node2D
 @export var health : int = 1
 
 var curr_time = 0.0
-var player_enable_time = 2.0
+@export var player_enable_time = 2.0
 var is_alive = true;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
