@@ -10,6 +10,8 @@ extends Node2D
 
 var enemies_damaged : Array
 
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
+
 var direction : Vector2 = Vector2(1.0, 0.0)
 var stuck : bool
 var level_viewport : Vector2i
@@ -29,7 +31,14 @@ func _process(delta: float) -> void:
 			direction.y = max_fall_speed
 		var needed_rot = get_angle_to(global_position + direction)
 		rotate(needed_rot)
-		global_position += direction * speed * delta
+		if ray_cast_2d.is_colliding():
+			var dist = global_position.distance_to(ray_cast_2d.get_collision_point())
+			if (direction * speed * delta).length() > dist:
+				global_position += direction.normalized() * dist
+			else:
+				global_position += direction * speed * delta
+		else:
+			global_position += direction * speed * delta
 		
 		if global_position.x > level_viewport.x:
 			global_position.x = 0.0

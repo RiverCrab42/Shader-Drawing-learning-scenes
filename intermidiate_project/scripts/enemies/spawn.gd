@@ -23,9 +23,10 @@ func _process(delta: float) -> void:
 	time += delta
 	if time > spawn_time:
 		visible = true
-		activated = true
-		animation_player.play("summon")
-		animation_player.animation_finished.connect(summon)
+		if !activated:
+			animation_player.play("summon")
+			animation_player.animation_finished.connect(summon)
+			activated = true
 
 func summon(anim_name : String) -> void:
 	match enemy_type:

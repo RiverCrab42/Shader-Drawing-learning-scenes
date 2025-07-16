@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 const arrow = preload("res://scenes/collectables/arrow.tscn")
@@ -73,7 +74,8 @@ func check_shoot(delta : float) -> void:
 		get_tree().root.add_child(arrow_obj)
 		var target = get_global_mouse_position()
 		var direction = (target - global_position).normalized()
-		arrow_obj.direction = direction
+		#transfer some of player's momentum to the arrow
+		arrow_obj.direction = direction + velocity.dot(direction) * direction / max_fall_speed
 		arrow_obj.global_position = global_position + direction * arrow_offset
 		GlobalSignals.shoot_arrow.emit()
 		lastShot = 0.0
