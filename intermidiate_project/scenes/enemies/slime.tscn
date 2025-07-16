@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://bihrtr6avjvul"]
 
 [ext_resource type="Texture2D" uid="uid://b70fjt8quj86a" path="res://assets/sprite_pack/Enemies/Slime/Idle-Run (44x30).png" id="1_rldp6"]
-[ext_resource type="Script" uid="uid://c7msoxsv23pxm" path="res://scripts/slime.gd" id="2_ahq63"]
+[ext_resource type="Script" uid="uid://c7msoxsv23pxm" path="res://scripts/enemies/slime.gd" id="2_ahq63"]
 
 [sub_resource type="Shader" id="Shader_ahq63"]
 code = "shader_type canvas_item;
@@ -101,7 +101,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ikdmk")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 10.0
 }]
 
@@ -154,8 +154,8 @@ material = SubResource("ShaderMaterial_ahq63")
 instance_shader_parameters/hit = 1.0
 position = Vector2(0, 15)
 sprite_frames = SubResource("SpriteFrames_jjup5")
-frame = 9
-frame_progress = 0.0675746
+animation = &"idle"
+frame_progress = 0.0126089
 offset = Vector2(0, -15)
 script = ExtResource("2_ahq63")
 

@@ -4,6 +4,20 @@ var health : int = 5
 var arrows : int = 5
 var player : CharacterBody2D
 
+var instantiated_objects : Array[Node]
+
+func my_instantiate(object) -> Node:
+	var instance = object.instantiate()
+	instantiated_objects.append(instance)
+	return instance
+
+func reset() -> void:
+	for obj in instantiated_objects:
+		obj.queue_free()
+	instantiated_objects.clear()
+	health = 5
+	arrows = 5
+
 func _ready() -> void:
 	GlobalSignals.shoot_arrow.connect(shoot)
 	GlobalSignals.collected_arrow.connect(pick_up_arrow)
@@ -28,6 +42,6 @@ func pick_up_arrow() -> void:
 
 func get_hit() -> void:
 	health -= 1
+	print("Damaged")
 	if health == 0:
-		#TO DO:
-		print("YOU DIED")
+		GlobalSignals.game_over.emit()

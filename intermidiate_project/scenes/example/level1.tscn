@@ -1,10 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://l3il2yp68r6u"]
+[gd_scene load_steps=10 format=3 uid="uid://l3il2yp68r6u"]
 
 [ext_resource type="PackedScene" uid="uid://do1aqnosnk0bn" path="res://scenes/assets/terrain/dirt.tscn" id="1_q4lcn"]
 [ext_resource type="PackedScene" uid="uid://4ir5vnwhhjvj" path="res://scenes/assets/terrain/dirt_orange.tscn" id="2_dt51k"]
 [ext_resource type="PackedScene" uid="uid://bdn2w2lglevw1" path="res://scenes/player/character_mask.tscn" id="3_x20b1"]
 [ext_resource type="PackedScene" uid="uid://dfdumbiw2e5jb" path="res://scenes/enemies/spawn.tscn" id="5_fcrv7"]
 [ext_resource type="PackedScene" uid="uid://bihrtr6avjvul" path="res://scenes/enemies/slime.tscn" id="5_x20b1"]
+[ext_resource type="Script" uid="uid://e1b6ubo7dmd7" path="res://scripts/utils/game_over_menu.gd" id="6_3o680"]
+
+[sub_resource type="Animation" id="Animation_fcrv7"]
+resource_name = "finish"
+
+[sub_resource type="Animation" id="Animation_x20b1"]
+resource_name = "start"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3o680"]
+_data = {
+&"finish": SubResource("Animation_fcrv7"),
+&"start": SubResource("Animation_x20b1")
+}
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(72, 168)
@@ -248,6 +261,21 @@ position = Vector2(576, 456)
 enemy_type = "slime"
 spawn_time = 1.0
 
+[node name="Spawn2" parent="Enemies" instance=ExtResource("5_fcrv7")]
+position = Vector2(120, 168)
+enemy_type = "ghost"
+spawn_time = 1.0
+
+[node name="Spawn3" parent="Enemies" instance=ExtResource("5_fcrv7")]
+position = Vector2(792, 224)
+enemy_type = "ghost"
+spawn_time = 1.0
+
+[node name="Spawn4" parent="Enemies" instance=ExtResource("5_fcrv7")]
+position = Vector2(1032, 528)
+enemy_type = "ghost"
+spawn_time = 1.0
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
@@ -256,3 +284,68 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PostCanvas" type="CanvasLayer" parent="."]
+
+[node name="Red_hue_effect" type="ColorRect" parent="PostCanvas"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverMenu" type="Panel" parent="PostCanvas"]
+visible = false
+self_modulate = Color(0, 1, 0, 1)
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("6_3o680")
+
+[node name="Button" type="Button" parent="PostCanvas/GameOverMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -15.0
+offset_right = 60.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Заново"
+
+[node name="Label" type="Label" parent="PostCanvas/GameOverMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 16.0
+offset_right = 60.0
+offset_bottom = 39.0
+grow_horizontal = 2
+text = "Вы проиграли!"
+
+[node name="Special_Effects" type="Node" parent="."]
+
+[node name="Red_Hue" type="AnimationPlayer" parent="Special_Effects"]
+libraries = {
+&"": SubResource("AnimationLibrary_3o680")
+}
+
+[connection signal="pressed" from="PostCanvas/GameOverMenu/Button" to="PostCanvas/GameOverMenu" method="_on_button_pressed"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://dyb258yrboxam"]
 
-[ext_resource type="Texture2D" uid="uid://c072wnv5y2jyn" path="res://assets/sprite_pack/Enemies/Ghost/Idle (44x30).png" id="1_k0vmb"]
-[ext_resource type="Script" uid="uid://ca6o5f8id5svk" path="res://scripts/ghost.gd" id="2_isgci"]
-[ext_resource type="Script" uid="uid://6rj74c2cx8dj" path="res://scripts/enemies/damage_and_hit_zone.gd" id="3_isgci"]
+[ext_resource type="Texture2D" uid="uid://bn508l84da6wj" path="res://assets/sprite_pack/Enemies/Ghost/Idle (44x30).png" id="1_k0vmb"]
+[ext_resource type="Script" uid="uid://dhi04iixo3yrp" path="res://scripts/enemies/ghost.gd" id="2_isgci"]
+[ext_resource type="Script" uid="uid://d0vf7hkm71h3x" path="res://scripts/enemies/damage_and_hit_zone.gd" id="3_isgci"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mu7b7"]
 atlas = ExtResource("1_k0vmb")
@@ -130,8 +130,7 @@ texture_filter = 1
 position = Vector2(0, 15)
 sprite_frames = SubResource("SpriteFrames_jjup5")
 animation = &"idle"
-frame = 4
-frame_progress = 0.181725
+frame_progress = 0.0787668
 offset = Vector2(0, -15)
 script = ExtResource("2_isgci")
 

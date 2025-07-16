@@ -17,7 +17,6 @@ const arrow = preload("res://scenes/collectables/arrow.tscn")
 
 var lastOnFloor = 0.0
 var lastShot = 0.0
-var lastHit = 0.0
 var level_viewport : Vector2i
 
 const arrow_offset : float = 5.0
@@ -27,7 +26,6 @@ func _ready() -> void:
 	level_viewport = get_viewport_rect().size
 
 func _physics_process(delta: float) -> void:
-	lastHit += delta
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += Vector2(0.0, gravity * delta)
@@ -70,7 +68,7 @@ func check_shoot(delta : float) -> void:
 	if Input.is_action_just_pressed("shoot") &&\
 		lastShot > time_between_shots &&\
 		GameManager.arrows > 0:
-		var arrow_obj = arrow.instantiate()
+		var arrow_obj = GameManager.my_instantiate(arrow)
 		get_tree().root.add_child(arrow_obj)
 		var target = get_global_mouse_position()
 		var direction = (target - global_position).normalized()
@@ -95,7 +93,14 @@ func animate(direction : float) -> void:
 	if (direction == 1):
 		animated_sprite_2d.flip_h = false
 
+var can_get_hit : bool = true
+
 func get_hit() -> void:
-	animation_player.play("hit")
-	GlobalSignals.took_damage
-	lastHit = 0.0
+	if can_get_hit:
+		animation_player.play("hit")
+		GlobalSignals.took_damage.emit()
+		animation_player.animation_finished.connect(reset_hit)
+		can_get_hit = false
+	
+func reset_hit(anim_name : String) -> void:
+	can_get_hit = true

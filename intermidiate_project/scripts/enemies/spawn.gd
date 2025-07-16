@@ -31,12 +31,12 @@ func _process(delta: float) -> void:
 func summon(anim_name : String) -> void:
 	match enemy_type:
 		"slime":
-			var slime = SLIME.instantiate()
+			var slime = GameManager.my_instantiate(SLIME)
 			get_tree().root.add_child(slime)
 			slime.global_position = global_position
 			queue_free()
 		"ghost":
-			var ghost = GHOST_IDLE.instantiate()
+			var ghost = GameManager.my_instantiate(GHOST_IDLE)
 			get_tree().root.add_child(ghost)
 			ghost.global_position = global_position
 			queue_free()

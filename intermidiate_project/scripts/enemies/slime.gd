@@ -2,31 +2,40 @@ extends Node2D
 
 @export var SPEED = 40.0
 
+var direction = -1
+@onready var right_ray: RayCast2D = $RightRay
+@onready var left_ray: RayCast2D = $LeftRay
+@onready var down_right_ray: RayCast2D = $DownRightRay
+@onready var down_left_ray: RayCast2D = $DownLeftRay
 @onready var animated_sprite_2d: AnimatedSprite2D = $"."
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var area_2d: Area2D = $Area2D
 
-@export var health : int = 1
-
-var curr_time = 0.0
-@export var player_enable_time = 2.0
-var is_alive = true;
+@export var health : int = 2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+func _ready() -> void:
+	animated_sprite_2d.play("idle")
+
+
 func _process(delta: float) -> void:
-	curr_time += delta
-	if (curr_time > player_enable_time):
-		var direction = (GameManager.player.global_position - global_position).normalized();
-		position += direction * SPEED * delta
-		if (direction.x > 0 and is_alive):
-			animated_sprite_2d.flip_h = true
-		if (direction.x < 0 and is_alive):
+	position.x += direction * SPEED * delta
+	if (right_ray.is_colliding() or not(down_right_ray.is_colliding())):
+		var col = right_ray.get_collider()
+		if (not right_ray.is_colliding() or not col.is_in_group("player")):
+			direction = -1
 			animated_sprite_2d.flip_h = false
+		
+	if (left_ray.is_colliding() or not(down_left_ray.is_colliding())):
+		var col = left_ray.get_collider()
+		if (not left_ray.is_colliding() or not col.is_in_group("player")):
+			direction = 1
+			animated_sprite_2d.flip_h = true
 
 func get_hit() -> void:
 	health -= 1
 	if health == 0:
-		is_alive = false
 		animation_player.play("die")
 		area_2d.collision_mask = 0
 		SPEED = 0.0
@@ -36,7 +45,6 @@ func get_hit() -> void:
 
 func die(anim_name: StringName) -> void:
 	queue_free()
-
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Arrow:
