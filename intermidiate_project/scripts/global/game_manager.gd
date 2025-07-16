@@ -8,7 +8,7 @@ func _ready() -> void:
 	GlobalSignals.shoot_arrow.connect(shoot)
 	GlobalSignals.collected_arrow.connect(pick_up_arrow)
 	GlobalSignals.took_damage.connect(get_hit)
-	get_tree().create_timer(0.1).timeout.connect(find_player)
+	find_player()
 
 func find_player() -> void:
 	var root = get_tree().get_current_scene()
