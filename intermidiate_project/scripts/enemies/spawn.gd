@@ -2,8 +2,10 @@ extends Node2D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-const SLIME = preload("res://scenes/enemies/slime.tscn")
-const GHOST_IDLE = preload("res://scenes/enemies/ghost_idle.tscn")
+@export var SLIME : PackedScene
+@export var GHOST_IDLE : PackedScene
+#const SLIME = preload("res://scenes/enemies/slime.tscn")
+#const GHOST_IDLE = preload("res://scenes/enemies/ghost_idle.tscn")
 
 @export_enum("slime", "ghost") var enemy_type : String
 @export var spawn_time : float

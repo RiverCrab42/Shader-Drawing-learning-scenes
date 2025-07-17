@@ -13,6 +13,7 @@ var curr_time = 0.0
 var is_alive = true;
 
 func _ready() -> void:
+	is_alive = true;
 	animated_sprite_2d.play("idle")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

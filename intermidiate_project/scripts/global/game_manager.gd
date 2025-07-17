@@ -13,10 +13,15 @@ func my_instantiate(object) -> Node:
 
 func reset() -> void:
 	for obj in instantiated_objects:
-		obj.queue_free()
+		if obj:
+			obj.queue_free()
 	instantiated_objects.clear()
 	health = 5
 	arrows = 5
+	GlobalSignals.shoot_arrow.connect(shoot)
+	GlobalSignals.collected_arrow.connect(pick_up_arrow)
+	GlobalSignals.took_damage.connect(get_hit)
+	find_player()
 
 func _ready() -> void:
 	GlobalSignals.shoot_arrow.connect(shoot)
