@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdosf77gjjtn7"]
 
-[ext_resource type="Script" uid="uid://dvbficlavwt0q" path="res://scripts/collectable/arrow.gd" id="1_6oiry"]
-[ext_resource type="Texture2D" uid="uid://bl53qhdql8v7m" path="res://assets/sprite_pack/Items/Arrow/arrow.png" id="1_exhi1"]
+[ext_resource type="Script" uid="uid://dkeomv2vv5tfc" path="res://scripts/collectable/arrow.gd" id="1_6oiry"]
+[ext_resource type="Texture2D" uid="uid://bukmrshxu2e33" path="res://assets/sprite_pack/Items/Arrow/arrow.png" id="1_exhi1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exhi1"]
 size = Vector2(1000, 300)
@@ -26,6 +26,7 @@ position = Vector2(3.72529e-07, 0)
 shape = SubResource("RectangleShape2D_exhi1")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+rotation = -3.14159
 target_position = Vector2(-336, 0)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

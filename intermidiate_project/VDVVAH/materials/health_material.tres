@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://btxbalp5qhby"]
+
+[ext_resource type="Shader" uid="uid://b1u45y2vvca5q" path="res://VDVVAH/shaders/health_line.gdshader" id="1_lt4rf"]
+
+[resource]
+shader = ExtResource("1_lt4rf")

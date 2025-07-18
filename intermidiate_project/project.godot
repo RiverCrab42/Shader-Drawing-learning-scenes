@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="intermidiate_project"
-run/main_scene="uid://l3il2yp68r6u"
+run/main_scene="uid://bwsjchxxfbeeq"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalSignals="*res://Sasha/global_signals.gd"
-GameManager="*res://Sasha/game_manager.tscn"
+GlobalSignals="*res://scripts/global/global_signals.gd"
+GameManager="*res://scenes/global/game_manager.tscn"
 
 [input]
 
@@ -51,5 +51,9 @@ shoot={
 
 HP={
 "type": "float",
-"value": 0.0
+"value": 5.0
+}
+MAX_HP={
+"type": "float",
+"value": 5.0
 }

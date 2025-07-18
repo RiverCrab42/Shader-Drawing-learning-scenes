@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dq1rgvedj081e"]
+
+[ext_resource type="Shader" uid="uid://cucjww3k370uv" path="res://Namarich/Material/Ripples.gdshader" id="1_hpcg7"]
+
+[resource]
+shader = ExtResource("1_hpcg7")
+shader_parameter/playerPos = Vector2(0, 0)
+shader_parameter/baseColor = Color(1, 1, 1, 0)
+shader_parameter/hihlightColor = Color(0.136826, 0.136826, 0.136826, 1)
+shader_parameter/rippleRadius = 20.0

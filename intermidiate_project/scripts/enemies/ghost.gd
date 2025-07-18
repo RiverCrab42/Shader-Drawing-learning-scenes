@@ -1,7 +1,6 @@
 extends Node2D
 
 @export var SPEED = 40.0
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $"."
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var area_2d: Area2D = $Area2D
@@ -11,8 +10,8 @@ extends Node2D
 var curr_time = 0.0
 @export var player_enable_time = 2.0
 var is_alive = true;
-
 func _ready() -> void:
+
 	is_alive = true;
 	animated_sprite_2d.play("idle")
 
@@ -42,13 +41,13 @@ func die(anim_name: StringName) -> void:
 	queue_free()
 
 
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		body.get_hit()
+
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Arrow:
 		var arr = area.get_parent() as Arrow
 		if !arr.stuck:
 			get_hit()
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		body.get_hit()

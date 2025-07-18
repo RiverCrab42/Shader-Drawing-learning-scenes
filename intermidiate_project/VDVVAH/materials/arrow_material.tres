@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://rkg6n7ogknpm"]
+
+[ext_resource type="Shader" uid="uid://cume16msfwhpb" path="res://VDVVAH/shaders/arrows.gdshader" id="1_up2jo"]
+[ext_resource type="Texture2D" uid="uid://b8bgsvl12yehe" path="res://assets/sprite_pack/Items/Arrow/arrow.png" id="2_x2pe7"]
+
+[resource]
+shader = ExtResource("1_up2jo")
+shader_parameter/number_of_arrows = 0.0
+shader_parameter/arrow = ExtResource("2_x2pe7")
