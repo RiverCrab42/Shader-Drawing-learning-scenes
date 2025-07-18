@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://dyb258yrboxam"]
 
-[ext_resource type="Texture2D" uid="uid://bn508l84da6wj" path="res://assets/sprite_pack/Enemies/Ghost/Idle (44x30).png" id="1_qr43c"]
-[ext_resource type="Script" uid="uid://dhi04iixo3yrp" path="res://scripts/enemies/ghost.gd" id="2_u2dff"]
-[ext_resource type="Script" uid="uid://d0vf7hkm71h3x" path="res://scripts/enemies/damage_and_hit_zone.gd" id="3_pug3q"]
+[ext_resource type="Texture2D" uid="uid://dq15gu6e54m0p" path="res://assets/sprite_pack/Enemies/Ghost/Idle (44x30).png" id="1_qr43c"]
+[ext_resource type="Script" uid="uid://bvpoqywhxvixr" path="res://scripts/enemies/ghost.gd" id="2_u2dff"]
+[ext_resource type="Script" uid="uid://c24x7i017066j" path="res://scripts/enemies/damage_and_hit_zone.gd" id="3_pug3q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mu7b7"]
 atlas = ExtResource("1_qr43c")
@@ -127,15 +127,12 @@ _data = {
 
 [node name="Ghost Idle" type="AnimatedSprite2D"]
 texture_filter = 1
-position = Vector2(0, 15)
 sprite_frames = SubResource("SpriteFrames_jjup5")
 animation = &"idle"
 frame_progress = 0.0787668
-offset = Vector2(0, -15)
 script = ExtResource("2_u2dff")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, -15)
 script = ExtResource("3_pug3q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

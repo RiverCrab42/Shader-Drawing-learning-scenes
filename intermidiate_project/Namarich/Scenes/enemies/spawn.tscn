@@ -1,0 +1,113 @@
+[gd_scene load_steps=14 format=3 uid="uid://dfdumbiw2e5jb"]
+
+[ext_resource type="Script" uid="uid://cana5kju8rwko" path="res://scripts/enemies/spawn.gd" id="1_6o2ki"]
+[ext_resource type="Texture2D" uid="uid://bpqgyg3733k5n" path="res://assets/sprite_pack/Enemies/Portal/portal.png" id="1_7l1mj"]
+[ext_resource type="PackedScene" uid="uid://bihrtr6avjvul" path="res://scenes/enemies/slime.tscn" id="2_urboa"]
+[ext_resource type="PackedScene" uid="uid://dyb258yrboxam" path="res://scenes/enemies/ghost.tscn" id="3_qnce3"]
+
+[sub_resource type="Shader" id="Shader_urboa"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnce3"]
+shader = SubResource("Shader_urboa")
+
+[sub_resource type="Shader" id="Shader_6o2ki"]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise: repeat_enable;
+
+uniform vec4 baseColor: source_color;
+uniform vec4 highlightColor: source_color;
+uniform float moveSpd;
+uniform float size;
+uniform sampler2D gradient;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	if (COLOR.a > 0.02f){
+		float noiseVal = texture(noise, UV + (TIME/5.0)).x;
+		vec2 pos = UV * 2.0 - 1.0;
+		float r = length(pos) - (TIME * 0.1) * moveSpd;
+		float noiseVal2 = fract(r*size);
+		vec4 texColor = texture(TEXTURE,vec2(UV.x+noiseVal/50.0,UV.y));
+		//vec4 texColor = texture(TEXTURE,UV);
+		vec4 fireColor = mix(baseColor,highlightColor,noiseVal2);
+		texColor += (fireColor/3.5);
+		//texColor *= (fireColor*2.5);
+		vec4 col = mix(texColor,fireColor,step(noiseVal,UV.y+0.2));
+		
+		vec4 gradCol = texture(gradient,vec2(max(noiseVal2,0.8),0.0));
+		COLOR = (gradCol+col);
+		//VERTEX *= abs(sin(TIME));
+	}
+	
+	//COLOR = mix(texColor,fireColor,mix(-0.4,1.0,UV.y));
+}
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="Gradient" id="Gradient_dqefk"]
+colors = PackedColorArray(0, 0, 0, 1, 0.426379, 0.000345242, 0.490971, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yeg51"]
+gradient = SubResource("Gradient_dqefk")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_urboa"]
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kgm23"]
+shader = SubResource("Shader_6o2ki")
+shader_parameter/noise = SubResource("NoiseTexture2D_urboa")
+shader_parameter/baseColor = Color(0.576369, 0.000708677, 0.66779, 1)
+shader_parameter/highlightColor = Color(0.194726, 1.89515e-05, 0.1855, 1)
+shader_parameter/moveSpd = 2.5
+shader_parameter/size = 3.0
+shader_parameter/gradient = SubResource("GradientTexture1D_yeg51")
+
+[sub_resource type="Animation" id="Animation_6o2ki"]
+resource_name = "summon"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqefk"]
+_data = {
+&"summon": SubResource("Animation_6o2ki")
+}
+
+[node name="Spawn" type="Node2D"]
+material = SubResource("ShaderMaterial_qnce3")
+script = ExtResource("1_6o2ki")
+SLIME = ExtResource("2_urboa")
+GHOST_IDLE = ExtResource("3_qnce3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_kgm23")
+position = Vector2(0, -30)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_7l1mj")
+region_rect = Rect2(40, 10, 300, 300)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dqefk")
+}

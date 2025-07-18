@@ -1,0 +1,450 @@
+[gd_scene load_steps=12 format=3 uid="uid://q3yhk7jxqrl8"]
+
+[ext_resource type="PackedScene" uid="uid://fke7jcl3n3ll" path="res://scenes/assets/terrain/brick.tscn" id="1_mxocu"]
+[ext_resource type="PackedScene" uid="uid://bdn2w2lglevw1" path="res://scenes/player/character_mask.tscn" id="2_yc7s3"]
+[ext_resource type="Texture2D" uid="uid://cgkkeh3s5cbj1" path="res://assets/sprite_pack/Terrain/Terrain (16x16).png" id="3_7c0fy"]
+[ext_resource type="PackedScene" uid="uid://dfdumbiw2e5jb" path="res://scenes/enemies/spawn.tscn" id="4_0artn"]
+[ext_resource type="PackedScene" uid="uid://2bbr08h7yq5a" path="res://Namarich/Scenes/collectables/apple.tscn" id="5_jq2b7"]
+[ext_resource type="Material" uid="uid://oxygdqslnl18" path="res://Namarich/Material/draw_trajectory_material.tres" id="7_6kw1y"]
+[ext_resource type="PackedScene" uid="uid://bk8bh8c1jqk1t" path="res://Namarich/Scenes/Objects/trajectory_draw.tscn" id="8_hleb4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0artn"]
+texture = ExtResource("3_7c0fy")
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+19:2/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+12:4/0 = 0
+13:4/0 = 0
+14:4/0 = 0
+15:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+14:5/0 = 0
+15:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+13:6/0 = 0
+14:6/0 = 0
+15:6/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+10:8/0 = 0
+12:8/0 = 0
+13:8/0 = 0
+14:8/0 = 0
+15:8/0 = 0
+17:8/0 = 0
+18:8/0 = 0
+19:8/0 = 0
+20:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+6:9/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+10:9/0 = 0
+12:9/0 = 0
+13:9/0 = 0
+14:9/0 = 0
+15:9/0 = 0
+17:9/0 = 0
+18:9/0 = 0
+19:9/0 = 0
+20:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+6:10/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+13:10/0 = 0
+14:10/0 = 0
+15:10/0 = 0
+18:10/0 = 0
+19:10/0 = 0
+20:10/0 = 0
+17:6/0 = 0
+17:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+18:4/0 = 0
+18:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+19:4/0 = 0
+19:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+19:5/0 = 0
+19:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:4/0 = 0
+17:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:5/0 = 0
+17:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+18:5/0 = 0
+18:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+18:6/0 = 0
+18:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+19:6/0 = 0
+19:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_jq2b7"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0artn")
+
+[sub_resource type="Shader" id="Shader_6kw1y"]
+code = "shader_type canvas_item;
+
+uniform sampler2D screenTex: hint_screen_texture, repeat_enable;
+uniform vec2 playerPos;
+varying vec2 playerPosScreen;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+	
+	playerPosScreen = (CANVAS_MATRIX * vec4(playerPos,0.0,1.0)).xy;
+	
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	//vec2 pixSize = SCREEN_PIXEL_SIZE;
+	//vec3 scrColLeft = texture(screenTex,SCREEN_UV - vec2(pixSize.x,0.0)).rgb;
+	////vec3 scrCol= texture(screenTex,SCREEN_UV).rgb;
+	//float grayLeft = dot(scrColLeft,vec3(0.21,0.72,0.07));
+	//
+	//vec3 scrColRight = texture(screenTex,SCREEN_UV + vec2(pixSize.x,0.0)).rgb;
+	////vec3 scrCol= texture(screenTex,SCREEN_UV).rgb;
+	//float grayRight = dot(scrColRight,vec3(0.21,0.72,0.07));
+	//
+	//vec3 scrColUp = texture(screenTex,SCREEN_UV - vec2(0.0,pixSize.y)).rgb;
+	////vec3 scrCol= texture(screenTex,SCREEN_UV).rgb;
+	//float grayUp = dot(scrColUp,vec3(0.21,0.72,0.07));
+	//
+	//vec3 scrColDown = texture(screenTex,SCREEN_UV + vec2(0.0,pixSize.y)).rgb;
+	////vec3 scrCol= texture(screenTex,SCREEN_UV).rgb;
+	//float grayDown = dot(scrColDown,vec3(0.21,0.72,0.07));
+	//
+	////COLOR = texture(screenTex,vec2(SCREEN_UV.x,SCREEN_UV.y));
+	//COLOR = vec4(vec3(max(abs(grayLeft-grayRight),abs(grayUp-grayDown))),1.0);
+	
+	vec4 fragCoord = FRAGCOORD;
+	
+	COLOR = texture(screenTex,SCREEN_UV);
+	if (length(playerPosScreen - fragCoord.xy) <= 7.0){
+		COLOR = vec4(0.0,1.0,0.0,1.0);
+	}
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hleb4"]
+shader = SubResource("Shader_6kw1y")
+shader_parameter/playerPos = Vector2(24, 576)
+
+[node name="Main" type="Node2D"]
+
+[node name="TrajectoryDraw" parent="." instance=ExtResource("8_hleb4")]
+
+[node name="LevelLayout" type="Node2D" parent="."]
+
+[node name="Bricks" type="Node2D" parent="LevelLayout"]
+
+[node name="Brick" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(24, 624)
+
+[node name="Brick22" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(264, 480)
+
+[node name="Brick23" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(312, 480)
+
+[node name="Brick24" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(360, 480)
+
+[node name="Brick25" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(528, 360)
+
+[node name="Brick26" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(576, 360)
+
+[node name="Brick27" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(624, 360)
+
+[node name="Brick28" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(768, 480)
+
+[node name="Brick29" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(816, 480)
+
+[node name="Brick30" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(864, 480)
+
+[node name="Brick31" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(912, 480)
+
+[node name="Brick32" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(744, 240)
+
+[node name="Brick33" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(792, 240)
+
+[node name="Brick34" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(192, 264)
+
+[node name="Brick35" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(240, 264)
+
+[node name="Brick36" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(288, 264)
+
+[node name="Brick37" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(336, 264)
+
+[node name="Brick2" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(72, 624)
+
+[node name="Brick3" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(120, 624)
+
+[node name="Brick4" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(168, 624)
+
+[node name="Brick5" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(216, 624)
+
+[node name="Brick6" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(264, 624)
+
+[node name="Brick7" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(312, 624)
+
+[node name="Brick8" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(360, 624)
+
+[node name="Brick9" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(408, 624)
+
+[node name="Brick10" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(456, 624)
+
+[node name="Brick11" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(504, 624)
+
+[node name="Brick12" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(552, 624)
+
+[node name="Brick13" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(888, 624)
+
+[node name="Brick19" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(840, 624)
+
+[node name="Brick20" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(792, 624)
+
+[node name="Brick21" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(744, 624)
+
+[node name="Brick14" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(936, 624)
+
+[node name="Brick15" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(984, 624)
+
+[node name="Brick16" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(1032, 624)
+
+[node name="Brick17" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(1080, 624)
+
+[node name="Brick18" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(1128, 624)
+
+[node name="Brick38" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(24, 24)
+
+[node name="Brick39" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(72, 24)
+
+[node name="Brick40" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(120, 24)
+
+[node name="Brick41" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(168, 24)
+
+[node name="Brick42" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(216, 24)
+
+[node name="Brick43" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(264, 24)
+
+[node name="Brick44" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(312, 24)
+
+[node name="Brick45" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(360, 24)
+
+[node name="Brick46" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(408, 24)
+
+[node name="Brick47" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(456, 24)
+
+[node name="Brick48" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(504, 24)
+
+[node name="Brick49" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(552, 24)
+
+[node name="Brick50" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(888, 24)
+
+[node name="Brick51" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(840, 24)
+
+[node name="Brick52" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(792, 24)
+
+[node name="Brick53" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(744, 24)
+
+[node name="Brick54" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(936, 24)
+
+[node name="Brick55" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(984, 24)
+
+[node name="Brick56" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(1032, 24)
+
+[node name="Brick57" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(1080, 24)
+
+[node name="Brick58" parent="LevelLayout/Bricks" instance=ExtResource("1_mxocu")]
+position = Vector2(1128, 24)
+
+[node name="Background" type="Node2D" parent="LevelLayout"]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_yc7s3")]
+position = Vector2(24, 576)
+speed = 350.0
+max_fall_speed = 52000.0
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_jq2b7")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Spawn" parent="Enemies" instance=ExtResource("4_0artn")]
+position = Vector2(264, 216)
+enemy_type = "slime"
+spawn_time = 2.0
+
+[node name="Spawn2" parent="Enemies" instance=ExtResource("4_0artn")]
+position = Vector2(648, 96)
+enemy_type = "ghost"
+spawn_time = 2.0
+
+[node name="Spawn4" parent="Enemies" instance=ExtResource("4_0artn")]
+position = Vector2(840, 432)
+enemy_type = "slime"
+spawn_time = 2.0
+
+[node name="Spawn3" parent="Enemies" instance=ExtResource("4_0artn")]
+position = Vector2(768, 192)
+enemy_type = "slime"
+spawn_time = 2.0
+
+[node name="Apples" type="Node2D" parent="."]
+
+[node name="Apple" parent="Apples" instance=ExtResource("5_jq2b7")]
+position = Vector2(264, 588)
+
+[node name="Apple2" parent="Apples" instance=ExtResource("5_jq2b7")]
+position = Vector2(1044, 588)
+
+[node name="Apple3" parent="Apples" instance=ExtResource("5_jq2b7")]
+position = Vector2(576, 324)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("7_6kw1y")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Example" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_hleb4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://jgvwlthlqu3v"]
+
+[ext_resource type="Texture2D" uid="uid://b2g2tphhh10lk" path="res://icon.svg" id="1_25u2w"]
+
+[sub_resource type="Shader" id="Shader_oqjsc"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	float a = smoothstep(0.01,0.06,abs(1.0-UV.y - UV.x*UV.x));
+	COLOR = vec4(vec3(1.0-a),1.0);
+	//COLOR *= 1.0-a;
+	//COLOR *= sin(TIME);
+	//COLOR = vec4(vec3(smoothstep(0.3,0.7,UV.y)),1.0);
+	//COLOR = vec4(vec3(step(UV.x*UV.x, 1.0 - sqrt(UV.y))),1.0);
+	
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ec1ci"]
+shader = SubResource("Shader_oqjsc")
+
+[node name="Graph" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ec1ci")
+texture = ExtResource("1_25u2w")

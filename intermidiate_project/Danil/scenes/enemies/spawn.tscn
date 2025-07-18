@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://dfdumbiw2e5jb"]
+
+[ext_resource type="Script" uid="uid://bgdchj4spoj35" path="res://scripts/enemies/spawn.gd" id="1_6o2ki"]
+[ext_resource type="Texture2D" uid="uid://dpt6et4pl5hih" path="res://assets/sprite_pack/Enemies/Portal/portal.png" id="1_7l1mj"]
+[ext_resource type="PackedScene" uid="uid://4c4iqq6urfyu" path="res://Danil/scenes/enemies/slime.tscn" id="2_6yk7m"]
+[ext_resource type="PackedScene" uid="uid://dyb258yrboxam" path="res://Danil/scenes/enemies/ghost_idle.tscn" id="3_6yk7m"]
+
+[sub_resource type="Animation" id="Animation_6o2ki"]
+resource_name = "summon"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqefk"]
+_data = {
+&"summon": SubResource("Animation_6o2ki")
+}
+
+[sub_resource type="Shader" id="Shader_6o2ki"]
+code = "shader_type canvas_item;
+uniform vec4 color1: source_color;
+uniform vec4 color2: source_color;
+uniform sampler2D gr;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+bool equals_f(float a, float b){
+	if(abs(a - b) < 0.01){
+		return true;
+	}
+	return false;
+}
+void fragment() {
+	vec4 c = texture(TEXTURE, vec2(0.5, 0.5));
+	float r = fract((length(UV * 2.0 - 1.0) - TIME * 0.15) *0.5);
+	if(COLOR == c){
+		COLOR = texture(gr, vec2(r, UV.y/2.0));
+		COLOR *= mix(color1, color2, abs(sin(TIME/3.0)));
+	}
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6o2ki"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dqefk"]
+noise = SubResource("FastNoiseLite_6o2ki")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqefk"]
+shader = SubResource("Shader_6o2ki")
+shader_parameter/color1 = Color(0.486275, 0, 0.772549, 1)
+shader_parameter/color2 = Color(0.823529, 0, 0.905882, 1)
+shader_parameter/gr = SubResource("NoiseTexture2D_dqefk")
+
+[node name="Spawn" type="Node2D"]
+script = ExtResource("1_6o2ki")
+SLIME = ExtResource("2_6yk7m")
+GHOST_IDLE = ExtResource("3_6yk7m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dqefk")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_dqefk")
+position = Vector2(0, -30)
+rotation = -0.00219968
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_7l1mj")
