@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://vmcj1lcoseoq"]
+
+[ext_resource type="Shader" uid="uid://ccd6y1jon0lay" path="res://Sasha/character_mask.gdshader" id="1_y04nr"]
+[ext_resource type="Texture2D" uid="uid://bsbolawshhekw" path="res://assets/sprite_pack/Enemies/Ghost/Idle (44x30).png" id="2_y04nr"]
+
+[resource]
+shader = ExtResource("1_y04nr")
+shader_parameter/ghost_tex = ExtResource("2_y04nr")
+shader_parameter/a_color = Color(8.90419e-07, 0.39123, 1.44392e-06, 1)
+shader_parameter/modulate_color = Color(1, 1, 1, 1)

@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceqxkglgsh06u"]
+
+[ext_resource type="PackedScene" uid="uid://cih1fdrjhr3oi" path="res://Sasha/scenes/player/character_mask.tscn" id="1_vl6f8"]
+[ext_resource type="Material" uid="uid://vmcj1lcoseoq" path="res://Sasha/new_shader_material.tres" id="2_53waq"]
+[ext_resource type="Shader" uid="uid://dfb7fg27su7ky" path="res://player.gdshader" id="2_a7c2x"]
+[ext_resource type="Script" uid="uid://bc2rb7wwktny" path="res://Sasha/hp.gd" id="2_wckq7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wckq7"]
+shader = ExtResource("2_a7c2x")
+
+[node name="CharacterBody2D" instance=ExtResource("1_vl6f8")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+material = ExtResource("2_53waq")
+script = ExtResource("2_wckq7")
+
+[node name="CollisionShape2D" parent="." index="1"]
+material = SubResource("ShaderMaterial_wckq7")
