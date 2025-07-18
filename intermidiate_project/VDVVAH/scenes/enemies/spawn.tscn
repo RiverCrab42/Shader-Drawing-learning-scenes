@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://ccsycewvbvbdg"]
+
+[ext_resource type="Script" uid="uid://c0dbpj63286wl" path="res://scripts/enemies/spawn.gd" id="1_oce52"]
+[ext_resource type="PackedScene" uid="uid://d3a3o4tmj6ho5" path="res://VDVVAH/scenes/enemies/slime.tscn" id="2_ao3bq"]
+[ext_resource type="PackedScene" uid="uid://ds84r4i03oxmo" path="res://VDVVAH/scenes/enemies/ghost.tscn" id="3_3ufka"]
+[ext_resource type="Shader" uid="uid://bn655kl1jcwhs" path="res://VDVVAH/shaders/spawn.gdshader" id="4_sl7m2"]
+[ext_resource type="Texture2D" uid="uid://crkkcvhvbj2lu" path="res://assets/sprite_pack/Enemies/Portal/portal.png" id="5_ypylb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oce52"]
+shader = ExtResource("4_sl7m2")
+
+[sub_resource type="Animation" id="Animation_fwrd6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:instance_shader_parameters/loading")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6o2ki"]
+resource_name = "summon"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:instance_shader_parameters/loading")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqefk"]
+_data = {
+&"RESET": SubResource("Animation_fwrd6"),
+&"summon": SubResource("Animation_6o2ki")
+}
+
+[node name="Spawn" type="Node2D"]
+script = ExtResource("1_oce52")
+SLIME = ExtResource("2_ao3bq")
+GHOST_IDLE = ExtResource("3_3ufka")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_oce52")
+instance_shader_parameters/loading = 0.0
+position = Vector2(0, -31.5)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_ypylb")
+region_rect = Rect2(40, 10, 300, 300)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dqefk")
+}

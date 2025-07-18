@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bipe7arnfkru0"]
+
+[ext_resource type="Texture2D" uid="uid://ydxvu5s5vbxl" path="res://icon.svg" id="1_25u2w"]
+
+[sub_resource type="Shader" id="Shader_oqjsc"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	//COLOR = vec4(vec3(step(1.0-UV.y, sqrt(UV.x))), 1.0);
+	float func = abs(1.0 - UV.y - UV.x*UV.x);
+	COLOR = vec4(vec3(step(func, 0.005)), 1.0);
+	COLOR += vec4(vec3(1.0-smoothstep(-0.08, 0.09, func)), 1.0);
+	//COLOR = vec4(vec3(smoothstep(0.3, 0.7, UV.y)), 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ec1ci"]
+shader = SubResource("Shader_oqjsc")
+
+[node name="Graph" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ec1ci")
+texture = ExtResource("1_25u2w")
