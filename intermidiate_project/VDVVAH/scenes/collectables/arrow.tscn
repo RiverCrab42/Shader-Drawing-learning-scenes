@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://lyafeclwhu5c"]
+
+[ext_resource type="Script" uid="uid://bjmuxlyotr78s" path="res://scripts/collectable/arrow.gd" id="1_anxat"]
+
+[sub_resource type="Resource" id="Resource_gxgo3"]
+metadata/__load_path__ = "res://assets/sprite_pack/Items/Arrow/arrow.png"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exhi1"]
+size = Vector2(1000, 300)
+
+[node name="Arrow" type="Node2D"]
+script = ExtResource("1_anxat")
+max_fall_speed = 8.0
+speed = 500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.02, 0.02)
+texture = SubResource("Resource_gxgo3")
+region_enabled = true
+region_rect = Rect2(32, 368, 1080, 408)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.02, 0.02)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(3.72529e-07, 0)
+shape = SubResource("RectangleShape2D_exhi1")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(-336, 0)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

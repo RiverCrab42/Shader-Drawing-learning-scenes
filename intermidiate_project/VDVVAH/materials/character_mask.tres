@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c7othwbhkln77"]
+
+[ext_resource type="Shader" uid="uid://dif51mt67mwi6" path="res://VDVVAH/shaders/character_mask.gdshader" id="1_7lwdt"]
+
+[resource]
+shader = ExtResource("1_7lwdt")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/shield_exist = true
