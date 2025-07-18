@@ -79,7 +79,7 @@ func check_shoot(delta : float) -> void:
 		var direction = (target - global_position).normalized()
 		gravity = arrow_obj.gravity
 		var arr_mfs = arrow_obj.max_fall_speed
-		dir_mod = direction + velocity.dot(direction) * direction / arr_mfs
+		dir_mod = direction# + velocity.dot(direction) * direction / arr_mfs
 		
 		#transfer some of player's momentum to the arrow
 		arrow_obj.direction = dir_mod
