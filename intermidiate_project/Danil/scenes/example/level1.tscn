@@ -1,0 +1,430 @@
+[gd_scene load_steps=11 format=3 uid="uid://l3il2yp68r6u"]
+
+[ext_resource type="PackedScene" uid="uid://do1aqnosnk0bn" path="res://scenes/assets/terrain/dirt.tscn" id="1_q4lcn"]
+[ext_resource type="PackedScene" uid="uid://4ir5vnwhhjvj" path="res://scenes/assets/terrain/dirt_orange.tscn" id="2_dt51k"]
+[ext_resource type="Script" uid="uid://bub12b6hn72ys" path="res://Danil/scripts/character.gd" id="2_ujb6l"]
+[ext_resource type="PackedScene" uid="uid://bdn2w2lglevw1" path="res://scenes/player/character_mask.tscn" id="3_x20b1"]
+[ext_resource type="PackedScene" uid="uid://dfdumbiw2e5jb" path="res://Danil/scenes/enemies/spawn.tscn" id="5_fcrv7"]
+[ext_resource type="PackedScene" uid="uid://4c4iqq6urfyu" path="res://Danil/scenes/enemies/slime.tscn" id="5_pgpej"]
+[ext_resource type="PackedScene" uid="uid://dyb258yrboxam" path="res://Danil/scenes/enemies/ghost_idle.tscn" id="6_bbdb4"]
+[ext_resource type="Script" uid="uid://cchamho3lxs3n" path="res://Danil/scripts/timer.gd" id="6_faruf"]
+
+[sub_resource type="Shader" id="Shader_pgpej"]
+code = "shader_type canvas_item;
+uniform sampler2D scr_tex: hint_screen_texture, repeat_enable;
+instance uniform vec2 pos;
+uniform float pixel_radius: hint_range(0.1, 1000, 0.1);
+uniform float darkening: hint_range(0.01, 1.0, 0.01);
+instance uniform bool wave;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 pixel_size = SCREEN_PIXEL_SIZE;
+	float radius = pixel_radius * pixel_size.x;
+	vec2 new_uv;
+	if (wave){
+		new_uv = SCREEN_UV + vec2(sin(SCREEN_UV.y * 10.0 + TIME * 5.0) * 0.06, 
+								  sin(SCREEN_UV.x * 10.0 + TIME * 5.0) * 0.06);
+	}else{
+		new_uv = SCREEN_UV;
+	}
+	//if(new_uv.y >pos.y * pixel_size.y +0.02 && texture(scr_tex, SCREEN_UV) == vec4(1.0))
+		//COLOR.rgb = mix(vec3(0.0, 0.2, 1.0), texture(scr_tex, new_uv).rgb, 0.5);
+	//else
+		//COLOR.rgb = texture(scr_tex, SCREEN_UV).rgb;
+	COLOR = texture(scr_tex, new_uv);
+	
+	float r = sqrt(pow(new_uv.x-pos.x * pixel_size.x, 2) +
+				   pow(new_uv.y-pos.y * pixel_size.y, 2) * pow(pixel_size.x/pixel_size.y, 2));
+	if(r > radius)
+		COLOR.rgb = mix(vec3(0.0), COLOR.rgb, darkening);	
+	else//1 0.3
+		COLOR.rgb = mix(vec3(0.0), COLOR.rgb, 1.0 - ((1.0-darkening)/radius * r));
+		
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_faruf"]
+shader = SubResource("Shader_pgpej")
+shader_parameter/pixel_radius = 67.4
+shader_parameter/darkening = 0.3
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(72, 168)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_x20b1")]
+position = Vector2(432, 401)
+script = ExtResource("2_ujb6l")
+coyote_time = 0.2
+
+[node name="Terrain" type="Node" parent="."]
+
+[node name="Dirt3" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(528, 624)
+
+[node name="Dirt4" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(576, 624)
+
+[node name="Dirt5" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(624, 624)
+
+[node name="Dirt6" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(720, 624)
+
+[node name="Dirt7" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(768, 624)
+
+[node name="Dirt8" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(816, 624)
+
+[node name="Dirt10" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(912, 624)
+
+[node name="Dirt11" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(960, 624)
+
+[node name="Dirt12" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1008, 624)
+
+[node name="Dirt13" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1056, 624)
+
+[node name="Dirt14" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1104, 624)
+
+[node name="Dirt15" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 624)
+
+[node name="Dirt" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(432, 624)
+
+[node name="Dirt16" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(384, 624)
+
+[node name="Dirt17" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(336, 624)
+
+[node name="Dirt18" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(288, 624)
+
+[node name="Dirt19" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(240, 624)
+
+[node name="Dirt20" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(192, 624)
+
+[node name="Dirt21" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(144, 624)
+
+[node name="Dirt22" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(96, 624)
+
+[node name="Dirt23" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(48, 624)
+
+[node name="Dirt24" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 624)
+
+[node name="Dirt2" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(480, 624)
+
+[node name="Dirt64" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(528, 480)
+
+[node name="Dirt65" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(576, 480)
+
+[node name="Dirt66" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(624, 480)
+
+[node name="Dirt67" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(480, 384)
+
+[node name="Dirt68" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(432, 384)
+
+[node name="Dirt69" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(384, 384)
+
+[node name="Dirt70" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(336, 264)
+
+[node name="Dirt71" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(288, 264)
+
+[node name="Dirt72" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(240, 360)
+
+[node name="Dirt73" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(192, 360)
+
+[node name="Dirt74" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(144, 408)
+
+[node name="Dirt9" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(528, 24)
+
+[node name="Dirt25" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(576, 24)
+
+[node name="Dirt26" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(624, 24)
+
+[node name="Dirt27" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(720, 24)
+
+[node name="Dirt28" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(768, 24)
+
+[node name="Dirt29" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(816, 24)
+
+[node name="Dirt30" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(912, 24)
+
+[node name="Dirt31" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(960, 24)
+
+[node name="Dirt32" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1008, 24)
+
+[node name="Dirt33" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1056, 24)
+
+[node name="Dirt34" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1104, 24)
+
+[node name="Dirt35" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 24)
+
+[node name="Dirt36" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(432, 24)
+
+[node name="Dirt37" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(384, 24)
+
+[node name="Dirt38" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(336, 24)
+
+[node name="Dirt39" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(288, 24)
+
+[node name="Dirt40" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(240, 24)
+
+[node name="Dirt41" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(192, 24)
+
+[node name="Dirt42" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(144, 24)
+
+[node name="Dirt43" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(96, 24)
+
+[node name="Dirt44" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(48, 24)
+
+[node name="Dirt45" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 24)
+
+[node name="Dirt47" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 72)
+
+[node name="Dirt48" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 120)
+
+[node name="Dirt49" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 168)
+
+[node name="Dirt50" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 264)
+
+[node name="Dirt51" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 312)
+
+[node name="Dirt52" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 408)
+
+[node name="Dirt53" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 456)
+
+[node name="Dirt54" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(0, 576)
+
+[node name="Dirt55" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 24)
+
+[node name="Dirt56" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 72)
+
+[node name="Dirt57" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 120)
+
+[node name="Dirt58" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 168)
+
+[node name="Dirt59" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 264)
+
+[node name="Dirt60" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 312)
+
+[node name="Dirt61" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 408)
+
+[node name="Dirt62" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 456)
+
+[node name="Dirt63" parent="Terrain" instance=ExtResource("1_q4lcn")]
+position = Vector2(1152, 576)
+
+[node name="Dirt46" parent="Terrain" instance=ExtResource("2_dt51k")]
+position = Vector2(480, 24)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Spawn2" parent="Enemies" instance=ExtResource("5_fcrv7")]
+position = Vector2(314, 240)
+GHOST_IDLE = ExtResource("6_bbdb4")
+enemy_type = "ghost"
+spawn_time = 3.0
+
+[node name="Spawn" parent="Enemies" instance=ExtResource("5_fcrv7")]
+position = Vector2(576, 456)
+GHOST_IDLE = ExtResource("6_bbdb4")
+enemy_type = "slime"
+spawn_time = 1.0
+
+[node name="Slime" parent="Enemies" instance=ExtResource("5_pgpej")]
+position = Vector2(776, 600)
+
+[node name="Spawn3" parent="Enemies" instance=ExtResource("5_fcrv7")]
+position = Vector2(996, 170)
+GHOST_IDLE = ExtResource("6_bbdb4")
+enemy_type = "ghost"
+spawn_time = 6.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_faruf")
+instance_shader_parameters/wave = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("6_faruf")
+
+[node name="SpawnPointsAppls" type="Node" parent="."]
+
+[node name="Node2D" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(96, 585)
+
+[node name="Node2D5" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(48, 585)
+
+[node name="Node2D2" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(144, 584)
+
+[node name="Node2D3" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(192, 585)
+
+[node name="Node2D4" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(240, 584)
+
+[node name="Node2D6" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(336, 585)
+
+[node name="Node2D7" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(288, 585)
+
+[node name="Node2D8" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(384, 584)
+
+[node name="Node2D9" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(432, 585)
+
+[node name="Node2D10" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(480, 584)
+
+[node name="Node2D11" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(528, 584)
+
+[node name="Node2D12" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(576, 585)
+
+[node name="Node2D13" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(624, 584)
+
+[node name="Node2D17" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(912, 585)
+
+[node name="Node2D18" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(960, 584)
+
+[node name="Node2D19" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(1008, 584)
+
+[node name="Node2D20" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(1056, 585)
+
+[node name="Node2D21" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(1104, 584)
+
+[node name="Node2D14" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(720, 584)
+
+[node name="Node2D15" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(768, 585)
+
+[node name="Node2D16" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(816, 584)
+
+[node name="Node2D22" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(528, 440)
+
+[node name="Node2D23" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(576, 441)
+
+[node name="Node2D24" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(624, 440)
+
+[node name="Node2D25" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(384, 344)
+
+[node name="Node2D26" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(432, 345)
+
+[node name="Node2D27" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(480, 344)
+
+[node name="Node2D31" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(288, 225)
+
+[node name="Node2D32" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(336, 224)
+
+[node name="Node2D28" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(144, 368)
+
+[node name="Node2D29" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(192, 321)
+
+[node name="Node2D30" type="Node2D" parent="SpawnPointsAppls"]
+position = Vector2(240, 320)
