@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and (is_on_floor() || lastOnFloor < coyote_time):
 		velocity.y = jump_velocity
+		NamarichSignals.do_ripples.emit(global_position)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -65,20 +66,35 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func check_shoot(delta : float) -> void:
-	if Input.is_action_just_pressed("shoot") &&\
+	var dir_mod : Vector2
+	var gravity
+	var max_fall_speed
+	
+	if Input.is_action_just_released("shoot") &&\
 		lastShot > time_between_shots &&\
 		GameManager.arrows > 0:
 		var arrow_obj = GameManager.my_instantiate(arrow)
 		get_tree().root.add_child(arrow_obj)
 		var target = get_global_mouse_position()
 		var direction = (target - global_position).normalized()
+		gravity = arrow_obj.gravity
+		var arr_mfs = arrow_obj.max_fall_speed
+		dir_mod = direction + velocity.dot(direction) * direction / arr_mfs
+		
 		#transfer some of player's momentum to the arrow
-		arrow_obj.direction = direction + velocity.dot(direction) * direction / max_fall_speed
+		arrow_obj.direction = dir_mod
 		arrow_obj.global_position = global_position + direction * arrow_offset
 		GlobalSignals.shoot_arrow.emit()
 		lastShot = 0.0
 	else:
 		lastShot += delta
+		
+	if Input.is_action_pressed("shoot"):
+		var target = get_global_mouse_position()
+		var direction = (target - global_position).normalized()
+		dir_mod = direction# + velocity.dot(direction) * direction / 8.0
+		NamarichSignals.redraw_trajectory.emit(dir_mod,self.global_position,0.5,8.0)
+		
 
 func animate(direction : float) -> void:
 	if not(is_on_floor()):

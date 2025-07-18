@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk8bh8c1jqk1t"]
+
+[ext_resource type="Script" uid="uid://dlxlp6emwogn8" path="res://Namarich/Scripts/trajectory_draw.gd" id="1_6wxjw"]
+
+[node name="TrajectoryDraw" type="Node2D"]
+script = ExtResource("1_6wxjw")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 48)

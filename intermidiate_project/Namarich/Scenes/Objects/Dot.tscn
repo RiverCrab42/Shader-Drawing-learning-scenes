@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwcx5uw6imf5k"]
+
+[ext_resource type="Texture2D" uid="uid://cujyayjpndhys" path="res://assets/sprite_pack/Traps/Spiked Ball/Chain.png" id="1_uxwnt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uxwnt"]
+radius = 4.0
+
+[node name="Dot" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_uxwnt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
+shape = SubResource("CircleShape2D_uxwnt")
