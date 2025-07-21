@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://xhscgpyxloyg"]
+
+[ext_resource type="Script" uid="uid://dlrh0ejbhykg" path="res://scripts/enemies/spawn.gd" id="1_v0ve7"]
+[ext_resource type="PackedScene" uid="uid://tsvm0fw3msxw" path="res://Sasha/scenes/enemies/slime.tscn" id="2_cfdr0"]
+[ext_resource type="Texture2D" uid="uid://dic1lu8kdpgpg" path="res://assets/sprite_pack/Enemies/Portal/portal.png" id="2_vdbqu"]
+[ext_resource type="PackedScene" uid="uid://c27eigg0fl6hv" path="res://Sasha/ghost.tscn" id="3_urvsi"]
+
+[sub_resource type="Animation" id="Animation_6o2ki"]
+resource_name = "summon"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqefk"]
+_data = {
+&"summon": SubResource("Animation_6o2ki")
+}
+
+[node name="Spawn" type="Node2D"]
+script = ExtResource("1_v0ve7")
+SLIME = ExtResource("2_cfdr0")
+GHOST_IDLE = ExtResource("3_urvsi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -30)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_vdbqu")
+region_enabled = true
+region_rect = Rect2(40, 10, 300, 300)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dqefk")
+}
