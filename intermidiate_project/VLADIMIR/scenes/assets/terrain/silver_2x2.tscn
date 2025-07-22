@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbr3te5dom8gp"]
+
+[ext_resource type="Texture2D" uid="uid://dmmasjd2cr2pu" path="res://assets/sprite_pack/Terrain/Terrain (16x16).png" id="1_oh8ks"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02nyp"]
+size = Vector2(32, 32)
+
+[node name="Silver 2x2" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_oh8ks")
+region_enabled = true
+region_rect = Rect2(208, 80, 32, 32)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_02nyp")

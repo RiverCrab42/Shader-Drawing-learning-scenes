@@ -1,0 +1,83 @@
+[gd_scene load_steps=15 format=3 uid="uid://cdosf77gjjtn7"]
+
+[ext_resource type="Script" uid="uid://buqsw37f7knks" path="res://VLADIMIR/scripts/arrow.gd" id="1_7t0ep"]
+[ext_resource type="Texture2D" uid="uid://bq6iwfahmnu77" path="res://assets/sprite_pack/Items/Arrow/arrow.png" id="1_exhi1"]
+[ext_resource type="Shader" uid="uid://ijx8kxkofo0i" path="res://VLADIMIR/shaders/Fire.gdshader" id="3_yhodp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exhi1"]
+size = Vector2(1000, 300)
+
+[sub_resource type="Gradient" id="Gradient_7t0ep"]
+colors = PackedColorArray(1, 0.27451, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yhodp"]
+gradient = SubResource("Gradient_7t0ep")
+fill = 1
+fill_from = Vector2(0.504587, 0.522936)
+fill_to = Vector2(0.830275, 0.169725)
+
+[sub_resource type="Gradient" id="Gradient_1gcgt"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.729412, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_84u1a"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y4qch"]
+width = 300
+height = 600
+color_ramp = SubResource("Gradient_1gcgt")
+noise = SubResource("FastNoiseLite_84u1a")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yhodp"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ewrkp"]
+noise = SubResource("FastNoiseLite_yhodp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gcgt"]
+shader = ExtResource("3_yhodp")
+shader_parameter/noise = SubResource("NoiseTexture2D_y4qch")
+shader_parameter/rand = SubResource("NoiseTexture2D_ewrkp")
+shader_parameter/speed = 1.0
+
+[sub_resource type="Gradient" id="Gradient_ivwci"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bsdqc"]
+gradient = SubResource("Gradient_ivwci")
+width = 6
+height = 12
+
+[node name="Arrow" type="Node2D"]
+script = ExtResource("1_7t0ep")
+metadata/fire = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("1_exhi1")
+region_enabled = true
+region_rect = Rect2(32, 368, 1080, 408)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.02, 0.02)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(3.72529e-07, 0)
+shape = SubResource("RectangleShape2D_exhi1")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(-336, 0)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-10, 0)
+energy = 1.61
+texture = SubResource("GradientTexture2D_yhodp")
+
+[node name="Fire" type="Sprite2D" parent="PointLight2D"]
+material = SubResource("ShaderMaterial_1gcgt")
+position = Vector2(4, -2)
+rotation = 0.761218
+texture = SubResource("GradientTexture2D_bsdqc")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bvvsmifjvoyg8"]
+
+[ext_resource type="PackedScene" uid="uid://c0w82k6f248t1" path="res://assets/fbx/wall_corner.fbx" id="1_ju3pp"]
+[ext_resource type="Texture2D" uid="uid://dplbjey31l64q" path="res://assets/fbx/dungeon_texture.png" id="2_q088i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67s7t"]
+albedo_texture = ExtResource("2_q088i")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tirjn"]
+size = Vector3(1, 4, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7fhvo"]
+size = Vector3(2.50293, 4.00024, 1.00392)
+
+[node name="wall_corner" instance=ExtResource("1_ju3pp")]
+
+[node name="wall_corner" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_67s7t")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.75)
+shape = SubResource("BoxShape3D_tirjn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.751465, 1.99327, -0.001959)
+shape = SubResource("BoxShape3D_7fhvo")
