@@ -163,15 +163,12 @@ _data = {
 texture_filter = 1
 material = SubResource("ShaderMaterial_pug3q")
 instance_shader_parameters/die = 0.0
-position = Vector2(0, 15)
 sprite_frames = SubResource("SpriteFrames_jjup5")
 animation = &"idle"
 frame_progress = 0.0787668
-offset = Vector2(0, -15)
 script = ExtResource("2_u2dff")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, -15)
 script = ExtResource("3_pug3q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
