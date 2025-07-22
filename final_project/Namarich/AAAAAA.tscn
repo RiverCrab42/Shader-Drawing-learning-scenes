@@ -1,0 +1,718 @@
+[gd_scene load_steps=23 format=3 uid="uid://drei5opvjnku4"]
+
+[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="1_3rt4w"]
+[ext_resource type="PackedScene" uid="uid://dxt8eiwd4kuk5" path="res://scenes/assets/floors/floor_tile_large.tscn" id="2_b4i1d"]
+[ext_resource type="PackedScene" uid="uid://6k4syrvb2v3a" path="res://scenes/assets/walls/wall.tscn" id="3_74t8f"]
+[ext_resource type="PackedScene" uid="uid://cet0ahagu3cnk" path="res://scenes/assets/walls/wall_corner_small.tscn" id="4_mo3vj"]
+[ext_resource type="PackedScene" uid="uid://b2q4nan23yur2" path="res://scenes/assets/walls/wall_doorway.tscn" id="5_cq6em"]
+[ext_resource type="PackedScene" uid="uid://c4ome1rfnjcj1" path="res://scenes/assets/lights/torch_mounted.tscn" id="6_b4i1d"]
+[ext_resource type="PackedScene" uid="uid://bp8us8trdoxn8" path="res://scenes/assets/lights/torch.tscn" id="7_6mlib"]
+[ext_resource type="PackedScene" uid="uid://q7y4urvroqev" path="res://scenes/assets/ceiling/ceiling_tile.tscn" id="7_74t8f"]
+[ext_resource type="PackedScene" uid="uid://bu0lqt11c2ydw" path="res://scenes/assets/extras/chest.tscn" id="8_xyk3m"]
+[ext_resource type="PackedScene" uid="uid://ddcjmfckurrmh" path="res://scenes/assets/extras/barrel_large_decorated.tscn" id="9_5awcf"]
+[ext_resource type="PackedScene" uid="uid://dh4p85w57fmwc" path="res://scenes/assets/extras/bed_decorated.tscn" id="10_kgm86"]
+[ext_resource type="PackedScene" uid="uid://gwdsosqtypm0" path="res://scenes/assets/extras/chair.tscn" id="11_7b3ok"]
+[ext_resource type="PackedScene" uid="uid://cidjp4vaqi0u7" path="res://scenes/assets/extras/banner_brown.tscn" id="12_2lbj4"]
+[ext_resource type="PackedScene" uid="uid://djjtj000gtgm7" path="res://scenes/assets/extras/pillar.tscn" id="13_6mlib"]
+[ext_resource type="PackedScene" uid="uid://chvws3fycvpx0" path="res://scenes/assets/extras/box_large.tscn" id="14_5awcf"]
+[ext_resource type="PackedScene" uid="uid://f6p4ajl36p66" path="res://scenes/assets/barriers/barrier_column.tscn" id="15_7b3ok"]
+[ext_resource type="PackedScene" uid="uid://34d7gs4v6tca" path="res://scenes/assets/barriers/barrier_corner.tscn" id="16_2lbj4"]
+[ext_resource type="PackedScene" uid="uid://ctrwoktx44fox" path="res://scenes/assets/stairs/stairs.tscn" id="17_2lbj4"]
+[ext_resource type="Texture2D" uid="uid://rse6gw5x3jab" path="res://Namarich/textures/BlueNoise64Magnified.png" id="19_2kgaf"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_6mlib"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="Shader" id="Shader_2kgaf"]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D scr_tex: hint_screen_texture;
+uniform sampler2D norm: hint_normal_roughness_texture;
+uniform sampler2D d_tex: hint_depth_texture;
+
+uniform sampler2D blue_noise;
+
+//uniform int blurSize: hint_range(1, 20, 1);
+
+float grayScale(vec4 color){
+	return dot(color.rgb,vec3(0.2126,0.7152,0.0722));
+}
+
+float linear_depth(float d,mat4 inv){
+	vec4 f = inv * vec4(0.0,0.0,d,1.0);
+	float z_lin = f.z/f.w;
+	return -z_lin;
+}
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+	POSITION = vec4(VERTEX.x,VERTEX.y,1.0,1.0);
+	
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	
+	//vec3 scr = texture(scr_tex,SCREEN_UV).rgb;
+	//vec2 screen_px_size = 1.0 / VIEWPORT_SIZE;
+	//mat3 gx_mat = mat3(vec3(-1.0,-2.0,-1.0),vec3(0.0,0.0,0.0),vec3(1.0,2.0,1.0));
+	//mat3 gy_mat = mat3(vec3(-1.0,0.0,1.0),vec3(-2.0,0.0,2.0),vec3(-1.0,0.0,1.0));
+	//
+	//float gy = 0.0;
+	//float gx = 0.0;
+	//vec3 gy_vec = vec3(0.0);
+	//vec3 gx_vec = vec3(0.0);
+	//
+	//vec3 nx = vec3(0.0);
+	//vec3 ny = vec3(0.0);
+	//int perp = 0;
+	//
+	//for (int i = -1; i < 2; i++){
+		//for (int k = -1; k < 2; k++){
+			//vec4 pix = texture(d_tex,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y));
+			//gx += linear_depth(pix.x,INV_PROJECTION_MATRIX)*gx_mat[i+1][k+1];
+			//gy += linear_depth(pix.x,INV_PROJECTION_MATRIX)*gy_mat[i+1][k+1];
+			//
+			////gx_vec += pix.rgb * gx_mat[i+1][k+1];
+			////gy_vec += pix.rgb * gy_mat[i+1][k+1];
+			//
+			////vec4 npix = texture(norm,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y));
+			////nx += pix.rgb * gx_mat[i+1][k+1];
+			////ny += pix.rgb * gy_mat[i+1][k+1];
+			//
+			//
+			//vec4 st_pos_w = INV_VIEW_MATRIX*INV_PROJECTION_MATRIX*texture(d_tex,SCREEN_UV);
+			//vec4 en_pos_w = INV_VIEW_MATRIX*INV_PROJECTION_MATRIX*pix;
+			//vec4 dir = en_pos_w - st_pos_w;
+			//vec3 normal_normal_normal = texture(norm,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y)).rgb;
+			////vec3 normal_normal = (NORMAL)*2.0 - 1.0;
+			////vec3 n = (INV_VIEW_MATRIX*vec4(normal_normal,0.0)).xyz;
+			//
+			//if (dot(dir.xyz,normal_normal_normal) <= 0.00035) perp += 1;
+			//
+		//}
+	//}
+	//
+	//float res = sqrt(pow(gx,2)+pow(gy,2));
+	////float norm_res = sqrt(dot(nx,nx)+dot(ny,ny));
+	//////float res = sqrt(dot(gx_vec,gx_vec)+dot(gy_vec,gy_vec));
+	////float final_res = res*norm_res;
+	//
+	//float threshold = 0.9;
+	//float normal_threshold = 0.00095;
+	////if (res >= threshold && norm_res >= normal_threshold) ALBEDO = vec3(1.0);
+	////else ALBEDO = vec3(0.0);
+	//
+	//if (res >= threshold && perp <= 6) ALBEDO = vec3(1.0);
+	//else ALBEDO = vec3(0.0);
+	
+	
+	vec2 cam = (INV_VIEW_MATRIX*vec4(0.0,0.0,-1.0,0.0)).xy;
+	float camX = atan(cam.y,cam.x);
+	float camY = atan(cam.x,cam.y);
+	
+	vec2 offset = VIEWPORT_SIZE*vec2(camX,camY)/vec2(radians(75.0),radians(75.0*(VIEWPORT_SIZE.y/VIEWPORT_SIZE.x)));
+	
+	vec2 screen_px_size = 1.0 / VIEWPORT_SIZE;
+	vec3 blue_n = texture(blue_noise,SCREEN_UV*(VIEWPORT_SIZE/224.0)+offset/VIEWPORT_SIZE).rgb;
+	vec3 src = texture(scr_tex,SCREEN_UV).rgb;
+	mat4 bayer_mat = mat4(vec4(0.0,12.0,3.0,15.0),vec4(8.0,4.0,11.0,7.0),
+		vec4(2.0,14.0,1.0,13.0),vec4(10.0,6.0,9.0,5.0))/12.0;
+		
+	//float[8][8] bayer_mat2 = {};
+	
+	float lum = pow(grayScale(vec4(src,0.0)),(1.0 / 1.3));
+	float lum2 = grayScale(vec4(src,0.0));
+	int x = int(SCREEN_UV.x*VIEWPORT_SIZE.x)%4;
+	int y = int(SCREEN_UV.y*VIEWPORT_SIZE.y)%4;
+	
+	
+	
+	//if (lum >= bayer_mat[x][y]+0.053) ALBEDO = vec3(1.0);
+	//else ALBEDO = vec3(0.0);
+	
+	if (lum2 >= blue_n.b - 0.025) ALBEDO = vec3(1.0);
+	else ALBEDO = vec3(0.0);
+	
+	
+	//ALBEDO = src;
+	
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7er6"]
+render_priority = 0
+shader = SubResource("Shader_2kgaf")
+shader_parameter/blue_noise = ExtResource("19_2kgaf")
+
+[node name="Aaaaaa" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_3rt4w")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, -27)
+
+[node name="LevelLayout" type="Node3D" parent="."]
+
+[node name="Floor" type="Node3D" parent="LevelLayout"]
+
+[node name="floor_tile_large2" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -6)
+
+[node name="floor_tile_large3" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -2)
+
+[node name="floor_tile_large4" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -6)
+
+[node name="floor_tile_large5" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -10)
+
+[node name="floor_tile_large6" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -14)
+
+[node name="floor_tile_large17" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -18)
+
+[node name="floor_tile_large18" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -18)
+
+[node name="floor_tile_large19" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -18)
+
+[node name="floor_tile_large20" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -22)
+
+[node name="floor_tile_large21" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -26)
+
+[node name="floor_tile_large22" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -26)
+
+[node name="floor_tile_large23" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -22)
+
+[node name="floor_tile_large24" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -22)
+
+[node name="floor_tile_large45" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -26)
+
+[node name="floor_tile_large46" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -26)
+
+[node name="floor_tile_large47" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -22)
+
+[node name="floor_tile_large48" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -30)
+
+[node name="floor_tile_large49" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -30)
+
+[node name="floor_tile_large50" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -30)
+
+[node name="floor_tile_large51" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -30)
+
+[node name="floor_tile_large52" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -30)
+
+[node name="floor_tile_large25" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -22)
+
+[node name="floor_tile_large26" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -18)
+
+[node name="floor_tile_large27" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -18)
+
+[node name="floor_tile_large28" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -14)
+
+[node name="floor_tile_large29" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -10)
+
+[node name="floor_tile_large30" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -6)
+
+[node name="floor_tile_large31" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -2)
+
+[node name="floor_tile_large32" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, 2)
+
+[node name="floor_tile_large33" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, 2)
+
+[node name="floor_tile_large34" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, 2)
+
+[node name="floor_tile_large35" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, 2)
+
+[node name="floor_tile_large36" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 2)
+
+[node name="floor_tile_large37" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -2)
+
+[node name="floor_tile_large38" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -2)
+
+[node name="floor_tile_large39" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -6)
+
+[node name="floor_tile_large40" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -10)
+
+[node name="floor_tile_large41" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -14)
+
+[node name="floor_tile_large42" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -18)
+
+[node name="floor_tile_large43" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -22)
+
+[node name="floor_tile_large44" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -26)
+
+[node name="floor_tile_large7" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -10)
+
+[node name="floor_tile_large8" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -14)
+
+[node name="floor_tile_large9" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -2)
+
+[node name="floor_tile_large10" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -6)
+
+[node name="floor_tile_large11" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -2)
+
+[node name="floor_tile_large12" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -6)
+
+[node name="floor_tile_large13" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -10)
+
+[node name="floor_tile_large14" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -14)
+
+[node name="floor_tile_large15" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -10)
+
+[node name="floor_tile_large16" parent="LevelLayout/Floor" instance=ExtResource("2_b4i1d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -14)
+
+[node name="Walls" type="Node3D" parent="LevelLayout"]
+
+[node name="wall" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -4)
+
+[node name="wall2" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, 0)
+
+[node name="wall3" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, 0)
+
+[node name="wall4" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, 0)
+
+[node name="wall5" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -16)
+
+[node name="wall6" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -20)
+
+[node name="wall7" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -20)
+
+[node name="wall8" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, -1, -22)
+
+[node name="wall9" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -22)
+
+[node name="wall10" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -18)
+
+[node name="wall11" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -14)
+
+[node name="wall12" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -10)
+
+[node name="wall13" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -6)
+
+[node name="wall14" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, -1, -2)
+
+[node name="wall15" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, -1, -2)
+
+[node name="wall16" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, -1, -6)
+
+[node name="wall17" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, -1, -10)
+
+[node name="wall18" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, -1, -14)
+
+[node name="wall19" parent="LevelLayout/Walls" instance=ExtResource("3_74t8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12, -1, -18)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls" instance=ExtResource("4_mo3vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -1, -4)
+
+[node name="wall_corner_small5" parent="LevelLayout/Walls" instance=ExtResource("4_mo3vj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, -1, -16)
+
+[node name="wall_corner_small6" parent="LevelLayout/Walls" instance=ExtResource("4_mo3vj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, -1, -20)
+
+[node name="wall_corner_small2" parent="LevelLayout/Walls" instance=ExtResource("4_mo3vj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -4)
+
+[node name="wall_corner_small3" parent="LevelLayout/Walls" instance=ExtResource("4_mo3vj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, -1, 0)
+
+[node name="wall_corner_small4" parent="LevelLayout/Walls" instance=ExtResource("4_mo3vj")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16, -1, 0)
+
+[node name="wall_corner_small7" parent="LevelLayout/Walls" instance=ExtResource("4_mo3vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -1, -16)
+
+[node name="wall_corner_small8" parent="LevelLayout/Walls" instance=ExtResource("4_mo3vj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -1, -20)
+
+[node name="wall_doorway" parent="LevelLayout/Walls" instance=ExtResource("5_cq6em")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -23)
+
+[node name="Lights" type="Node3D" parent="LevelLayout"]
+
+[node name="torch_mounted" parent="LevelLayout/Lights" instance=ExtResource("6_b4i1d")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.301243, 1, -13)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LevelLayout/Lights/torch_mounted"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.660861, 0.3361)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch_mounted3" parent="LevelLayout/Lights" instance=ExtResource("6_b4i1d")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.7587, 1, -14)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LevelLayout/Lights/torch_mounted3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.587878, 0.325765)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch_mounted4" parent="LevelLayout/Lights" instance=ExtResource("6_b4i1d")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.7587, 1, -0.232283)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LevelLayout/Lights/torch_mounted4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.587878, 0.325765)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch_mounted2" parent="LevelLayout/Lights" instance=ExtResource("6_b4i1d")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.30124, 1, -0.237849)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LevelLayout/Lights/torch_mounted2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.652044, 0.348395)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0905683, 4.64165, -23.8912)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch2" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0905683, 4.64165, -4.13547)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch3" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9255, 4.64165, -3.90314)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch3"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch4" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.08243, 4.64165, -0.15289)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch4"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch5" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.8917, 4.64165, -0.0954473)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch5"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch6" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.8917, 4.64165, -15.89)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch6"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch7" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05189, 4.64165, -20.126)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch7"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch8" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.89236, 4.64165, -23.8878)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch8"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch9" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9192, 4.64165, -19.9174)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch9"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch10" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9192, 4.64165, -19.9174)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch10"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="torch11" parent="LevelLayout/Lights" instance=ExtResource("7_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0841, 4.64165, -16.1488)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LevelLayout/Lights/torch11"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00298274, 0.802934, 0.0169983)
+light_color = Color(0.943521, 0.645127, 0.404179, 1)
+omni_range = 15.157
+
+[node name="Ceiling" type="Node3D" parent="LevelLayout"]
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -6)
+
+[node name="ceiling_tile6" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -6)
+
+[node name="ceiling_tile8" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -10)
+
+[node name="ceiling_tile9" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -14)
+
+[node name="ceiling_tile10" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -18)
+
+[node name="ceiling_tile7" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -2)
+
+[node name="ceiling_tile11" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -6)
+
+[node name="ceiling_tile12" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -10)
+
+[node name="ceiling_tile13" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -14)
+
+[node name="ceiling_tile14" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -18)
+
+[node name="ceiling_tile15" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -2)
+
+[node name="ceiling_tile16" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -6)
+
+[node name="ceiling_tile17" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -10)
+
+[node name="ceiling_tile18" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -14)
+
+[node name="ceiling_tile20" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -2)
+
+[node name="ceiling_tile2" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -10)
+
+[node name="ceiling_tile3" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -14)
+
+[node name="ceiling_tile4" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -18)
+
+[node name="ceiling_tile5" parent="LevelLayout/Ceiling" instance=ExtResource("7_74t8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -22)
+
+[node name="Props" type="Node3D" parent="LevelLayout"]
+
+[node name="chest" parent="LevelLayout/Props" instance=ExtResource("8_xyk3m")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, -1, -3)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props" instance=ExtResource("9_5awcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -6)
+
+[node name="bed_decorated" parent="LevelLayout/Props" instance=ExtResource("10_kgm86")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14, -1, -14)
+
+[node name="chair" parent="LevelLayout/Props" instance=ExtResource("11_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, -1, -11.6515)
+
+[node name="banner_brown" parent="LevelLayout/Props" instance=ExtResource("12_2lbj4")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -10)
+
+[node name="pillar" parent="LevelLayout/Props" instance=ExtResource("13_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -14)
+
+[node name="pillar2" parent="LevelLayout/Props" instance=ExtResource("13_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -8)
+
+[node name="pillar3" parent="LevelLayout/Props" instance=ExtResource("13_6mlib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -1, -8)
+
+[node name="box_large" parent="LevelLayout/Props" instance=ExtResource("14_5awcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6926, -1, -18.741)
+
+[node name="box_large4" parent="LevelLayout/Props" instance=ExtResource("14_5awcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6926, 0.400941, -18.741)
+
+[node name="box_large3" parent="LevelLayout/Props" instance=ExtResource("14_5awcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.21263, -1, -18.741)
+
+[node name="box_large2" parent="LevelLayout/Props" instance=ExtResource("14_5awcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6926, -1, -17.2561)
+
+[node name="Barriers" type="Node3D" parent="LevelLayout"]
+
+[node name="barrier_column" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -10)
+
+[node name="barrier_column3" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -14)
+
+[node name="barrier_column8" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 3, -14)
+
+[node name="barrier_column9" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 3, -10)
+
+[node name="barrier_column10" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 3, -6)
+
+[node name="barrier_column11" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 3, -2)
+
+[node name="barrier_column12" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 3, -2)
+
+[node name="barrier_column13" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 0)
+
+[node name="barrier_column14" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, 0)
+
+[node name="barrier_column15" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, 0)
+
+[node name="barrier_column16" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -4)
+
+[node name="barrier_column17" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -16)
+
+[node name="barrier_column20" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -24)
+
+[node name="barrier_column4" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -18)
+
+[node name="barrier_column7" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12, 3, -18)
+
+[node name="barrier_column5" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -22)
+
+[node name="barrier_column6" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 3, -22)
+
+[node name="barrier_column2" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -6)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -24)
+
+[node name="barrier_corner2" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -24)
+
+[node name="barrier_corner4" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, -20)
+
+[node name="barrier_corner5" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 3, -16)
+
+[node name="barrier_corner3" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 3, -20)
+
+[node name="barrier_corner6" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 3, -4)
+
+[node name="barrier_corner10" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, 3, -16)
+
+[node name="barrier_corner7" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 3, 0)
+
+[node name="barrier_corner8" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16, 3, 0)
+
+[node name="barrier_corner9" parent="LevelLayout/Barriers" instance=ExtResource("16_2lbj4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -4)
+
+[node name="Stairs" type="Node3D" parent="LevelLayout"]
+
+[node name="stairs" parent="LevelLayout/Stairs" instance=ExtResource("17_2lbj4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.97529, -1, -20.5083)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.060173, 0, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_6mlib")
+surface_material_override/0 = SubResource("ShaderMaterial_w7er6")
