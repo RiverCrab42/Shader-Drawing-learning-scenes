@@ -1,0 +1,71 @@
+[gd_scene load_steps=14 format=3 uid="uid://dhriu78ayi3id"]
+
+[ext_resource type="Script" uid="uid://bpxjj5so8imqq" path="res://VLADIMIR/scripts/torch.gd" id="1_ptqr4"]
+[ext_resource type="Shader" uid="uid://ijx8kxkofo0i" path="res://VLADIMIR/shaders/Fire.gdshader" id="2_35kbb"]
+
+[sub_resource type="Gradient" id="Gradient_rrfp3"]
+offsets = PackedFloat32Array(0, 0.442623, 1)
+colors = PackedColorArray(0.905882, 0, 0, 1, 1, 0.14902, 0, 1, 1, 0.733333, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8ddph"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qot8r"]
+width = 200
+height = 600
+seamless = true
+color_ramp = SubResource("Gradient_rrfp3")
+noise = SubResource("FastNoiseLite_8ddph")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0p7vp"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7plmt"]
+noise = SubResource("FastNoiseLite_0p7vp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p646j"]
+shader = ExtResource("2_35kbb")
+shader_parameter/noise = SubResource("NoiseTexture2D_qot8r")
+shader_parameter/rand = SubResource("NoiseTexture2D_7plmt")
+shader_parameter/speed = 1.0
+
+[sub_resource type="Gradient" id="Gradient_l1j72"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tis5l"]
+gradient = SubResource("Gradient_l1j72")
+width = 10
+height = 30
+
+[sub_resource type="Gradient" id="Gradient_ptqr4"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_35kbb"]
+gradient = SubResource("Gradient_ptqr4")
+fill = 1
+fill_from = Vector2(0.486239, 0)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mc7gd"]
+size = Vector2(98, 98)
+
+[node name="Torch" type="Node2D"]
+script = ExtResource("1_ptqr4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_p646j")
+position = Vector2(0, -15)
+texture = SubResource("GradientTexture2D_tis5l")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, 16)
+scale = Vector2(0.15625, 0.5)
+texture = SubResource("GradientTexture2D_35kbb")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("RectangleShape2D_mc7gd")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

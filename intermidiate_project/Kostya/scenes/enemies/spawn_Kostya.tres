@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bb6lbix0cgrn7"]
 
-[ext_resource type="Shader" uid="uid://dbsdph40ijjno" path="res://scenes/enemies/spawn.gdshader" id="1_5k5u5"]
+[ext_resource type="Shader" uid="uid://dbsdph40ijjno" path="res://Kostya/scenes/enemies/spawn_Kostya.gdshader" id="1_5k5u5"]
 
 [resource]
 shader = ExtResource("1_5k5u5")

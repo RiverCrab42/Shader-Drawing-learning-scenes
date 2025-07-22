@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://dfdumbiw2e5jb"]
 
-[ext_resource type="Script" uid="uid://bw318k50motjk" path="res://scripts/enemies/spawn.gd" id="1_6o2ki"]
-[ext_resource type="Texture2D" uid="uid://dy8koussra5cm" path="res://assets/sprite_pack/Enemies/Portal/portal.png" id="1_7l1mj"]
-[ext_resource type="PackedScene" uid="uid://bihrtr6avjvul" path="res://scenes/enemies/slime.tscn" id="2_myxqm"]
-[ext_resource type="PackedScene" uid="uid://dyb258yrboxam" path="res://Kostya/scenes/enemies/ghost.tscn" id="3_clvvu"]
-[ext_resource type="Shader" uid="uid://dbsdph40ijjno" path="res://Kostya/scenes/enemies/spawn.gdshader" id="4_clvvu"]
+[ext_resource type="Script" uid="uid://bw318k50motjk" path="res://scripts/enemies/spawn.gd" id="1_oleei"]
+[ext_resource type="PackedScene" uid="uid://bihrtr6avjvul" path="res://scenes/enemies/slime.tscn" id="2_ex8qu"]
+[ext_resource type="PackedScene" uid="uid://dyb258yrboxam" path="res://Sasha/scenes/enemies/ghost.tscn" id="3_vrjfu"]
+[ext_resource type="Shader" uid="uid://dbsdph40ijjno" path="res://Kostya/scenes/enemies/spawn_Kostya.gdshader" id="4_arkop"]
+[ext_resource type="Texture2D" uid="uid://dy8koussra5cm" path="res://assets/sprite_pack/Enemies/Portal/portal.png" id="5_ebyn0"]
 
 [sub_resource type="Gradient" id="Gradient_clvvu"]
 colors = PackedColorArray(0.591256, 0.340608, 0.407772, 1, 0.635294, 0.521569, 1, 1)
@@ -13,7 +13,7 @@ colors = PackedColorArray(0.591256, 0.340608, 0.407772, 1, 0.635294, 0.521569, 1
 gradient = SubResource("Gradient_clvvu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dqefk"]
-shader = ExtResource("4_clvvu")
+shader = ExtResource("4_arkop")
 shader_parameter/gradienttx = SubResource("GradientTexture2D_l58gx")
 
 [sub_resource type="Animation" id="Animation_6o2ki"]
@@ -25,16 +25,16 @@ _data = {
 }
 
 [node name="Spawn" type="Node2D"]
-script = ExtResource("1_6o2ki")
-SLIME = ExtResource("2_myxqm")
-GHOST_IDLE = ExtResource("3_clvvu")
+script = ExtResource("1_oleei")
+SLIME = ExtResource("2_ex8qu")
+GHOST_IDLE = ExtResource("3_vrjfu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_dqefk")
 position = Vector2(0, -30)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_7l1mj")
+texture = ExtResource("5_ebyn0")
 region_rect = Rect2(40, 10, 300, 300)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
