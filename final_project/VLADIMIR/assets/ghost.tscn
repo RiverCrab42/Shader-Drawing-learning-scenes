@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://b86kgtbd0xj4x"]
+
+[ext_resource type="PackedScene" uid="uid://dppxs5rlmla62" path="res://VLADIMIR/Ghost.fbx" id="1_54a2v"]
+[ext_resource type="Texture2D" uid="uid://dk6c3s5w45foa" path="res://VLADIMIR/ghost.png" id="2_endsm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82w6s"]
+albedo_texture = ExtResource("2_endsm")
+
+[sub_resource type="QuadMesh" id="QuadMesh_endsm"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="Shader" id="Shader_82w6s"]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D scrTex : hint_screen_texture;
+
+void vertex() {
+	POSITION = vec4(VERTEX.x,VERTEX.y,1.0,1.0);
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	ALBEDO = texture(scrTex,SCREEN_UV).rgb;
+
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0a77w"]
+render_priority = 0
+shader = SubResource("Shader_82w6s")
+
+[node name="Ghost" instance=ExtResource("1_54a2v")]
+
+[node name="Плоскость_001" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_82w6s")
+
+[node name="PostProcess" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_endsm")
+surface_material_override/0 = SubResource("ShaderMaterial_0a77w")
+
+[node name="Camera3D" type="Camera3D" parent="." index="2"]
