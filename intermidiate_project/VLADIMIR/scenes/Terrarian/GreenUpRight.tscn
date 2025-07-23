@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://gd5rl0saq6pm"]
+
+[ext_resource type="Script" uid="uid://dyfthvpewiq5p" path="res://VLADIMIR/scripts/TerrarianDown.gd" id="1_rsvbu"]
+[ext_resource type="Texture2D" uid="uid://iatxbii1b5uv" path="res://VLADIMIR/texture/Terrain (16x16).png" id="2_ebuhx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pihqg"]
+size = Vector2(16, 16)
+
+[node name="Node2D" type="StaticBody2D"]
+script = ExtResource("1_rsvbu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_ebuhx")
+region_enabled = true
+region_rect = Rect2(112, 0, 16, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pihqg")
+one_way_collision = true
