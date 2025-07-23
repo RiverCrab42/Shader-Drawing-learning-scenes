@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ds1c55uv08k80"]
+[gd_scene load_steps=22 format=3 uid="uid://ds1c55uv08k80"]
 
 [ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="3_3dfww"]
 [ext_resource type="PackedScene" uid="uid://c4ome1rfnjcj1" path="res://scenes/assets/lights/torch_mounted.tscn" id="3_ui72h"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://gwdsosqtypm0" path="res://scenes/assets/extras/chair.tscn" id="13_3d7xd"]
 [ext_resource type="PackedScene" uid="uid://giu4ajqq0pig" path="res://scenes/assets/extras/bed_frame.tscn" id="14_t6bnw"]
 [ext_resource type="PackedScene" uid="uid://dgavabl80atr2" path="res://scenes/assets/extras/banners/banner_green.tscn" id="15_klubj"]
+[ext_resource type="Texture2D" uid="uid://c47qyvawswp1r" path="res://assets/textures/hatch_down_left.jpg" id="16_3d7xd"]
+[ext_resource type="Texture2D" uid="uid://0sen4lckfksv" path="res://assets/textures/hatch_down_right.jpg" id="17_t6bnw"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_cvlg2"]
 
@@ -29,12 +31,23 @@ code = "shader_type spatial;
 uniform sampler2D scr_tex: hint_screen_texture;
 uniform sampler2D normal_tex: hint_normal_roughness_texture;
 uniform sampler2D depth_tex: hint_depth_texture;
+
 uniform float count_color: hint_range(1.0, 10.0, 0.1);
 uniform float tresh_hold_n : hint_range(0.0, 1.0, 0.01);
 uniform float tresh_hold_d : hint_range(0.0, 1.0, 0.01);
+uniform float coff : hint_range(0.0, 10.0, 0.01);
+
+uniform sampler2D hatch_down_left;
+uniform sampler2D hatch_down_right;
 render_mode unshaded;
 //INV_PROJECTION_MATRIX * vec4((SCREEN_UV+vec2(-px_size_x, -px_size_y))*2.0-1.0, 
 //texture(depth_tex, SCREEN_UV+vec2(px_size_x, -px_size_y)).r, 1.0);
+vec3 texel_fetch(sampler2D tex, vec2 size, vec2 coord){
+	float x = fract(coord.x/size.x) * size.x;
+	float y = fract(coord.y/size.y) * size.y;
+	return texelFetch(tex, ivec2(int(x), int(y)), 0).rgb;
+}
+
 vec3 linear_depth(mat4 M, vec2 SUV, vec2 shift){
 	vec4 v = M * vec4((vec2(SUV.x, SUV.y) + vec2(shift.x, shift.y))*2.0-1.0, texture(depth_tex, SUV + shift).r, 1.0);
 	return v.xyz/v.w;
@@ -45,6 +58,7 @@ void vertex() {
 }
 
 void fragment() {
+	vec2 tex_size = vec2(float(textureSize(hatch_down_left, 0).x), float(textureSize(hatch_down_left, 0).y));
 	float px_size_x = 1.0/VIEWPORT_SIZE.x;
 	float px_size_y = 1.0/VIEWPORT_SIZE.y;
 
@@ -53,7 +67,6 @@ void fragment() {
 	mat3 Gy = mat3(vec3(-1, 0, 1), vec3(-2, 0, 2), vec3(-1, 0, 1));
 	float Gxx = 0.0;
 	float Gyy = 0.0;
-
 	#ifdef COLOR_OUTLINE
 	for(float i=-1.0; i<=1.0; i++){
 		for(float j=-1.0; j<=1.0; j++){
@@ -91,23 +104,26 @@ void fragment() {
 	//ALBEDO = texture(normal_tex, SCREEN_UV).xyz;
 	
 	
-	
 	for(int i=0; i<3; i++){
-		vec3 a = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(-px_size_x,  float(i-1)*px_size_y));
-		vec3 b = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(px_size_x, float(i-1)*px_size_y));
+		vec3 a = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(-px_size_x,  float(i-1)*px_size_y)*coff);
+		vec3 b = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(px_size_x, float(i-1)*px_size_y)*coff);
 		vec3 normal = texture(normal_tex, vec2(SCREEN_UV.x + px_size_x, SCREEN_UV.y + float(i-1)*px_size_y)).xyz *2.0 -1.0;
-		if(a.z < -1000.0)
+		if(a.z < -1000.0){
 				Gxx +=0.0;
+				ALPHA=0.0;
+			}
 		else
 		Gxx += dot(a-b, normal) * Gx[0][i]/* * Gx[2][i]*/;
 		
 	}
 	for(int i=0; i<3; i++){
-		vec3 a = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(float(i-1)*px_size_x, - px_size_y));
-		vec3 b = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(float(i-1)*px_size_x, px_size_y));
+		vec3 a = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(float(i-1)*px_size_x, - px_size_y)*coff);
+		vec3 b = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(float(i-1)*px_size_x, px_size_y)*coff);
 		vec3 normal = texture(normal_tex, vec2(SCREEN_UV.x + float(i-1)*px_size_x, SCREEN_UV.y + px_size_y)).xyz * 2.0 - 1.0;
-		if(a.z < -1000.0)
+		if(a.z < -1000.0){
 			Gyy +=0.0;
+			ALPHA=0.0;
+		}
 		else
 			Gyy += dot(a-b, normal) * Gy[i][0];
 	}
@@ -118,7 +134,7 @@ void fragment() {
 	Gyy=0.0;
 	for(float j=-1.0; j<=1.0; j++){
 		for(float i=-1.0; i<=1.0; i++){
-			vec2 shift_pixels = vec2(px_size_x * i, px_size_y*j);
+			vec2 shift_pixels = vec2(px_size_x * i, px_size_y*j)*coff;
 			vec3 normal = texture(normal_tex, SCREEN_UV + shift_pixels).xyz;
 			
 			float gray_scale_n = distance(normal, v1);
@@ -130,8 +146,26 @@ void fragment() {
 			v1 = texture(normal_tex, SCREEN_UV + shift_pixels).rgb;
 		}
 	}
-	ALBEDO = vec3(clamp(grey_d +step(tresh_hold_n, sqrt(pow(Gxx, 2) + pow(Gyy, 2))*1.0), 0.0, 1.0));
-}"
+	//ALBEDO = vec3(clamp(grey_d +step(tresh_hold_n, sqrt(pow(Gxx, 2) + pow(Gyy, 2))*1.0), 0.0, 1.0));
+	float albedo = 1.0 - clamp(grey_d +step(tresh_hold_n, sqrt(pow(Gxx, 2) + pow(Gyy, 2))*1.0), 0.0, 1.0);
+	float color_grey = dot(texture(scr_tex, SCREEN_UV).rgb, vec3(0.2126, 0.7152, 0.07));
+	if(albedo == 1.0){
+		ALBEDO = texture(scr_tex, SCREEN_UV).rgb;
+	}
+	else{
+		ALBEDO = vec3(albedo);
+	}
+	if(color_grey < 0.05){
+		float depth = 70.0 * texture(depth_tex, SCREEN_UV).r; 
+		ALBEDO = texel_fetch(hatch_down_left, tex_size, FRAGCOORD.xy/ depth).rgb * texture(scr_tex, SCREEN_UV).rgb;
+		if(color_grey < 0.02){
+			ALBEDO = texel_fetch(hatch_down_left, tex_size, FRAGCOORD.xy / depth).rgb *texel_fetch(hatch_down_right, tex_size, FRAGCOORD.xy/ depth).rgb * texture(scr_tex, SCREEN_UV).rgb;
+		}
+	}
+	
+	
+	
+}	"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3d7xd"]
 render_priority = 0
@@ -139,6 +173,9 @@ shader = SubResource("Shader_boyoy")
 shader_parameter/count_color = 10.0
 shader_parameter/tresh_hold_n = 0.65
 shader_parameter/tresh_hold_d = 0.16
+shader_parameter/coff = 1.0
+shader_parameter/hatch_down_left = ExtResource("16_3d7xd")
+shader_parameter/hatch_down_right = ExtResource("17_t6bnw")
 
 [node name="Example" type="Node3D"]
 
@@ -248,7 +285,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 21.3, 
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 19.7, 8, 7.7)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 10, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4, 10, 3)
 light_energy = 5.041
 omni_range = 6.433
 
