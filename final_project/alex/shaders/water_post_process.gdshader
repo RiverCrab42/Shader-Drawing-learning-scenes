@@ -7,6 +7,8 @@ uniform sampler2D depth_tex : hint_depth_texture;
 uniform float scr_shaking : hint_range(1.0, 100.0, 1.0);
 uniform vec3 fog_color : source_color;
 
+
+
 void vertex() {
 	POSITION = vec4(VERTEX.xy, 1.0, 1.0);
 	// Called for every vertex the material is visible on.
@@ -27,7 +29,7 @@ void fragment() {
 	//ALBEDO = shaking_fog;
 	
 	//ALBEDO = texture(scr_tex, SCREEN_UV).rgb;
-	vec2 pixel_size = 1.0 / VIEWPORT_SIZE;
+	//vec2 pixel_size = 1.0 / VIEWPORT_SIZE;
 	// Called for every pixel the material is visible on.
 }
 
