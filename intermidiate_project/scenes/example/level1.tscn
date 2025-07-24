@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://l3il2yp68r6u"]
+[gd_scene load_steps=10 format=3 uid="uid://drp8eto0wsgmj"]
 
 [ext_resource type="PackedScene" uid="uid://do1aqnosnk0bn" path="res://scenes/assets/terrain/dirt.tscn" id="1_q4lcn"]
 [ext_resource type="PackedScene" uid="uid://4ir5vnwhhjvj" path="res://scenes/assets/terrain/dirt_orange.tscn" id="2_dt51k"]

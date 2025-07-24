@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfdumbiw2e5jb"]
+[gd_scene load_steps=6 format=3 uid="uid://cvc74vh12snvb"]
 
 [ext_resource type="Script" uid="uid://p7fogykvmaga" path="res://scripts/enemies/spawn.gd" id="1_6o2ki"]
 [ext_resource type="Texture2D" uid="uid://qi5f75nsuidf" path="res://assets/sprite_pack/Enemies/Portal/portal.png" id="1_7l1mj"]

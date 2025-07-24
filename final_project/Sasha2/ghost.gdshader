@@ -1,21 +1,17 @@
 shader_type spatial;
-
-uniform sampler2D tex: source_color;
-
-float grayScale(vec4 color){
-	return dot(color.rgb,vec3(0.2126,0.7152,0.0722));
-}
-
+uniform sampler2D ghost_tex;
+instance uniform bool see;
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	//TO DO: put grayscale
-	vec3 col = texture(tex,UV).rgb;
-	ALBEDO.r = grayScale(vec4(col,1.0))*1.5;
-	ALBEDO.g = 1.0;
+	
+	if (see == true)
+		ALBEDO = (texture(ghost_tex, UV)).xyz + vec3(abs(sin(42.0*TIME)), 0.0, 0.0);
+	else
+		ALBEDO = (texture(ghost_tex, UV)).xyz;
 }
 
 //void light() {
