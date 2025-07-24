@@ -12,13 +12,13 @@ void vertex() {
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	//TO DO: put grayscale
 	vec3 col = texture(tex,UV).rgb;
 	ALBEDO.r = grayScale(vec4(col,1.0));
 	ALBEDO.g = 1.0;
+	ALBEDO.b = 0.0;
 }
 
-//void light() {
-//	// Called for every pixel for every light affecting the material.
-//	// Uncomment to replace the default light processing function with this one.
-//}
+void light(){
+	DIFFUSE_LIGHT += ALBEDO * LIGHT_COLOR * ATTENUATION * clamp(dot(LIGHT,NORMAL),0.0,1.0);
+	DIFFUSE_LIGHT += vec3(0.0, 1.0, 0.0);
+}

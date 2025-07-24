@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=4 uid="uid://bwsjchxxfbeeq"]
 
-[ext_resource type="Texture2D" uid="uid://c4pr51n6tgn1y" path="res://assets/sprite_pack/Terrain/Terrain (16x16).png" id="1_4k8yb"]
+[ext_resource type="Texture2D" uid="uid://dyvyvy7qkome4" path="res://assets/sprite_pack/Terrain/Terrain (16x16).png" id="1_4k8yb"]
 [ext_resource type="PackedScene" uid="uid://bdn2w2lglevw1" path="res://scenes/player/character_mask.tscn" id="3_2etmd"]
 [ext_resource type="PackedScene" uid="uid://ccsycewvbvbdg" path="res://VDVVAH/scenes/enemies/spawn.tscn" id="3_127hf"]
 [ext_resource type="Material" uid="uid://btxbalp5qhby" path="res://VDVVAH/materials/health_material.tres" id="4_2etmd"]
-[ext_resource type="Script" uid="uid://c1mck10jlhxp" path="res://VDVVAH/scripts/healthbar.gd" id="5_wjcx7"]
+[ext_resource type="Script" uid="uid://bra22256v2fkw" path="res://VDVVAH/scripts/healthbar.gd" id="5_wjcx7"]
 [ext_resource type="Material" uid="uid://rkg6n7ogknpm" path="res://VDVVAH/materials/arrow_material.tres" id="6_bf0id"]
 [ext_resource type="PackedScene" uid="uid://d3a3o4tmj6ho5" path="res://VDVVAH/scenes/enemies/slime.tscn" id="7_dl0yr"]
-[ext_resource type="Shader" uid="uid://djcf1e3tj0op6" path="res://VDVVAH/shaders/player_effects.gdshader" id="7_y7srw"]
+[ext_resource type="Shader" uid="uid://cx6h5kks6mldl" path="res://VDVVAH/shaders/player_effects.gdshader" id="7_y7srw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_127hf"]
 
@@ -235,6 +235,8 @@ grow_vertical = 2
 
 [node name="Slime" parent="." instance=ExtResource("7_dl0yr")]
 position = Vector2(177, -180)
+script = null
 
 [node name="Slime2" parent="." instance=ExtResource("7_dl0yr")]
 position = Vector2(263, -178)
+script = null
