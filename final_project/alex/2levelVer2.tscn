@@ -35,7 +35,7 @@ noise = SubResource("FastNoiseLite_dajvi")
 render_priority = 0
 shader = ExtResource("17_smiwv")
 shader_parameter/noise = SubResource("NoiseTexture2D_6f7rb")
-shader_parameter/scr_shaking = 37.0
+shader_parameter/scr_shaking = 50.0
 shader_parameter/fog_color = Color(0.219608, 0.172549, 0.945098, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_lmuiv"]
@@ -43,7 +43,7 @@ size = Vector2(16, 20)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_73kt3"]
 noise_type = 3
-frequency = 0.0014
+frequency = 0.0342
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lmuiv"]
 seamless = true
@@ -55,6 +55,7 @@ render_priority = 0
 shader = ExtResource("18_73kt3")
 shader_parameter/noise = SubResource("NoiseTexture2D_lmuiv")
 shader_parameter/foam = 0.4
+shader_parameter/scr_shaking = 80.0
 
 [node name="Level2" type="Node3D"]
 
@@ -477,6 +478,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_a2q6g")
 
 [node name="foam" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0086, -3.14509, 0.00903225)
+visibility_parent = NodePath(".")
 mesh = SubResource("PlaneMesh_lmuiv")
 surface_material_override/0 = SubResource("ShaderMaterial_8ilef")
 
