@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://daci5id4gcjtn"]
+[gd_scene load_steps=14 format=3 uid="uid://daci5id4gcjtn"]
 
 [ext_resource type="Shader" uid="uid://dag4qbp3dfugb" path="res://VDVVAH/noise_terrain/terrain2.gdshader" id="1_xgjgh"]
 [ext_resource type="Texture2D" uid="uid://qngw4whmd88i" path="res://VDVVAH/textures/grass.webp" id="2_oonx1"]
@@ -26,11 +26,23 @@ shader_parameter/sand = ExtResource("3_ti6br")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_d7aby"]
 size = Vector2(10, 10)
-center_offset = Vector3(0, -0.1, 0)
+subdivide_width = 200
+subdivide_depth = 200
+center_offset = Vector3(0, -0.19, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ti6br"]
+frequency = 0.0089
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ti6br"]
+seamless = true
+as_normal_map = true
+bump_strength = 11.8
+noise = SubResource("FastNoiseLite_ti6br")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nibi2"]
 render_priority = 0
 shader = ExtResource("8_nibi2")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_ti6br")
 shader_parameter/water = ExtResource("6_by6q8")
 shader_parameter/steps = 100
 shader_parameter/max_dist = 1.5
@@ -44,7 +56,7 @@ mesh = SubResource("PlaneMesh_antai")
 surface_material_override/0 = SubResource("ShaderMaterial_4kuob")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 14)
+transform = Transform3D(-0.961516, -0.133669, 0.24004, -0.12941, 0.991026, 0.0334936, -0.242363, 0.00114123, -0.970185, 0, 2, -4)
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_d7aby")
