@@ -14,7 +14,7 @@ void fragment() {
 	// Called for every pixel the material is visible on.
 	//TO DO: put grayscale
 	vec3 col = texture(tex,UV).rgb;
-	ALBEDO.r = grayScale(vec4(col,1.0));
+	ALBEDO.r = grayScale(vec4(col,1.0))*1.5;
 	ALBEDO.g = 1.0;
 }
 

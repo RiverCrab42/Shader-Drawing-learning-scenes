@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cggok0j23cvey"]
+
+[ext_resource type="Shader" uid="uid://beqmx4hxib2kq" path="res://wave.gdshader" id="1_er4mq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7s354"]
+render_priority = 0
+shader = ExtResource("1_er4mq")
+shader_parameter/woterspeed = PackedFloat32Array(0, 0)
+shader_parameter/xk = PackedFloat32Array(0, 0)
+shader_parameter/jxk = PackedFloat32Array(0, 0)
+shader_parameter/lkm = PackedFloat32Array(0, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ycdcp"]
+material = SubResource("ShaderMaterial_7s354")
+size = Vector2(5, 5)
+subdivide_width = 64
+subdivide_depth = 64
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ycdcp")
