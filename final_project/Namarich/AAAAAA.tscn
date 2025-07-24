@@ -33,15 +33,34 @@ code = "shader_type spatial;
 render_mode unshaded;
 
 uniform sampler2D scr_tex: hint_screen_texture;
-uniform sampler2D norm: hint_normal_roughness_texture;
-uniform sampler2D d_tex: hint_depth_texture;
+//uniform sampler2D norm: hint_normal_roughness_texture;
+//uniform sampler2D d_tex: hint_depth_texture;
 
 uniform sampler2D blue_noise : repeat_enable, filter_nearest;
 
 uniform vec3 dark_color: source_color;
 uniform vec3 bright_color: source_color;
+uniform vec3 outline_color: source_color;
+
+uniform sampler2D normal_tex: hint_normal_roughness_texture;
+uniform sampler2D depth_tex: hint_depth_texture;
+
+uniform float count_color: hint_range(1.0, 10.0, 0.1);
+uniform float tresh_hold_n : hint_range(0.0, 1.0, 0.01);
+uniform float tresh_hold_d : hint_range(0.0, 1.0, 0.01);
+uniform float coff : hint_range(0.0, 10.0, 0.01);
+
+uniform sampler2D hatch_down_left;
+uniform sampler2D hatch_down_right;
+//render_mode unshaded;
 
 //uniform int blurSize: hint_range(1, 20, 1);
+
+vec3 texel_fetch(sampler2D tex, vec2 size, vec2 coord){
+	float x = fract(coord.x/size.x) * size.x;
+	float y = fract(coord.y/size.y) * size.y;
+	return texelFetch(tex, ivec2(int(x), int(y)), 0).rgb;
+}
 
 float angle_between_vec2(vec2 a,vec2 b){
 	return atan(a.x*b.y-a.y*b.x,a.x*b.x+a.y*b.y);
@@ -51,10 +70,15 @@ float grayScale(vec4 color){
 	return dot(color.rgb,vec3(0.2126,0.7152,0.0722));
 }
 
-float linear_depth(float d,mat4 inv){
+float linear_depth2(float d,mat4 inv){
 	vec4 f = inv * vec4(0.0,0.0,d,1.0);
 	float z_lin = f.z/f.w;
 	return -z_lin;
+}
+
+vec3 linear_depth(mat4 M, vec2 SUV, vec2 shift){
+	vec4 v = M * vec4((vec2(SUV.x, SUV.y) + vec2(shift.x, shift.y))*2.0-1.0, texture(depth_tex, SUV + shift).r, 1.0);
+	return v.xyz/v.w;
 }
 
 void vertex() {
@@ -66,58 +90,133 @@ void vertex() {
 void fragment() {
 	// Called for every pixel the material is visible on.
 	
-	vec3 scr = texture(scr_tex,SCREEN_UV).rgb;
-	vec2 screen_px_size = 1.0 / VIEWPORT_SIZE;
-	mat3 gx_mat = mat3(vec3(-1.0,-2.0,-1.0),vec3(0.0,0.0,0.0),vec3(1.0,2.0,1.0));
-	mat3 gy_mat = mat3(vec3(-1.0,0.0,1.0),vec3(-2.0,0.0,2.0),vec3(-1.0,0.0,1.0));
-	
-	float gy = 0.0;
-	float gx = 0.0;
-	vec3 gy_vec = vec3(0.0);
-	vec3 gx_vec = vec3(0.0);
-	
-	vec3 nx = vec3(0.0);
-	vec3 ny = vec3(0.0);
-	int perp = 0;
-	
-	for (int i = -1; i < 2; i++){
-		for (int k = -1; k < 2; k++){
-			vec4 pix = texture(d_tex,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y));
-			gx += linear_depth(pix.x,INV_PROJECTION_MATRIX)*gx_mat[i+1][k+1];
-			gy += linear_depth(pix.x,INV_PROJECTION_MATRIX)*gy_mat[i+1][k+1];
-			
-			//gx_vec += pix.rgb * gx_mat[i+1][k+1];
-			//gy_vec += pix.rgb * gy_mat[i+1][k+1];
-			
-			//vec4 npix = texture(norm,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y));
-			//nx += pix.rgb * gx_mat[i+1][k+1];
-			//ny += pix.rgb * gy_mat[i+1][k+1];
-			
-			
-			vec4 st_pos_w = INV_VIEW_MATRIX*INV_PROJECTION_MATRIX*texture(d_tex,SCREEN_UV);
-			vec4 en_pos_w = INV_VIEW_MATRIX*INV_PROJECTION_MATRIX*pix;
-			vec4 dir = en_pos_w - st_pos_w;
-			vec3 normal_normal_normal = texture(norm,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y)).rgb;
-			//vec3 normal_normal = (NORMAL)*2.0 - 1.0;
-			//vec3 n = (INV_VIEW_MATRIX*vec4(normal_normal,0.0)).xyz;
-			
-			if (dot(dir.xyz,normal_normal_normal) <= 0.00045) perp += 1;
-			
-		}
-	}
-	
-	float res = sqrt(pow(gx,2)+pow(gy,2));
-	//float norm_res = sqrt(dot(nx,nx)+dot(ny,ny));
-	////float res = sqrt(dot(gx_vec,gx_vec)+dot(gy_vec,gy_vec));
-	//float final_res = res*norm_res;
-	
-	float threshold = 0.01;
-	float normal_threshold = 0.00055;
-	//if (res >= threshold && norm_res >= normal_threshold) ALBEDO = vec3(1.0);
+	//vec3 scr = texture(scr_tex,SCREEN_UV).rgb;
+	//vec2 screen_px_size = 1.0 / VIEWPORT_SIZE;
+	//mat3 gx_mat = mat3(vec3(-1.0,-2.0,-1.0),vec3(0.0,0.0,0.0),vec3(1.0,2.0,1.0));
+	//mat3 gy_mat = mat3(vec3(-1.0,0.0,1.0),vec3(-2.0,0.0,2.0),vec3(-1.0,0.0,1.0));
+	//
+	//float gy = 0.0;
+	//float gx = 0.0;
+	//vec3 gy_vec = vec3(0.0);
+	//vec3 gx_vec = vec3(0.0);
+	//
+	//vec3 nx = vec3(0.0);
+	//vec3 ny = vec3(0.0);
+	//int perp = 0;
+	//
+	//for (int i = -1; i < 2; i++){
+		//for (int k = -1; k < 2; k++){
+			//vec4 pix = texture(d_tex,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y));
+			//gx += linear_depth(pix.x,INV_PROJECTION_MATRIX)*gx_mat[i+1][k+1];
+			//gy += linear_depth(pix.x,INV_PROJECTION_MATRIX)*gy_mat[i+1][k+1];
+			//
+			////gx_vec += pix.rgb * gx_mat[i+1][k+1];
+			////gy_vec += pix.rgb * gy_mat[i+1][k+1];
+			//
+			////vec4 npix = texture(norm,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y));
+			////nx += pix.rgb * gx_mat[i+1][k+1];
+			////ny += pix.rgb * gy_mat[i+1][k+1];
+			//
+			//
+			//vec4 st_pos_w = INV_VIEW_MATRIX*INV_PROJECTION_MATRIX*texture(d_tex,SCREEN_UV);
+			//vec4 en_pos_w = INV_VIEW_MATRIX*INV_PROJECTION_MATRIX*pix;
+			//vec4 dir = en_pos_w - st_pos_w;
+			//vec3 normal_normal_normal = texture(norm,vec2(SCREEN_UV.x+float(i)*screen_px_size.x,SCREEN_UV.y+float(k)*screen_px_size.y)).rgb;
+			////vec3 normal_normal = (NORMAL)*2.0 - 1.0;
+			////vec3 n = (INV_VIEW_MATRIX*vec4(normal_normal,0.0)).xyz;
+			//
+			//if (dot(dir.xyz,normal_normal_normal) <= 0.00045) perp += 1;
+			//
+		//}
+	//}
+	//
+	//float res = sqrt(pow(gx,2)+pow(gy,2));
+	////float norm_res = sqrt(dot(nx,nx)+dot(ny,ny));
+	//////float res = sqrt(dot(gx_vec,gx_vec)+dot(gy_vec,gy_vec));
+	////float final_res = res*norm_res;
+	//
+	//float threshold = 0.01;
+	//float normal_threshold = 0.00055;
+	////if (res >= threshold && norm_res >= normal_threshold) ALBEDO = vec3(1.0);
+	////else ALBEDO = vec3(0.0);
+	//
+	//if (res >= threshold && perp <= 8) ALBEDO = vec3(1.0);
 	//else ALBEDO = vec3(0.0);
 	
-	if (res >= threshold && perp <= 8) ALBEDO = vec3(1.0);
-	else ALBEDO = vec3(0.0);
+	
+	
+	
+	vec2 tex_size = vec2(float(textureSize(hatch_down_left, 0).x), float(textureSize(hatch_down_left, 0).y));
+	float px_size_x = 1.0/VIEWPORT_SIZE.x;
+	float px_size_y = 1.0/VIEWPORT_SIZE.y;
+
+	//ALBEDO = vec3(1.0) * (floor(clamp(gray, 0.0, 1.0)*count_color)/count_color);
+	mat3 Gx = mat3(vec3(-1, -2, -1), vec3(0, 0, 0), vec3(1, 2, 1));
+	mat3 Gy = mat3(vec3(-1, 0, 1), vec3(-2, 0, 2), vec3(-1, 0, 1));
+	float Gxx = 0.0;
+	float Gyy = 0.0;
+	
+	for(int i=0; i<3; i++){
+		vec3 a = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(-px_size_x,  float(i-1)*px_size_y)*coff);
+		vec3 b = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(px_size_x, float(i-1)*px_size_y)*coff);
+		vec3 normal = texture(normal_tex, vec2(SCREEN_UV.x + px_size_x, SCREEN_UV.y + float(i-1)*px_size_y)).xyz *2.0 -1.0;
+		if(a.z < -1000.0){
+				Gxx +=0.0;
+				
+			}
+		else
+		Gxx += dot(a-b, normal) * Gx[0][i]/* * Gx[2][i]*/;
+		
+	}
+	for(int i=0; i<3; i++){
+		vec3 a = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(float(i-1)*px_size_x, - px_size_y)*coff);
+		vec3 b = linear_depth(INV_PROJECTION_MATRIX, SCREEN_UV, vec2(float(i-1)*px_size_x, px_size_y)*coff);
+		vec3 normal = texture(normal_tex, vec2(SCREEN_UV.x + float(i-1)*px_size_x, SCREEN_UV.y + px_size_y)).xyz * 2.0 - 1.0;
+		if(a.z < -1000.0){
+			Gyy +=0.0;
+			
+		}
+		else
+			Gyy += dot(a-b, normal) * Gy[i][0];
+	}
+	float grey_d = step(tresh_hold_d, sqrt(pow(Gxx, 2)+ pow(Gyy, 2)));
+	
+	vec3 v1 = texture(normal_tex, SCREEN_UV + vec2(-px_size_x, -px_size_y)).rgb;
+	Gxx = 0.0;
+	Gyy=0.0;
+	for(float j=-1.0; j<=1.0; j++){
+		for(float i=-1.0; i<=1.0; i++){
+			vec2 shift_pixels = vec2(px_size_x * i, px_size_y*j)*coff;
+			vec3 normal = texture(normal_tex, SCREEN_UV + shift_pixels).xyz;
+			
+			float gray_scale_n = distance(normal, v1);
+			
+			float gray_scale =  gray_scale_n;
+			Gxx += gray_scale * Gx[int(j)+1][int(i)+1];
+			Gyy += gray_scale * Gy[int(j)+1][int(i)+1];
+			
+			v1 = texture(normal_tex, SCREEN_UV + shift_pixels).rgb;
+		}
+	}
+	//ALBEDO = vec3(clamp(grey_d +step(tresh_hold_n, sqrt(pow(Gxx, 2) + pow(Gyy, 2))*1.0), 0.0, 1.0));
+	float albedo = 1.0 - clamp(grey_d +step(tresh_hold_n, sqrt(pow(Gxx, 2) + pow(Gyy, 2))*1.0), 0.0, 1.0);
+	float color_grey = dot(texture(scr_tex, SCREEN_UV).rgb, vec3(0.2126, 0.7152, 0.07));
+	if(albedo == 1.0){
+		ALBEDO = texture(scr_tex, SCREEN_UV).rgb;
+	}
+	else{
+		ALBEDO = outline_color;
+	}
+	//if(color_grey < 0.05){
+		//ALBEDO = texel_fetch(hatch_down_left, tex_size, FRAGCOORD.xy).rgb * texture(scr_tex, SCREEN_UV).rgb;
+		//if(color_grey < 0.02){
+			//ALBEDO = texel_fetch(hatch_down_left, tex_size, FRAGCOORD.xy).rgb *texel_fetch(hatch_down_right, tex_size, FRAGCOORD.xy).rgb * texture(scr_tex, SCREEN_UV).rgb;
+		//}
+	//}
+	
+	
+	
+	
 	
 	
 	
@@ -129,7 +228,7 @@ void fragment() {
 	float camera_rot_y = -angle_between_vec2(normalize(camera_forward.xz), normalize(world_forward.xz));
   
 	float fovX = radians(75.0) * 2.0;
-	float dither_offset_x = VIEWPORT_SIZE.x * camera_rot_y / fovX * 15.0;
+	float dither_offset_x = VIEWPORT_SIZE.x * camera_rot_y / fovX * 13.0;
 	
 	
 	vec3 cam3 = (INV_VIEW_MATRIX*vec4(0.0,0.0,-1.0,0.0)).xyz;
@@ -147,7 +246,7 @@ void fragment() {
 	vec3 outline = ALBEDO;
 	//vec3 src = ALBEDO;
 	mat4 bayer_mat = mat4(vec4(0.0,12.0,3.0,15.0),vec4(8.0,4.0,11.0,7.0),
-		vec4(2.0,14.0,1.0,13.0),vec4(10.0,6.0,9.0,5.0))/12.0;
+		vec4(2.0,14.0,1.0,13.0),vec4(10.0,6.0,9.0,5.0))/11.0;
 	
 	
 	//vec4 p = texture(scr_tex,SCREEN_UV);
@@ -162,21 +261,20 @@ void fragment() {
 	int y = int(SCREEN_UV.y*VIEWPORT_SIZE.y)%4;
 	
 	
-	//if (lum2 >= blue_n.b - 0.0002) ALBEDO = vec3(1.0);
-	//else ALBEDO = vec3(0.0);
+
 	
-	if (length(outline-vec3(1.0))<=0.01){
-		ALBEDO = vec3(1.0);
+	if (length(outline-outline_color)<=0.01){
+		ALBEDO = outline_color;
 	}
 	else{
-		if (src.g <= 0.01){
+		if (src.g <= 0.042){
 		float lum = pow(grayScale(vec4(src.rrr,0.0)),(1.0 / 1.3));
 		if (lum >= bayer_mat[x][y]+0.053) ALBEDO = bright_color;
 		else ALBEDO = dark_color;
 	}
 	else if (src.g >= 0.01){
-		float lum2 = grayScale(vec4(src.rrr,0.0));
-		if (lum2 >= blue_n.b - 0.0002) ALBEDO = bright_color;
+		float lum2 = grayScale(vec4(src.rrr,0.0))/1.05;
+		if (lum2 >= blue_n.b) ALBEDO = bright_color;
 		else ALBEDO = dark_color;
 	}
 	else{
@@ -209,6 +307,11 @@ shader = SubResource("Shader_2kgaf")
 shader_parameter/blue_noise = ExtResource("19_2kgaf")
 shader_parameter/dark_color = Color(0.2, 0.2, 0.0980392, 1)
 shader_parameter/bright_color = Color(0.7124, 0.871108, 0.829764, 1)
+shader_parameter/outline_color = Color(0.594103, 0.789692, 0.742562, 1)
+shader_parameter/count_color = 10.0
+shader_parameter/tresh_hold_n = 1.0
+shader_parameter/tresh_hold_d = 0.8
+shader_parameter/coff = 0.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_is2f8"]
 shader = ExtResource("22_is2f8")
@@ -216,10 +319,14 @@ shader_parameter/cube_map = ExtResource("23_ug3o8")
 
 [sub_resource type="Sky" id="Sky_4pgc7"]
 sky_material = SubResource("ShaderMaterial_is2f8")
+radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_nyq75"]
 background_mode = 2
 sky = SubResource("Sky_4pgc7")
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+reflected_light_source = 1
 
 [node name="Aaaaaa" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
