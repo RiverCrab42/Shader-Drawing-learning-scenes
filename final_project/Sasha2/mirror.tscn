@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1rnw8hnq57u"]
+
+[ext_resource type="PackedScene" uid="uid://rtnr6akpcmvw" path="res://assets/fbx/wall.fbx" id="1_vadni"]
+[ext_resource type="Shader" uid="uid://b81lk85aksuf" path="res://Sasha2/mirror.gdshader" id="2_gt3gy"]
+[ext_resource type="Script" uid="uid://cefnk2d8q841" path="res://Sasha2/camera_3d.gd" id="3_gt3gy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ek47"]
+render_priority = 0
+shader = ExtResource("2_gt3gy")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eno26"]
+size = Vector3(4, 4, 1)
+
+[node name="wall" instance=ExtResource("1_vadni")]
+
+[node name="wall" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_6ek47")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_eno26")
+
+[node name="Camera3D" type="Camera3D" parent="." index="2"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 2, 0)
+script = ExtResource("3_gt3gy")

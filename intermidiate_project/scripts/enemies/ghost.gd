@@ -5,6 +5,8 @@ extends Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var area_2d: Area2D = $Area2D
 
+
+
 @export var health : int = 1
 
 var curr_time = 0.0
