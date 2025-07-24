@@ -1,6 +1,6 @@
 shader_type spatial;
 
-uniform float persistance = 0.25;
+uniform float persistance = 0.5;
 uniform float number_of_octaves = 10.;
 
 uniform sampler2D stone;
@@ -47,13 +47,14 @@ float _rand_function_interpolation(vec2 args) {
 	vec2 vertex3 = vertex1 + vec2(1., 0.);
 	vec2 vertex4 = vertex1 + vec2(1.);
 
-	#define vertex_value(index) (dot(_rand_vec_function(ivec2(vertex##index)), args - vertex##index))
+#define vertex_value(index) (dot(_rand_vec_function(ivec2(vertex##index)), args - vertex##index))
 	//#define vertex_value(index) _rand_function1(ivec2(vertex##index))
-
 
 	float h1_interpolation = mixer(vertex_value(1), vertex_value(2), local_pos.y);
 	float h2_interpolation = mixer(vertex_value(3), vertex_value(4), local_pos.y);
 	float interpolation = mixer(h1_interpolation, h2_interpolation, local_pos.x);
+	
+#undef vertex_value
 
 	return interpolation;
 }
@@ -105,10 +106,11 @@ vec3 normal_of_landscape(float height, vec3 normal) {
 vec3 colorize_landscape(float height, vec2 uv, vec3 normal) {
 	vec3 result_color;
 	
-	if (height < levels[0]) {
-		normal = vec3(0., 1., 0.);
-		result_color = texture(water, uv).xyz;
-	} else if (height < levels[1])
+	//if (height < levels[0]) {
+		//normal = vec3(0., 1., 0.);
+		//result_color = texture(water, uv).xyz;
+	//} else 
+	if (height < levels[1])
 		result_color = texture(sand, uv).xyz;
 	else if (height < levels[2])
 		result_color = mix_texture(sand, grass, smoothstep(levels[1], levels[2], height), uv);
