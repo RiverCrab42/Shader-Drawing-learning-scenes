@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7ojlf3sjjaqe"]
+
+[ext_resource type="Shader" uid="uid://d34bmrme7vhwm" path="res://VDVVAH/noise_terrain/SSR.gdshader" id="1_pht70"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_882ca"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygxlw"]
+render_priority = 0
+shader = ExtResource("1_pht70")
+shader_parameter/steps = 100
+shader_parameter/max_dist = 2.0
+shader_parameter/detect_threshold = 0.05
+shader_parameter/binary_search_steps = 8
+
+[sub_resource type="BoxMesh" id="BoxMesh_ix6m2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xer1y"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ReflectSurface" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_882ca")
+surface_material_override/0 = SubResource("ShaderMaterial_ygxlw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+mesh = SubResource("BoxMesh_ix6m2")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+mesh = SubResource("SphereMesh_xer1y")
