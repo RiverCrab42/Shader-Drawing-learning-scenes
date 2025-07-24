@@ -1,0 +1,384 @@
+[gd_scene load_steps=26 format=3 uid="uid://dhjs0ymqufd3o"]
+
+[ext_resource type="PackedScene" uid="uid://fke7jcl3n3ll" path="res://scenes/assets/terrain/brick.tscn" id="1_8b0r0"]
+[ext_resource type="PackedScene" uid="uid://dvtal725ysdfp" path="res://scenes/assets/terrain/bronze_1x1.tscn" id="2_h6smj"]
+[ext_resource type="PackedScene" uid="uid://do1aqnosnk0bn" path="res://scenes/assets/terrain/dirt.tscn" id="3_v5j5c"]
+[ext_resource type="PackedScene" uid="uid://dqnumwaaqthk6" path="res://scenes/assets/terrain/dirt_pink.tscn" id="4_5pxul"]
+[ext_resource type="PackedScene" uid="uid://cawbcvdmygljt" path="res://scenes/assets/terrain/grass.tscn" id="5_fedht"]
+[ext_resource type="PackedScene" uid="uid://cyq15ekx6ubkj" path="res://scenes/assets/terrain/gold_1x1.tscn" id="6_4c15r"]
+[ext_resource type="PackedScene" uid="uid://boks5pb7aljo5" path="res://scenes/assets/terrain/stone.tscn" id="7_ait7k"]
+[ext_resource type="PackedScene" uid="uid://cx1v4toch0xb0" path="res://scenes/assets/terrain/wood.tscn" id="8_42xju"]
+[ext_resource type="PackedScene" uid="uid://dyb258yrboxam" path="res://Sasha/scenes/enemies/ghost.tscn" id="10_ilwjd"]
+[ext_resource type="Texture2D" uid="uid://dyvyvy7qkome4" path="res://assets/sprite_pack/Terrain/Terrain (16x16).png" id="11_y3bce"]
+[ext_resource type="PackedScene" uid="uid://dfdumbiw2e5jb" path="res://Sasha/spawn.tscn" id="12_u3yai"]
+[ext_resource type="PackedScene" uid="uid://bihrtr6avjvul" path="res://Sasha/slime.tscn" id="13_fj6e6"]
+[ext_resource type="Shader" uid="uid://2chhnnkn0qnp" path="res://2level.gdshader" id="14_v5j5c"]
+[ext_resource type="Shader" uid="uid://p0pgkbrixcyi" path="res://42level.gdshader" id="15_5pxul"]
+[ext_resource type="Shader" uid="uid://cgr1gk1jneb3i" path="res://3level.gdshader" id="16_5pxul"]
+[ext_resource type="PackedScene" uid="uid://ceqxkglgsh06u" path="res://Sasha/shaders/character_body_2d.tscn" id="17_4c15r"]
+[ext_resource type="PackedScene" uid="uid://dyw23ts823xyf" path="res://Sasha/rad_slime.tscn" id="17_ait7k"]
+[ext_resource type="Shader" uid="uid://c6x4q852iel0c" path="res://6789level.gdshader" id="17_fedht"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2h3vt"]
+texture = ExtResource("11_y3bce")
+3:8/0 = 0
+3:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_yjxuc"]
+sources/0 = SubResource("TileSetAtlasSource_2h3vt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v5j5c"]
+shader = ExtResource("14_v5j5c")
+
+[sub_resource type="PackedScene" id="PackedScene_8b0r0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fedht"]
+shader = ExtResource("15_5pxul")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4c15r"]
+shader = ExtResource("16_5pxul")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ait7k"]
+shader = ExtResource("17_fedht")
+shader_parameter/player_pos = Vector2(561, 522)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Brick" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(837, 607)
+
+[node name="Bronze 1x1" parent="." instance=ExtResource("2_h6smj")]
+position = Vector2(870, 588)
+
+[node name="Brick2" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(790, 607)
+
+[node name="Brick3" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(710, 608)
+
+[node name="Brick4" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(661, 608)
+
+[node name="Dirt" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(611, 607)
+
+[node name="Dirt2" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(563, 608)
+
+[node name="Dirt Pink" parent="." instance=ExtResource("4_5pxul")]
+position = Vector2(516, 608)
+
+[node name="Brick5" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(467, 596)
+
+[node name="Brick6" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(419, 583)
+
+[node name="Grass" parent="." instance=ExtResource("5_fedht")]
+position = Vector2(369, 579)
+
+[node name="Dirt3" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(372, 617)
+
+[node name="Dirt4" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(324, 583)
+
+[node name="Dirt5" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(277, 561)
+
+[node name="Dirt6" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(227, 530)
+
+[node name="Dirt7" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(138, 478)
+
+[node name="Dirt8" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(188, 619)
+
+[node name="Dirt9" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(238, 619)
+
+[node name="Gold 1x1" parent="." instance=ExtResource("6_4c15r")]
+position = Vector2(254, 591)
+
+[node name="Dirt10" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(143, 619)
+
+[node name="Dirt11" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(95, 615)
+
+[node name="Dirt12" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(51, 584)
+
+[node name="Dirt13" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(559, 564)
+
+[node name="Dirt14" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(88, 459)
+
+[node name="Dirt15" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(39, 436)
+
+[node name="Bronze 1x2" parent="." instance=ExtResource("2_h6smj")]
+position = Vector2(6, 415)
+
+[node name="Brick7" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(904, 604)
+
+[node name="Dirt16" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(952, 604)
+
+[node name="Dirt17" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(1000, 601)
+
+[node name="Dirt18" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(1045, 588)
+
+[node name="Dirt19" parent="." instance=ExtResource("3_v5j5c")]
+position = Vector2(1090, 562)
+
+[node name="Stone" parent="." instance=ExtResource("7_ait7k")]
+position = Vector2(522, 432)
+
+[node name="Wood" parent="." instance=ExtResource("8_42xju")]
+position = Vector2(479, 458)
+
+[node name="Brick8" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(109, 352)
+
+[node name="Brick9" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(159, 352)
+
+[node name="Brick10" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(208, 336)
+
+[node name="Brick11" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(258, 319)
+
+[node name="Brick12" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(155, 203)
+
+[node name="Brick13" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(200, 193)
+
+[node name="Brick14" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(309, 318)
+
+[node name="Brick15" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(572, 431)
+
+[node name="Brick16" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(358, 318)
+
+[node name="Brick17" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1009, 459)
+
+[node name="Brick18" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(960, 440)
+
+[node name="Brick19" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(911, 408)
+
+[node name="Brick20" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(862, 371)
+
+[node name="Brick21" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(707, 356)
+
+[node name="Brick22" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(754, 345)
+
+[node name="Brick23" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(411, 315)
+
+[node name="Brick24" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(542, 266)
+
+[node name="Brick25" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(591, 266)
+
+[node name="Brick26" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(697, 195)
+
+[node name="Brick27" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(746, 195)
+
+[node name="Brick28" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(556, 93)
+
+[node name="Brick29" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(511, 93)
+
+[node name="Brick30" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(325, 133)
+
+[node name="Brick31" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(374, 108)
+
+[node name="Brick32" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1021, 299)
+
+[node name="Brick33" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1073, 296)
+
+[node name="Brick34" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(927, 193)
+
+[node name="Brick35" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(876, 190)
+
+[node name="Brick36" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1076, 108)
+
+[node name="Brick37" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(24, 48)
+
+[node name="Brick38" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(76, 27)
+
+[node name="Brick39" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(811, 27)
+
+[node name="Ghost Idle" parent="." instance=ExtResource("10_ilwjd")]
+position = Vector2(161, 328)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_yjxuc")
+
+[node name="Spawn" parent="." instance=ExtResource("12_u3yai")]
+position = Vector2(177, 158)
+enemy_type = "slime"
+spawn_time = 2.0
+
+[node name="Slime" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(117, 327)
+speed_scale = 4567.0
+health = 3
+
+[node name="Slime2" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(337, 289)
+scale = Vector2(3.46292, 0.410333)
+speed_scale = 42.0
+SPEED = 52.0
+health = 7
+
+[node name="Spawn2" parent="." instance=ExtResource("12_u3yai")]
+material = SubResource("ShaderMaterial_v5j5c")
+position = Vector2(862, 344)
+SLIME = SubResource("PackedScene_8b0r0")
+enemy_type = "ghost"
+spawn_time = 3.0
+
+[node name="Slime3" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(564, 238)
+scale = Vector2(2.27273, 2.56667)
+health = 6
+
+[node name="Ghost Idle2" parent="." instance=ExtResource("10_ilwjd")]
+position = Vector2(939, 162)
+speed_scale = 42.0
+
+[node name="Slime4" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(723, 172)
+
+[node name="Ghost Idle3" parent="." instance=ExtResource("10_ilwjd")]
+position = Vector2(1003, 251)
+speed_scale = 42.0
+SPEED = -42.0
+health = 2
+player_enable_time = 42.0
+
+[node name="Slime5" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(912, 578)
+
+[node name="Slime6" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(160, 594)
+
+[node name="Ghost Idle4" parent="." instance=ExtResource("10_ilwjd")]
+position = Vector2(586, 61)
+SPEED = -567890.0
+health = 2
+
+[node name="Slime7" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(955, 412)
+
+[node name="Slime8" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(1070, 87)
+
+[node name="Slime9" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(26, 26)
+health = 42
+
+[node name="Ghost Idle5" parent="." instance=ExtResource("10_ilwjd")]
+material = SubResource("ShaderMaterial_fedht")
+position = Vector2(855, 92)
+speed_scale = 52.0
+SPEED = 50.0
+health = 4242
+
+[node name="Spawn3" parent="." instance=ExtResource("12_u3yai")]
+material = SubResource("ShaderMaterial_4c15r")
+position = Vector2(543, 389)
+enemy_type = "slime"
+spawn_time = 5.0
+
+[node name="Slime10" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(755, 486)
+scale = Vector2(-4.16944, -0.956542)
+
+[node name="Brick40" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(697, 458)
+
+[node name="Brick41" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(749, 459)
+
+[node name="Brick42" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(801, 459)
+
+[node name="Slime11" parent="." instance=ExtResource("13_fj6e6")]
+position = Vector2(496, -8.00001)
+scale = Vector2(21.0256, 16.4)
+SPEED = 0.42
+health = 42
+
+[node name="Brick43" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1871, 510)
+
+[node name="Brick44" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1648, 572)
+
+[node name="Brick45" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1874, 458)
+
+[node name="Brick46" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1840, 349)
+
+[node name="Brick47" parent="." instance=ExtResource("1_8b0r0")]
+position = Vector2(1858, 276)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Brick47"]
+
+[node name="ColorRect" type="ColorRect" parent="Brick47/CanvasLayer"]
+material = SubResource("ShaderMaterial_ait7k")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slime" parent="Brick47/CanvasLayer" instance=ExtResource("17_ait7k")]
+position = Vector2(138, 450)
+
+[node name="Slime2" parent="Brick47/CanvasLayer" instance=ExtResource("17_ait7k")]
+position = Vector2(878, 164)
+
+[node name="CharacterBody2D2" parent="." instance=ExtResource("17_4c15r")]
+position = Vector2(560, 523)
+max_fall_speed = 7.38902e+07
+
+[node name="Slime12" parent="." instance=ExtResource("17_ait7k")]
+position = Vector2(750, 430)
+
+[node name="Slime13" parent="." instance=ExtResource("17_ait7k")]
+position = Vector2(1463, 551)
+scale = Vector2(20.7955, 17.0333)
