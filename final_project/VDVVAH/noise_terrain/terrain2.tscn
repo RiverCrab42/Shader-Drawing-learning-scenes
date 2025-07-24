@@ -28,7 +28,7 @@ shader_parameter/sand = ExtResource("3_ti6br")
 size = Vector2(10, 10)
 subdivide_width = 200
 subdivide_depth = 200
-center_offset = Vector3(0, -0.19, 0)
+center_offset = Vector3(0, -0.2, 0)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ti6br"]
 frequency = 0.0089

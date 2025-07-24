@@ -125,6 +125,7 @@ void fragment() {
 		ALBEDO = mix(texture(water, UV).xyz, texture(scr_tex, uv).xyz, smoothstep(0., 1., length(uv)));
 	else
 		ALBEDO = texture(water, UV).xyz;
+	ALPHA = 0.8;
 }
 
 //void light() {
