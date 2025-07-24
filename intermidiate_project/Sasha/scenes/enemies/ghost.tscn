@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bsbolawshhekw" path="res://assets/sprite_pack/Enemies/Ghost/Idle (44x30).png" id="1_qr43c"]
 [ext_resource type="Shader" uid="uid://ciruu16jswbp5" path="res://Sasha/shaders/ghost.gdshader" id="1_u2dff"]
-[ext_resource type="Script" path="res://scripts/enemies/ghost.gd" id="2_u2dff"]
+[ext_resource type="Script" uid="uid://t4nnjhbo2uem" path="res://scripts/enemies/ghost.gd" id="2_u2dff"]
 [ext_resource type="Script" uid="uid://cvm7r68x6hey4" path="res://scripts/enemies/damage_and_hit_zone.gd" id="3_pug3q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pug3q"]
