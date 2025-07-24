@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode shadow_to_opacity;
 
 uniform sampler2D tex: source_color;
 
@@ -12,13 +13,13 @@ void vertex() {
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	//TO DO: read from texture
 	vec3 col = texture(tex,UV).rgb;
 	ALBEDO.r = grayScale(vec4(col,1.0));
 	ALBEDO.g = 0.0;
+	ALBEDO.b = 1.0;
 }
 
-//void light() {
-//	// Called for every pixel for every light affecting the material.
-//	// Uncomment to replace the default light processing function with this one.
-//}
+// + 0.25 надо чтобы было по-красивше
+void light(){
+	DIFFUSE_LIGHT += ALBEDO * LIGHT_COLOR * ATTENUATION * clamp(dot(LIGHT,NORMAL)+0.25,0.0,1.0);
+}
