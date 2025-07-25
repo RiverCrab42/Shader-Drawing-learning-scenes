@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dx4wq3635g7c4"]
+[gd_scene load_steps=46 format=3 uid="uid://dx4wq3635g7c4"]
 
 [ext_resource type="PackedScene" uid="uid://cet0ahagu3cnk" path="res://scenes/assets/walls/wall_corner_small.tscn" id="1_iay18"]
 [ext_resource type="PackedScene" uid="uid://6k4syrvb2v3a" path="res://scenes/assets/walls/wall.tscn" id="2_nh1ti"]
@@ -25,7 +25,6 @@
 [ext_resource type="PackedScene" uid="uid://gwdsosqtypm0" path="res://scenes/assets/extras/chair.tscn" id="23_hcywh"]
 [ext_resource type="PackedScene" uid="uid://bu0lqt11c2ydw" path="res://scenes/assets/extras/chest.tscn" id="24_8poxf"]
 [ext_resource type="PackedScene" uid="uid://bu2oxh51r7hl4" path="res://scenes/assets/extras/keg.tscn" id="25_138re"]
-[ext_resource type="PackedScene" uid="uid://bqwvjivri6a8m" path="res://scenes/assets/barriers/barrier_half.tscn" id="26_4qxce"]
 [ext_resource type="PackedScene" uid="uid://f6p4ajl36p66" path="res://scenes/assets/barriers/barrier_column.tscn" id="27_e8ls7"]
 [ext_resource type="PackedScene" uid="uid://rgak3tlos0ot" path="res://scenes/assets/extras/banner_blue.tscn" id="28_t35jo"]
 [ext_resource type="PackedScene" uid="uid://cpf2f2ufcp4ic" path="res://scenes/assets/floors/floor_tile_big_grate_open.tscn" id="29_4qxce"]
@@ -35,6 +34,8 @@
 [ext_resource type="Shader" uid="uid://h1lak08e5t4q" path="res://VLADIMIR/depth.gdshader" id="31_vxnvt"]
 [ext_resource type="PackedScene" uid="uid://q7y4urvroqev" path="res://scenes/assets/ceiling/ceiling_tile.tscn" id="32_vxnvt"]
 [ext_resource type="PackedScene" uid="uid://bp8us8trdoxn8" path="res://scenes/assets/lights/torch.tscn" id="33_e8ls7"]
+[ext_resource type="PackedScene" uid="uid://chvws3fycvpx0" path="res://scenes/assets/extras/box_large.tscn" id="36_61owv"]
+[ext_resource type="PackedScene" uid="uid://bmdtkg2k133ge" path="res://VLADIMIR/big_table.tscn" id="36_lexaa"]
 
 [sub_resource type="GDScript" id="GDScript_vxnvt"]
 script/source = "extends Node3D
@@ -181,7 +182,7 @@ shader = ExtResource("21_ygrws")
 
 [node name="Level" type="Node3D"]
 script = SubResource("GDScript_vxnvt")
-metadata/opti = false
+metadata/opti = true
 
 [node name="Node3D" type="Node3D" parent="."]
 
@@ -638,9 +639,6 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -32, 8
 [node name="floor_tile_large68" parent="Node3D" instance=ExtResource("15_138re")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -28, 8, 0)
 
-[node name="floor_tile_large69" parent="Node3D" instance=ExtResource("15_138re")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -24, 8, 0)
-
 [node name="floor_tile_large70" parent="Node3D" instance=ExtResource("15_138re")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -20, 8, 0)
 
@@ -974,9 +972,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 6)
 [node name="keg" parent="Node3D" instance=ExtResource("25_138re")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 3)
 
-[node name="barrier_half" parent="Node3D" instance=ExtResource("26_4qxce")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 5)
-
 [node name="barrier_column" parent="Node3D" instance=ExtResource("27_e8ls7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 4, 12)
 
@@ -1150,10 +1145,10 @@ cull_mask = 1048574
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.965926, 0.224144, -0.129409, 0.0669873, 0.699469, 0.711516, 0.25, 0.678603, -0.69065, -7, 6, 0)
-visible = false
 light_energy = 3.34
 
 [node name="second_passBad" type="MeshInstance3D" parent="."]
+visible = false
 layers = 2
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_iay18")
@@ -1161,6 +1156,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_xon3t")
 
 [node name="second_passGood" type="MeshInstance3D" parent="."]
+visible = false
 layers = 2
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_iay18")
@@ -1193,6 +1189,7 @@ camera_3d = NodePath("../../../CharacterBody3D/Camera3D")
 
 [node name="first_pass" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_msrxf")
 skeleton = NodePath("../../../..")
@@ -1206,6 +1203,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2, 1)
 
 [node name="torch2" parent="." instance=ExtResource("33_e8ls7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 2, -3)
+
+[node name="box_large" parent="." instance=ExtResource("36_61owv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, 8)
+
+[node name="bed_frame" parent="." instance=ExtResource("22_7kin4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 9)
+
+[node name="BigTable" parent="." instance=ExtResource("36_lexaa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -3)
 
 [editable path="CharacterBody3D"]
 [editable path="wall_corner_small"]

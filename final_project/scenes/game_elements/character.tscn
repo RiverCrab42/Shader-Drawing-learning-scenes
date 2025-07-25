@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ba5celflb58ax"]
 
-[ext_resource type="Script" uid="uid://b41hjh6d7r12h" path="res://scripts/game_elements/character_body_3d.gd" id="1_rkhd4"]
-[ext_resource type="Script" uid="uid://ckov5pb3dh4tv" path="res://scripts/game_elements/camera_3d.gd" id="2_lrhn5"]
+[ext_resource type="Script" uid="uid://b1rqjbvg2idhv" path="res://scripts/game_elements/character_body_3d.gd" id="1_rkhd4"]
+[ext_resource type="Script" uid="uid://cjry41aoqcsvk" path="res://scripts/game_elements/camera_3d.gd" id="2_lrhn5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t1x3v"]
 
@@ -18,6 +18,7 @@ shape = SubResource("CapsuleShape3D_t1x3v")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490497, 0)
+cull_mask = 1048573
 script = ExtResource("2_lrhn5")
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
