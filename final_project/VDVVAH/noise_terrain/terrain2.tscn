@@ -18,6 +18,8 @@ render_priority = 0
 shader = ExtResource("1_xgjgh")
 shader_parameter/persistance = 0.5
 shader_parameter/number_of_octaves = 10.0
+shader_parameter/frequency = 0.25
+shader_parameter/amplitude = 2.0
 shader_parameter/stone = ExtResource("5_nibi2")
 shader_parameter/grass = ExtResource("2_oonx1")
 shader_parameter/water = ExtResource("6_by6q8")
@@ -31,12 +33,16 @@ subdivide_depth = 200
 center_offset = Vector3(0, -0.2, 0)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ti6br"]
+noise_type = 3
 frequency = 0.0089
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ti6br"]
+width = 100
+height = 100
 seamless = true
+seamless_blend_skirt = 0.159
 as_normal_map = true
-bump_strength = 11.8
+bump_strength = 4.3
 noise = SubResource("FastNoiseLite_ti6br")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nibi2"]
@@ -48,6 +54,7 @@ shader_parameter/steps = 100
 shader_parameter/max_dist = 1.5
 shader_parameter/detect_threshold = 0.09
 shader_parameter/binary_search_steps = 24
+shader_parameter/opacity = 0.0
 
 [node name="Node3D" type="Node3D"]
 

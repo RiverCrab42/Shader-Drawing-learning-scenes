@@ -18,6 +18,11 @@ config/icon="res://icon.svg"
 
 SelectableManager="*res://scripts/game_elements/interactbles/selectable_manager.gd"
 AcerolaShaderCompiler="*res://compositor/scripts/acerola_shader_compiler.gd"
+GlobalSignal="*res://scripts/utility/global_signal.gd"
+
+[display]
+
+window/vsync/vsync_mode=0
 
 [input]
 
