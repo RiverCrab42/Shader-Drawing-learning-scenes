@@ -1,0 +1,114 @@
+[gd_scene load_steps=16 format=3 uid="uid://dieoblp3mb7cq"]
+
+[ext_resource type="PackedScene" uid="uid://drlj3ui1x3ddj" path="res://scenes/assets/floors/floor_tile_extralarge_grates_open.tscn" id="8_u8lti"]
+[ext_resource type="PackedScene" uid="uid://djjtj000gtgm7" path="res://scenes/assets/extras/pillar.tscn" id="13_fq14x"]
+[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="28_faul3"]
+[ext_resource type="Shader" uid="uid://k05ohi81fqn7" path="res://VLADIMIR/Pixel.gdshader" id="29_v18h5"]
+[ext_resource type="Texture2D" uid="uid://jiv478jksmgj" path="res://VLADIMIR/ASKITEST.png" id="30_i1y4t"]
+[ext_resource type="Texture2D" uid="uid://kepir5iu20cw" path="res://VLADIMIR/ASCII.png" id="31_xbq1x"]
+[ext_resource type="Shader" uid="uid://h1lak08e5t4q" path="res://VLADIMIR/depth.gdshader" id="32_1hh0x"]
+[ext_resource type="Script" uid="uid://uric68iiq4df" path="res://scripts/utility/camera_follower.gd" id="33_61xrl"]
+[ext_resource type="Shader" uid="uid://bgk02qird8lma" path="res://VLADIMIR/shader/AngleDetect.gdshader" id="34_567sw"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_iay18"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7kin4"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xon3t"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("29_v18h5")
+shader_parameter/first_pass = SubResource("ViewportTexture_7kin4")
+shader_parameter/ASK = ExtResource("30_i1y4t")
+shader_parameter/Slash = ExtResource("31_xbq1x")
+shader_parameter/MinAgnleCount = 2
+shader_parameter/StepOutline = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lexaa"]
+render_priority = 0
+shader = ExtResource("32_1hh0x")
+
+[sub_resource type="QuadMesh" id="QuadMesh_msrxf"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ib7u8"]
+render_priority = 0
+shader = ExtResource("34_567sw")
+
+[node name="Level" type="Node3D"]
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("28_faul3")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -26, 1, 0)
+
+[node name="Camera3D" parent="CharacterBody3D" index="1"]
+cull_mask = 1048574
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.965926, 0.224144, -0.129409, 0.0669873, 0.699469, 0.711516, 0.25, 0.678603, -0.69065, -7, 6, 0)
+visible = false
+light_energy = 3.34
+
+[node name="second_pass" type="MeshInstance3D" parent="."]
+layers = 2
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_iay18")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_xon3t")
+
+[node name="Depth" type="MeshInstance3D" parent="."]
+visible = false
+layers = 2
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_iay18")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_lexaa")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_left = 1609.0
+offset_right = 1649.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1600, 900)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("camera_3d")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -26, 1.4905, 0)
+cull_mask = 1047553
+script = ExtResource("33_61xrl")
+camera_3d = NodePath("../../../CharacterBody3D/Camera3D")
+
+[node name="first_pass" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_msrxf")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ib7u8")
+
+[node name="floor_tile_extralarge_grates_open" parent="." instance=ExtResource("8_u8lti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, 0)
+
+[node name="pillar" parent="." instance=ExtResource("13_fq14x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, 3)
+
+[node name="pillar2" parent="." instance=ExtResource("13_fq14x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 3)
+
+[node name="pillar3" parent="." instance=ExtResource("13_fq14x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -3)
+
+[node name="pillar4" parent="." instance=ExtResource("13_fq14x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, -3)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 3, 0)
+visible = false
+light_color = Color(0, 1, 1, 1)
+light_energy = 8.343
+
+[editable path="CharacterBody3D"]

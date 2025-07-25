@@ -8,9 +8,13 @@ void vertex() {
 	//f
 	VERTEX.y = cos(VERTEX.x*lkm[0] + VERTEX.z * xk[0] + TIME * woterspeed[0]) * jxk[0];
 	VERTEX.y += sin(VERTEX.x*lkm[1] + VERTEX.z * xk[1] + TIME * woterspeed[1]) * jxk[1];
+	float volna10 = lkm[0] * jxk[0] * sin( VERTEX.x * lkm[0] + VERTEX.z + xk[0] + TIME * woterspeed[0]);
+	float volna11 = lkm[1] * jxk[1] * cos(VERTEX.x * lkm[1] + VERTEX.z * xk[1] + TIME * woterspeed[1]);
+	float volna20 = xk[0] * jxk[0] * sin(VERTEX.x * lkm[0] + VERTEX.z * xk[0] + TIME * woterspeed[0]);
+	float volna21 = xk[1] * jxk[1] * cos(VERTEX.x * lkm[1] + VERTEX.z * xk[1] + TIME * woterspeed[1]);
 	//VERTEX.y = cos(VERTEX.x * woterspeed + TIME * xk) + cos(VERTEX.z * woterspeed + TIME * xk);
-	NORMAL = normalize(vec3(lkm[0] * jxk[0] * sin( VERTEX.x * lkm[0] + VERTEX.z + xk[0] + TIME * woterspeed[0]) - lkm[1] * jxk[1] * cos(VERTEX.x * lkm[1] + VERTEX.z * xk[1] + TIME * woterspeed[1]), 1.0 , xk[0] * jxk[0] * sin(VERTEX.x * lkm[0] + VERTEX.z * xk[0] + TIME * woterspeed[0]) - xk[1] * jxk[1] * cos(VERTEX.x * lkm[1] + VERTEX.z * xk[1] + TIME * woterspeed[1])));
-	//jxk * xk * sin(woterspeed * TIME + xk * VERTEX.z + VERTEX.x) 
+	NORMAL = normalize(vec3(volna10 - volna11, 1.0 , volna20 - volna21));
+	//jxk * xk * sin(woterspeed * TIME + xk * VERTEX.z + VERTEX.x)
 	// Called for every vertex the material is visible on.
 }
 

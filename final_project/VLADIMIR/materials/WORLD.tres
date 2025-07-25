@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://wyhgdd6vs43f"]
+
+[ext_resource type="Shader" uid="uid://cv7use8ceq7iq" path="res://VLADIMIR/shader/edge_detection.gdshader" id="1_pb2an"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_pb2an")
+shader_parameter/PixelDep = 36.285
