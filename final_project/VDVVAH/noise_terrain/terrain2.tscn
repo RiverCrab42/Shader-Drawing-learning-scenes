@@ -19,7 +19,7 @@ shader = ExtResource("1_xgjgh")
 shader_parameter/persistance = 0.5
 shader_parameter/number_of_octaves = 10.0
 shader_parameter/frequency = 0.2
-shader_parameter/amplitude = 4.0
+shader_parameter/amplitude = 5.0
 shader_parameter/stone = ExtResource("5_d7aby")
 shader_parameter/grass = ExtResource("2_ti6br")
 shader_parameter/water = ExtResource("6_by6q8")
@@ -58,6 +58,7 @@ shader_parameter/opacity = 0.9
 [node name="Node3D" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0432496, 0.016795, -0.00121427)
 mesh = SubResource("PlaneMesh_antai")
 surface_material_override/0 = SubResource("ShaderMaterial_4kuob")
 
