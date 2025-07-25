@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cuctrxuw83jed"]
+[gd_scene load_steps=13 format=3 uid="uid://cuctrxuw83jed"]
 
 [ext_resource type="PackedScene" uid="uid://6k4syrvb2v3a" path="res://scenes/assets/walls/wall.tscn" id="1_xifrx"]
 [ext_resource type="PackedScene" uid="uid://cet0ahagu3cnk" path="res://scenes/assets/walls/wall_corner_small.tscn" id="2_sinpu"]
@@ -6,11 +6,36 @@
 [ext_resource type="PackedScene" uid="uid://bbvi62e5upn7q" path="res://scenes/assets/floors/floor_tile_extralarge_grates.tscn" id="4_1871a"]
 [ext_resource type="PackedScene" uid="uid://dxt8eiwd4kuk5" path="res://scenes/assets/floors/floor_tile_large.tscn" id="5_tdevx"]
 [ext_resource type="PackedScene" uid="uid://bq0dcihhlbc05" path="res://scenes/assets/key/key.tscn" id="6_tdevx"]
+[ext_resource type="Shader" uid="uid://dd178jujpqief" path="res://Kostya/shaders/effect.gdshader" id="7_cwueg"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tdevx"]
 size = Vector2(40, 40)
 
+[sub_resource type="QuadMesh" id="QuadMesh_cwueg"]
+lightmap_size_hint = Vector2i(7, 7)
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lqpe0"]
+noise_type = 0
+frequency = 0.0162
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k6fon"]
+seamless = true
+noise = SubResource("FastNoiseLite_lqpe0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6fon"]
+render_priority = 0
+shader = ExtResource("7_cwueg")
+shader_parameter/silaha = 0.05
+shader_parameter/dirs = 0.08
+shader_parameter/centr = Vector2(0.5, 0.5)
+shader_parameter/r1 = Vector2(0.1, 0.1)
+shader_parameter/noise = SubResource("NoiseTexture2D_k6fon")
+
 [node name="Labirint" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="wall2" parent="." instance=ExtResource("1_xifrx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -8)
@@ -732,3 +757,13 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -14, 4
 
 [node name="floor_tile_large134" parent="FLOOR" instance=ExtResource("5_tdevx")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -22, 4, -6)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 9, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_cwueg")
+surface_material_override/0 = SubResource("ShaderMaterial_k6fon")
+
+[editable path="wall_corner_small"]
+[editable path="wall_corner_small7"]
+[editable path="CharacterBody3D"]
