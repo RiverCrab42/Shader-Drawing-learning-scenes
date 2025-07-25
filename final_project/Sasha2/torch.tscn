@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bp8us8trdoxn8"]
 
-[ext_resource type="PackedScene" uid="uid://ckh6eqtecmrqx" path="res://assets/fbx/torch.fbx" id="1_72yln"]
-[ext_resource type="Shader" uid="uid://hc5o6t3h24y0" path="res://Sasha2/fire.gdshader" id="3_mweye"]
+[ext_resource type="PackedScene" uid="uid://bifrugc46h754" path="res://assets/fbx/torch.fbx" id="1_72yln"]
+[ext_resource type="Shader" uid="uid://024yss6gxhif" path="res://Sasha2/fire.gdshader" id="3_mweye"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_7vksu"]
 top_radius = 0.2
@@ -11,7 +11,7 @@ height = 0.3
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7vksu"]
 frequency = 0.08
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wy17k"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_htd7w"]
 invert = true
 as_normal_map = true
 noise = SubResource("FastNoiseLite_7vksu")
@@ -19,7 +19,9 @@ noise = SubResource("FastNoiseLite_7vksu")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nw2b3"]
 render_priority = 0
 shader = ExtResource("3_mweye")
-shader_parameter/noise = SubResource("NoiseTexture2D_wy17k")
+shader_parameter/noise = SubResource("NoiseTexture2D_htd7w")
+shader_parameter/color_red = Color(0, 0, 0, 1)
+shader_parameter/color_yellow = Color(0, 0, 0, 1)
 
 [node name="torch" instance=ExtResource("1_72yln")]
 

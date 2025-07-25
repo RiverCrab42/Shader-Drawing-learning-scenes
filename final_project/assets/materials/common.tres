@@ -1,9 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bovc5u42v2tlq"]
 
-[ext_resource type="Shader" uid="uid://d8f42kwicd6u" path="res://shaders/common.gdshader" id="1_e8rg5"]
+[ext_resource type="Shader" uid="uid://ljuy2xxycw12" path="res://assets/materials/common.gdshader" id="1_e8rg5"]
 [ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="2_2hfk6"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_e8rg5")
-shader_parameter/common_texture = ExtResource("2_2hfk6")
+shader_parameter/tex = ExtResource("2_2hfk6")

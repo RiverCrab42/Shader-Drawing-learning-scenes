@@ -2,17 +2,18 @@ extends Selectable
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var activatable_area: InteractableArea = $ActivatableArea
-@export var level: PackedScene
+@export var path_to_scene  : String = "res://Kostya/lobby.tscn"
 var open : bool
 var animation_in_progress : bool
 
 func _ready() -> void:
 	open = false
 	animation_in_progress = false
-	GlobalSignals.load_level.connect(print_)
+
+	
 func _process(delta: float) -> void:
 	if open && !animation_in_progress:
-		GlobalSignals.load_level.emit(level)
+		GlobalSignals.load_level.emit(path_to_scene)
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
@@ -22,6 +23,8 @@ func _input(event: InputEvent) -> void:
 					close_chest()
 				else:
 					open_chest()
+	if event.is_action_pressed("return"):
+		GlobalSignals.load_level.emit(path_to_scene)
 
 func open_chest() -> void:
 	if open || animation_in_progress:
@@ -41,6 +44,3 @@ func close_chest() -> void:
 
 func animation_finished(anim_name: StringName) -> void:
 	animation_in_progress = false
-	
-func print_(l:PackedScene):
-	print("GODot")

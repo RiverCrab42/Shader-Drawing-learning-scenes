@@ -1,115 +1,135 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxkure0b45lm0"]
+[gd_scene load_steps=15 format=3 uid="uid://boh74kiflq178"]
 
 [ext_resource type="PackedScene" uid="uid://6k4syrvb2v3a" path="res://scenes/assets/walls/wall.tscn" id="1_f65fa"]
+[ext_resource type="PackedScene" uid="uid://w5oc8ruyl8lo" path="res://VLADIMIR/ghost.tscn" id="2_myec8"]
 [ext_resource type="PackedScene" uid="uid://cet0ahagu3cnk" path="res://scenes/assets/walls/wall_corner_small.tscn" id="2_yomvq"]
 [ext_resource type="PackedScene" uid="uid://dxt8eiwd4kuk5" path="res://scenes/assets/floors/floor_tile_large.tscn" id="3_mt438"]
-[ext_resource type="Material" uid="uid://bovc5u42v2tlq" path="res://assets/materials/common.tres" id="4_mt438"]
+[ext_resource type="Material" uid="uid://b32w05e3k5iw2" path="res://assets/materials/ghost_reacting_material.tres" id="4_myec8"]
 [ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="4_nor83"]
-[ext_resource type="PackedScene" uid="uid://c5r8in7wtwb2a" path="res://Sasha2/ghost.tscn" id="5_yomvq"]
-[ext_resource type="Script" uid="uid://gstt4x0k4jcn" path="res://Sasha2/scripts/ghost_setter.gd" id="7_nor83"]
+[ext_resource type="Script" uid="uid://dil8lw5jvwmnh" path="res://Sasha2/scripts/ghost_setter.gd" id="7_nor83"]
+[ext_resource type="Shader" uid="uid://dmuw5p72ahdwt" path="res://Sasha2/pol.gdshader" id="9_g1ho7"]
+[ext_resource type="Texture2D" uid="uid://bups6jv5qfuee" path="res://assets/textures/dungeon_texture.png" id="10_dqf6s"]
+[ext_resource type="Script" uid="uid://b4sqaiii3wap" path="res://scripts/utility/level_changer.gd" id="10_g1ho7"]
+[ext_resource type="PackedScene" uid="uid://c1mi2d7dhivny" path="res://scenes/assets/level_complition/chest_gold.tscn" id="11_7kw4i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kw4i"]
+render_priority = 0
+shader = ExtResource("9_g1ho7")
+shader_parameter/tex = ExtResource("10_dqf6s")
+
+[sub_resource type="Animation" id="Animation_7kw4i"]
+resource_name = "TP"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h06kd"]
+_data = {
+&"TP": SubResource("Animation_7kw4i")
+}
 
 [node name="labirint2" type="Node3D"]
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("4_nor83")]
-transform = Transform3D(-4.3752e-08, -1.8838e-09, 1, 0.0430963, 0.999071, 3.7676e-09, -0.999071, 0.0430963, -4.36302e-08, 4.98377, 1, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.98377, 1, 0)
+
+[node name="GhostPoints" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 4)
+
+[node name="ghostpath" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 5, -3.52628, -15.8923)
+
+[node name="ghostpath2" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 5, -7.52628, -8.9641)
+
+[node name="ghostpath3" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 1, -6.02628, -11.5622)
+
+[node name="ghostpath4" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -11, -6.02628, -11.5622)
+
+[node name="ghostpath5" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -11, -8.02628, -8.09808)
+
+[node name="ghostpath6" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -23, -8.02628, -8.09808)
+
+[node name="ghostpath7" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -23, -1.52627, -19.3564)
+
+[node name="ghostpath8" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -7, -1.52627, -19.3564)
+
+[node name="ghostpath9" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -7, 2.47373, -26.2846)
+
+[node name="ghostpath10" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -10, 2.47373, -26.2846)
+
+[node name="ghostpath11" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -10, 0.473726, -22.8205)
+
+[node name="ghostpath12" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -19, 0.473726, -22.8205)
+
+[node name="ghostpath13" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -19, 4.47373, -29.7487)
+
+[node name="ghostpath14" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -24, 4.47373, -29.7487)
+
+[node name="ghostpath15" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -20, 6.47373, -33.2128)
+
+[node name="ghostpath16" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -15, 6.47373, -33.2128)
+
+[node name="ghostpath17" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -15, 4.47373, -29.7487)
+
+[node name="ghostpath18" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -11, 4.47373, -29.7487)
+
+[node name="ghostpath19" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -11, 6.47373, -33.2128)
+
+[node name="ghostpath20" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -5, 6.47373, -33.2128)
+
+[node name="ghostpath21" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -5, 4.97373, -30.6147)
+
+[node name="ghostpath22" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -5, 4.97373, -30.6147)
+
+[node name="ghostpath23" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 2, 4.97373, -30.6147)
+
+[node name="ghostpath24" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 5, 2.47373, -26.2846)
+
+[node name="ghostpath25" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 5, 6.97373, -34.0788)
+
+[node name="ghostpath26" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 5, 6.97373, -34.0788)
+
+[node name="ghostpath27" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 5, 0.473726, -22.8205)
+
+[node name="ghostpath28" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -4, 0.473726, -22.8205)
+
+[node name="ghostpath29" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -4, 0.473726, -22.8205)
+
+[node name="ghostpath1" type="Node3D" parent="GhostPoints"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -16, -3.52628, -15.8923)
+
+[node name="Ghost" parent="." node_paths=PackedStringArray("target", "targets") instance=ExtResource("2_myec8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.9038, 0, 0)
+target = NodePath("../CharacterBody3D")
+targets = [NodePath("../GhostPoints/ghostpath"), NodePath("../GhostPoints/ghostpath2"), NodePath("../GhostPoints/ghostpath3"), NodePath("../GhostPoints/ghostpath4"), NodePath("../GhostPoints/ghostpath5"), NodePath("../GhostPoints/ghostpath6"), NodePath("../GhostPoints/ghostpath7"), NodePath("../GhostPoints/ghostpath8"), NodePath("../GhostPoints/ghostpath9"), NodePath("../GhostPoints/ghostpath10"), NodePath("../GhostPoints/ghostpath11"), NodePath("../GhostPoints/ghostpath12"), NodePath("../GhostPoints/ghostpath13"), NodePath("../GhostPoints/ghostpath14"), NodePath("../GhostPoints/ghostpath15"), NodePath("../GhostPoints/ghostpath16"), NodePath("../GhostPoints/ghostpath17"), NodePath("../GhostPoints/ghostpath18"), NodePath("../GhostPoints/ghostpath19"), NodePath("../GhostPoints/ghostpath20"), NodePath("../GhostPoints/ghostpath21"), NodePath("../GhostPoints/ghostpath22"), NodePath("../GhostPoints/ghostpath23"), NodePath("../GhostPoints/ghostpath24"), NodePath("../GhostPoints/ghostpath25"), NodePath("../GhostPoints/ghostpath26"), NodePath("../GhostPoints/ghostpath27"), NodePath("../GhostPoints/ghostpath28"), NodePath("../GhostPoints/ghostpath29")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 4)
-
-[node name="ghostpath" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -8)
-
-[node name="ghostpath2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-
-[node name="ghostpath3" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
-
-[node name="ghostpath4" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -3)
-
-[node name="ghostpath5" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 1)
-
-[node name="ghostpath6" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 1)
-
-[node name="ghostpath7" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -12)
-
-[node name="ghostpath8" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -12)
-
-[node name="ghostpath9" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -20)
-
-[node name="ghostpath10" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -20)
-
-[node name="ghostpath11" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -16)
-
-[node name="ghostpath12" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -16)
-
-[node name="ghostpath13" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -24)
-
-[node name="ghostpath14" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -24)
-
-[node name="ghostpath15" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -28)
-
-[node name="ghostpath16" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -28)
-
-[node name="ghostpath17" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -24)
-
-[node name="ghostpath18" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -24)
-
-[node name="ghostpath19" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -28)
-
-[node name="ghostpath20" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -28)
-
-[node name="ghostpath21" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -25)
-
-[node name="ghostpath22" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -25)
-
-[node name="ghostpath23" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -25)
-
-[node name="ghostpath24" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -20)
-
-[node name="ghostpath25" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -29)
-
-[node name="ghostpath26" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -29)
-
-[node name="ghostpath27" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -16)
-
-[node name="ghostpath28" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -16)
-
-[node name="ghostpath29" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -16)
-
-[node name="ghostpath1" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -8)
-
-[node name="Ghost" parent="." node_paths=PackedStringArray("target", "targets") instance=ExtResource("5_yomvq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 0)
-target = NodePath("../CharacterBody3D")
-targets = [NodePath("../ghostpath"), NodePath("../ghostpath2"), NodePath("../ghostpath3"), NodePath("../ghostpath4"), NodePath("../ghostpath5"), NodePath("../ghostpath6"), NodePath("../ghostpath7"), NodePath("../ghostpath8"), NodePath("../ghostpath9"), NodePath("../ghostpath10"), NodePath("../ghostpath11"), NodePath("../ghostpath12"), NodePath("../ghostpath13"), NodePath("../ghostpath14"), NodePath("../ghostpath15"), NodePath("../ghostpath16"), NodePath("../ghostpath17"), NodePath("../ghostpath18"), NodePath("../ghostpath19"), NodePath("../ghostpath20"), NodePath("../ghostpath21"), NodePath("../ghostpath22"), NodePath("../ghostpath23"), NodePath("../ghostpath24"), NodePath("../ghostpath25"), NodePath("../ghostpath26"), NodePath("../ghostpath27"), NodePath("../ghostpath28"), NodePath("../ghostpath29")]
 
 [node name="Walls" type="Node" parent="."]
 
@@ -117,1347 +137,1001 @@ targets = [NodePath("../ghostpath"), NodePath("../ghostpath2"), NodePath("../gho
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 3)
 
 [node name="wall" parent="Walls/wall" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall2" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 3)
 
 [node name="wall" parent="Walls/wall2" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall3" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 3)
 
 [node name="wall" parent="Walls/wall3" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall4" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 3)
 
 [node name="wall" parent="Walls/wall4" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall5" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 3)
 
 [node name="wall" parent="Walls/wall5" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall6" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
 
 [node name="wall" parent="Walls/wall6" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall7" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
 
 [node name="wall" parent="Walls/wall7" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall8" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
 
 [node name="wall" parent="Walls/wall8" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall17" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -29)
 
 [node name="wall" parent="Walls/wall17" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall18" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -29)
 
 [node name="wall" parent="Walls/wall18" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall19" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -29)
 
 [node name="wall" parent="Walls/wall19" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall20" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -29)
 
 [node name="wall" parent="Walls/wall20" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall21" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -29)
 
 [node name="wall" parent="Walls/wall21" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall22" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -29)
 
 [node name="wall" parent="Walls/wall22" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall23" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -29)
 
 [node name="wall" parent="Walls/wall23" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall34" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -25)
 
 [node name="wall" parent="Walls/wall34" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall38" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -21)
 
 [node name="wall" parent="Walls/wall38" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall39" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -21)
 
 [node name="wall" parent="Walls/wall39" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall40" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -21)
 
 [node name="wall" parent="Walls/wall40" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall46" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -25)
 
 [node name="wall" parent="Walls/wall46" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall43" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -17)
 
 [node name="wall" parent="Walls/wall43" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="wall48" parent="Walls" instance=ExtResource("1_f65fa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -13)
-
-[node name="wall" parent="Walls/wall48" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="wall60" parent="Walls" instance=ExtResource("1_f65fa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -9)
-
-[node name="wall" parent="Walls/wall60" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="wall64" parent="Walls" instance=ExtResource("1_f65fa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -9)
-
-[node name="wall" parent="Walls/wall64" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall65" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -9)
 
 [node name="wall" parent="Walls/wall65" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall67" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -5)
 
 [node name="wall" parent="Walls/wall67" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall68" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -5)
 
 [node name="wall" parent="Walls/wall68" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall69" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -5)
 
 [node name="wall" parent="Walls/wall69" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall70" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5)
 
 [node name="wall" parent="Walls/wall70" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall74" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
 
 [node name="wall" parent="Walls/wall74" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall75" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -1)
 
 [node name="wall" parent="Walls/wall75" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall77" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -1)
 
 [node name="wall" parent="Walls/wall77" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall78" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -1)
 
 [node name="wall" parent="Walls/wall78" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall71" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5)
 
 [node name="wall" parent="Walls/wall71" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="wall61" parent="Walls" instance=ExtResource("1_f65fa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -9)
-
-[node name="wall" parent="Walls/wall61" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall62" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -9)
 
 [node name="wall" parent="Walls/wall62" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall63" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -9)
 
 [node name="wall" parent="Walls/wall63" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall50" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -13)
 
 [node name="wall" parent="Walls/wall50" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall51" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -13)
 
 [node name="wall" parent="Walls/wall51" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall52" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -13)
 
 [node name="wall" parent="Walls/wall52" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall37" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -17)
 
 [node name="wall" parent="Walls/wall37" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall57" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -13)
 
 [node name="wall" parent="Walls/wall57" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall58" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -13)
 
 [node name="wall" parent="Walls/wall58" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall24" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -29)
 
 [node name="wall" parent="Walls/wall24" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall9" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, 1)
 
 [node name="wall" parent="Walls/wall9" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall10" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, -3)
 
 [node name="wall" parent="Walls/wall10" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall72" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, -3)
 
 [node name="wall" parent="Walls/wall72" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall73" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 1)
 
 [node name="wall" parent="Walls/wall73" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall11" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, -7)
 
 [node name="wall" parent="Walls/wall11" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall12" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, -11)
 
 [node name="wall" parent="Walls/wall12" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall13" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, -15)
 
 [node name="wall" parent="Walls/wall13" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall14" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, -19)
 
 [node name="wall" parent="Walls/wall14" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall15" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, -23)
 
 [node name="wall" parent="Walls/wall15" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall35" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, -23)
 
 [node name="wall" parent="Walls/wall35" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall16" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, -27)
 
 [node name="wall" parent="Walls/wall16" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall33" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, -27)
 
 [node name="wall" parent="Walls/wall33" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall41" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, -27)
 
 [node name="wall" parent="Walls/wall41" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall42" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, -19)
 
 [node name="wall" parent="Walls/wall42" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall47" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0, -23)
 
 [node name="wall" parent="Walls/wall47" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall55" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, -19)
 
 [node name="wall" parent="Walls/wall55" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="wall56" parent="Walls" instance=ExtResource("1_f65fa")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, -15)
-
-[node name="wall" parent="Walls/wall56" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="wall59" parent="Walls" instance=ExtResource("1_f65fa")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, -11)
-
-[node name="wall" parent="Walls/wall59" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="wall49" parent="Walls" instance=ExtResource("1_f65fa")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0, -15)
-
-[node name="wall" parent="Walls/wall49" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall44" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 0, -19)
 
 [node name="wall" parent="Walls/wall44" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall66" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 0, -7)
 
 [node name="wall" parent="Walls/wall66" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall76" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, -3)
 
 [node name="wall" parent="Walls/wall76" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall79" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 0, -3)
 
 [node name="wall" parent="Walls/wall79" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall80" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 0, -7)
 
 [node name="wall" parent="Walls/wall80" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall53" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 0, -15)
 
 [node name="wall" parent="Walls/wall53" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall54" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 0, -19)
 
 [node name="wall" parent="Walls/wall54" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall45" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 0, -23)
 
 [node name="wall" parent="Walls/wall45" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall36" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, -19)
 
 [node name="wall" parent="Walls/wall36" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall25" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0, 1)
 
 [node name="wall" parent="Walls/wall25" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall26" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0, -3)
 
 [node name="wall" parent="Walls/wall26" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall27" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0, -7)
 
 [node name="wall" parent="Walls/wall27" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall28" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0, -11)
 
 [node name="wall" parent="Walls/wall28" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall29" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0, -15)
 
 [node name="wall" parent="Walls/wall29" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall30" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0, -19)
 
 [node name="wall" parent="Walls/wall30" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall31" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0, -23)
 
 [node name="wall" parent="Walls/wall31" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall32" parent="Walls" instance=ExtResource("1_f65fa")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -25, 0, -27)
 
 [node name="wall" parent="Walls/wall32" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall_corner_small3" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -25)
 
+[node name="wall_corner_small" parent="Walls/wall_corner_small3" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
 [node name="wall_corner_small4" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -21)
+
+[node name="wall_corner_small" parent="Walls/wall_corner_small4" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall_corner_small5" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -25)
 
+[node name="wall_corner_small" parent="Walls/wall_corner_small5" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
 [node name="wall_corner_small16" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
+
+[node name="wall_corner_small" parent="Walls/wall_corner_small16" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall_corner_small17" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
+[node name="wall_corner_small" parent="Walls/wall_corner_small17" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
 [node name="wall_corner_small6" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -13, 0, -1)
 
-[node name="wall_corner_small7" parent="Walls" instance=ExtResource("2_yomvq")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9, 0, -13)
+[node name="wall_corner_small" parent="Walls/wall_corner_small6" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall_corner_small8" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -13, 0, -17)
 
+[node name="wall_corner_small" parent="Walls/wall_corner_small8" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
 [node name="wall_corner_small9" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 0, -25)
+
+[node name="wall_corner_small" parent="Walls/wall_corner_small9" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall_corner_small10" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -17, 0, -17)
 
+[node name="wall_corner_small" parent="Walls/wall_corner_small10" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
 [node name="wall_corner_small12" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 0, -17)
+
+[node name="wall_corner_small" parent="Walls/wall_corner_small12" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall_corner_small13" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -17, 0, -5)
 
+[node name="wall_corner_small" parent="Walls/wall_corner_small13" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
 [node name="wall_corner_small14" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21, 0, -1)
+
+[node name="wall_corner_small" parent="Walls/wall_corner_small14" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="wall_corner_small11" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 0, -9)
 
+[node name="wall_corner_small" parent="Walls/wall_corner_small11" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
 [node name="wall_corner_small15" parent="Walls" instance=ExtResource("2_yomvq")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, -21)
+
+[node name="wall_corner_small" parent="Walls/wall_corner_small15" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large11" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large11" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large12" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 1)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large12" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large13" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 1)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large13" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large14" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 1)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large14" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large15" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 1)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large15" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large16" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 1)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large16" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large18" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -3)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large18" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large17" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, 1)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large17" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large2" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large2" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large3" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large3" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large4" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -7)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large4" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large5" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -7)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large5" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large19" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -7)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large19" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large60" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large60" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large63" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large63" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large65" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large65" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large66" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large66" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large64" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large64" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large61" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -11)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large61" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large62" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -11)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large62" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large20" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -7)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large20" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large29" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -7)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large29" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large30" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -7)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large30" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large6" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -3)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large6" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large7" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -3)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large7" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large8" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large8" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large9" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -3)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large9" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large10" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -3)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large10" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large21" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -3)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large21" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
+
+[node name="floor_tile_large24" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -3)
+
+[node name="floor_tile_large" parent="Walls/floor_tile_large24" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
+[node name="floor_tile_large25" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 1)
+
+[node name="floor_tile_large" parent="Walls/floor_tile_large25" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
+[node name="floor_tile_large27" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -7)
+
+[node name="floor_tile_large" parent="Walls/floor_tile_large27" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
+[node name="floor_tile_large29" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -11)
+
+[node name="floor_tile_large" parent="Walls/floor_tile_large29" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
+[node name="floor_tile_large32" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -11)
+
+[node name="floor_tile_large" parent="Walls/floor_tile_large32" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
+
+[node name="floor_tile_large33" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -7)
+
+[node name="floor_tile_large" parent="Walls/floor_tile_large33" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large23" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -7)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large23" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large26" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -11)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large26" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large31" parent="Walls" instance=ExtResource("3_mt438")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -11)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large31" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large32" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large32" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large33" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large33" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large34" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large34" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large35" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large35" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large36" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large36" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large37" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large37" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large38" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large38" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large39" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large39" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large42" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large42" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large43" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large43" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large44" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large44" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large45" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large45" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large46" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large46" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large47" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large47" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large48" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large48" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large50" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large50" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large51" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large51" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large52" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large52" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large53" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large53" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large54" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large54" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large55" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large55" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large56" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large56" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large67" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large67" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large68" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large68" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large57" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large57" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large58" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large58" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large59" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large59" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large49" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large49" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large40" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large40" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large41" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large41" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large27" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large27" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large28" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large28" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large24" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -7)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large24" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large25" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -7)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large25" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
 [node name="floor_tile_large22" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -15)
 
 [node name="floor_tile_large" parent="Walls/floor_tile_large22" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large69" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 3.92722, 1)
+[node name="floor_tile_large28" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -15)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large69" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large28" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large70" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -2, 3.92722, 1)
+[node name="floor_tile_large34" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -15)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large70" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large34" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large71" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -6, 3.92722, 1)
+[node name="floor_tile_large36" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large71" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large36" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large72" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -10, 3.92722, 1)
+[node name="floor_tile_large37" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -15)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large72" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large37" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large73" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -14, 3.92722, 1)
+[node name="floor_tile_large38" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -15)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large73" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large38" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large74" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -18, 3.92722, 1)
+[node name="floor_tile_large39" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large74" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large39" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large75" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -22, 3.92722, 1)
+[node name="floor_tile_large40" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large75" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large40" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large76" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -26, 3.92722, -3)
+[node name="floor_tile_large41" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large76" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large41" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large77" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -26, 3.92722, 1)
+[node name="floor_tile_large42" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large77" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large42" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large78" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 6, 3.92722, 1)
+[node name="floor_tile_large63" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large78" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large63" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large79" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 6, 3.92722, -3)
+[node name="floor_tile_large64" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large79" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large64" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large80" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 6, 3.92722, -7)
+[node name="floor_tile_large65" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large80" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large65" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large81" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 3.92722, -7)
+[node name="floor_tile_large43" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large81" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large43" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large82" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -2, 3.92722, -7)
+[node name="floor_tile_large44" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large82" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large44" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large83" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -2, 3.92722, -11)
+[node name="floor_tile_large45" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large83" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large45" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large84" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -3, 3.92722, -15)
+[node name="floor_tile_large46" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large84" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large46" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large85" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1, 3.92722, -15)
+[node name="floor_tile_large47" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large85" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large47" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large86" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5, 3.92722, -15)
+[node name="floor_tile_large48" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large86" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large48" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large87" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -3, 3.92722, -19)
+[node name="floor_tile_large49" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large87" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large49" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large88" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 3.92722, -11)
+[node name="floor_tile_large50" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large88" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large50" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large89" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 6, 3.92722, -11)
+[node name="floor_tile_large51" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large89" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large51" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large90" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -6, 3.92722, -7)
+[node name="floor_tile_large52" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large90" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large52" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large91" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -10, 3.92722, -7)
+[node name="floor_tile_large57" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large91" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large57" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large92" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -14, 3.92722, -7)
+[node name="floor_tile_large60" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large92" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large60" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large93" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2, 3.92722, -3)
+[node name="floor_tile_large66" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large93" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large66" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large94" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -2, 3.92722, -3)
+[node name="floor_tile_large67" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -23)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large94" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large67" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large95" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -6, 3.92722, -3)
+[node name="floor_tile_large58" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -19)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large95" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large58" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large96" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -10, 3.92722, -3)
+[node name="floor_tile_large59" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -15)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large96" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large59" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large97" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -14, 3.92722, -3)
+[node name="floor_tile_large53" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large97" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large53" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large98" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -18, 3.92722, -3)
+[node name="floor_tile_large54" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large98" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large54" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large99" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -18, 3.92722, -7)
+[node name="floor_tile_large55" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large99" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large55" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large100" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -18, 3.92722, -11)
+[node name="floor_tile_large56" parent="Walls" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -27)
 
-[node name="floor_tile_large" parent="Walls/floor_tile_large100" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
+[node name="floor_tile_large" parent="Walls/floor_tile_large56" index="0"]
+surface_material_override/0 = ExtResource("4_myec8")
 
-[node name="floor_tile_large101" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -14, 3.92722, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large101" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large102" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -10, 3.92722, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large102" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large103" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -6, 3.92722, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large103" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large104" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -7, 3.92722, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large104" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large105" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -7, 3.92722, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large105" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large106" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -11, 3.92722, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large106" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large107" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -11, 3.92722, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large107" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large108" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -15, 3.92722, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large108" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large109" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -19, 3.92722, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large109" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large110" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -23, 3.92722, -15)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large110" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large111" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -23, 3.92722, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large111" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large112" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -23, 3.92722, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large112" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large113" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -23, 3.92722, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large113" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large114" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -19, 3.92722, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large114" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large115" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -15, 3.92722, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large115" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large116" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -15, 3.92722, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large116" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large117" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -11, 3.92722, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large117" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large118" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -11, 3.92722, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large118" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large119" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -7, 3.92722, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large119" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large120" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -7, 3.92722, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large120" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large121" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -3, 3.92722, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large121" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large122" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -3, 3.92722, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large122" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large123" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1, 3.92722, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large123" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large124" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5, 3.92722, -27)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large124" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large125" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5, 3.92722, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large125" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large126" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1, 3.92722, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large126" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large127" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1, 3.92722, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large127" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large128" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 5, 3.92722, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large128" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large129" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -15, 3.92722, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large129" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large130" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -19, 3.92722, -19)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large130" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large131" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -19, 3.92722, -23)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large131" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large132" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -22, 3.92722, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large132" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large133" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -26, 3.92722, -11)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large133" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large134" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -22, 3.92722, -7)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large134" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large135" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -26, 3.92722, -7)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large135" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="floor_tile_large136" parent="Walls" instance=ExtResource("3_mt438")]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -22, 3.92722, -3)
-
-[node name="floor_tile_large" parent="Walls/floor_tile_large136" index="0"]
-surface_material_override/0 = ExtResource("4_mt438")
-
-[node name="GhostSetter" type="Node3D" parent="." node_paths=PackedStringArray("player", "ghost")]
+[node name="GhostSetter" type="Node3D" parent="." node_paths=PackedStringArray("ghost", "player")]
 script = ExtResource("7_nor83")
-player = NodePath("../CharacterBody3D")
 ghost = NodePath("../Ghost")
+player = NodePath("../CharacterBody3D")
+
+[node name="MovingFloor" type="Node3D" parent="."]
+
+[node name="floor_tile_large49" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -15)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large49" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/ugol_z = 20.0
+instance_shader_parameters/z_l = -2.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="floor_tile_large50" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large50" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/ugol_x = 90.0
+instance_shader_parameters/x_l = 2.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="floor_tile_large51" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -15)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large51" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/y_l = 2.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="floor_tile_large52" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -11)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large52" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/y_l = -3.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="floor_tile_large53" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -7)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large53" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/y_l = -2.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="floor_tile_large54" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -7)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large54" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/ugol_y = 50.0
+instance_shader_parameters/z_l = -2.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="floor_tile_large55" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -11)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large55" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/ugol_x = 45.0
+instance_shader_parameters/ugol_y = 45.0
+instance_shader_parameters/x_l = 2.0
+instance_shader_parameters/z_l = 3.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="floor_tile_large56" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -11)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large56" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/ugol_y = 90.0
+instance_shader_parameters/ugol_z = 90.0
+instance_shader_parameters/x_l = 2.0
+instance_shader_parameters/y_l = 1.0
+instance_shader_parameters/z_l = 0.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="floor_tile_large57" parent="MovingFloor" instance=ExtResource("3_mt438")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -7)
+
+[node name="floor_tile_large" parent="MovingFloor/floor_tile_large57" index="0"]
+extra_cull_margin = 16384.0
+instance_shader_parameters/ugol_x = 50.0
+instance_shader_parameters/y_l = 2.0
+instance_shader_parameters/z_l = -2.0
+surface_material_override/0 = SubResource("ShaderMaterial_7kw4i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h06kd")
+}
+script = ExtResource("10_g1ho7")
+
+[node name="chest_gold" parent="." instance=ExtResource("11_7kw4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -26)
 
 [editable path="Walls/wall"]
 [editable path="Walls/wall2"]
@@ -1480,9 +1154,6 @@ ghost = NodePath("../Ghost")
 [editable path="Walls/wall40"]
 [editable path="Walls/wall46"]
 [editable path="Walls/wall43"]
-[editable path="Walls/wall48"]
-[editable path="Walls/wall60"]
-[editable path="Walls/wall64"]
 [editable path="Walls/wall65"]
 [editable path="Walls/wall67"]
 [editable path="Walls/wall68"]
@@ -1493,7 +1164,6 @@ ghost = NodePath("../Ghost")
 [editable path="Walls/wall77"]
 [editable path="Walls/wall78"]
 [editable path="Walls/wall71"]
-[editable path="Walls/wall61"]
 [editable path="Walls/wall62"]
 [editable path="Walls/wall63"]
 [editable path="Walls/wall50"]
@@ -1519,9 +1189,6 @@ ghost = NodePath("../Ghost")
 [editable path="Walls/wall42"]
 [editable path="Walls/wall47"]
 [editable path="Walls/wall55"]
-[editable path="Walls/wall56"]
-[editable path="Walls/wall59"]
-[editable path="Walls/wall49"]
 [editable path="Walls/wall44"]
 [editable path="Walls/wall66"]
 [editable path="Walls/wall76"]
@@ -1545,7 +1212,6 @@ ghost = NodePath("../Ghost")
 [editable path="Walls/wall_corner_small16"]
 [editable path="Walls/wall_corner_small17"]
 [editable path="Walls/wall_corner_small6"]
-[editable path="Walls/wall_corner_small7"]
 [editable path="Walls/wall_corner_small8"]
 [editable path="Walls/wall_corner_small9"]
 [editable path="Walls/wall_corner_small10"]
@@ -1560,23 +1226,14 @@ ghost = NodePath("../Ghost")
 [editable path="Walls/floor_tile_large13"]
 [editable path="Walls/floor_tile_large14"]
 [editable path="Walls/floor_tile_large15"]
-[editable path="Walls/floor_tile_large16"]
 [editable path="Walls/floor_tile_large18"]
 [editable path="Walls/floor_tile_large17"]
 [editable path="Walls/floor_tile_large2"]
 [editable path="Walls/floor_tile_large3"]
 [editable path="Walls/floor_tile_large4"]
 [editable path="Walls/floor_tile_large5"]
-[editable path="Walls/floor_tile_large19"]
-[editable path="Walls/floor_tile_large60"]
-[editable path="Walls/floor_tile_large63"]
-[editable path="Walls/floor_tile_large65"]
-[editable path="Walls/floor_tile_large66"]
-[editable path="Walls/floor_tile_large64"]
 [editable path="Walls/floor_tile_large61"]
 [editable path="Walls/floor_tile_large62"]
-[editable path="Walls/floor_tile_large20"]
-[editable path="Walls/floor_tile_large29"]
 [editable path="Walls/floor_tile_large30"]
 [editable path="Walls/floor_tile_large6"]
 [editable path="Walls/floor_tile_large7"]
@@ -1584,109 +1241,54 @@ ghost = NodePath("../Ghost")
 [editable path="Walls/floor_tile_large9"]
 [editable path="Walls/floor_tile_large10"]
 [editable path="Walls/floor_tile_large21"]
+[editable path="Walls/floor_tile_large24"]
+[editable path="Walls/floor_tile_large25"]
+[editable path="Walls/floor_tile_large27"]
+[editable path="Walls/floor_tile_large29"]
+[editable path="Walls/floor_tile_large32"]
+[editable path="Walls/floor_tile_large33"]
 [editable path="Walls/floor_tile_large23"]
 [editable path="Walls/floor_tile_large26"]
 [editable path="Walls/floor_tile_large31"]
-[editable path="Walls/floor_tile_large32"]
-[editable path="Walls/floor_tile_large33"]
+[editable path="Walls/floor_tile_large22"]
+[editable path="Walls/floor_tile_large28"]
 [editable path="Walls/floor_tile_large34"]
-[editable path="Walls/floor_tile_large35"]
 [editable path="Walls/floor_tile_large36"]
 [editable path="Walls/floor_tile_large37"]
 [editable path="Walls/floor_tile_large38"]
 [editable path="Walls/floor_tile_large39"]
+[editable path="Walls/floor_tile_large40"]
+[editable path="Walls/floor_tile_large41"]
 [editable path="Walls/floor_tile_large42"]
+[editable path="Walls/floor_tile_large63"]
+[editable path="Walls/floor_tile_large64"]
+[editable path="Walls/floor_tile_large65"]
 [editable path="Walls/floor_tile_large43"]
 [editable path="Walls/floor_tile_large44"]
 [editable path="Walls/floor_tile_large45"]
 [editable path="Walls/floor_tile_large46"]
 [editable path="Walls/floor_tile_large47"]
 [editable path="Walls/floor_tile_large48"]
+[editable path="Walls/floor_tile_large49"]
 [editable path="Walls/floor_tile_large50"]
 [editable path="Walls/floor_tile_large51"]
 [editable path="Walls/floor_tile_large52"]
+[editable path="Walls/floor_tile_large57"]
+[editable path="Walls/floor_tile_large60"]
+[editable path="Walls/floor_tile_large66"]
+[editable path="Walls/floor_tile_large67"]
+[editable path="Walls/floor_tile_large58"]
+[editable path="Walls/floor_tile_large59"]
 [editable path="Walls/floor_tile_large53"]
 [editable path="Walls/floor_tile_large54"]
 [editable path="Walls/floor_tile_large55"]
 [editable path="Walls/floor_tile_large56"]
-[editable path="Walls/floor_tile_large67"]
-[editable path="Walls/floor_tile_large68"]
-[editable path="Walls/floor_tile_large57"]
-[editable path="Walls/floor_tile_large58"]
-[editable path="Walls/floor_tile_large59"]
-[editable path="Walls/floor_tile_large49"]
-[editable path="Walls/floor_tile_large40"]
-[editable path="Walls/floor_tile_large41"]
-[editable path="Walls/floor_tile_large27"]
-[editable path="Walls/floor_tile_large28"]
-[editable path="Walls/floor_tile_large24"]
-[editable path="Walls/floor_tile_large25"]
-[editable path="Walls/floor_tile_large22"]
-[editable path="Walls/floor_tile_large69"]
-[editable path="Walls/floor_tile_large70"]
-[editable path="Walls/floor_tile_large71"]
-[editable path="Walls/floor_tile_large72"]
-[editable path="Walls/floor_tile_large73"]
-[editable path="Walls/floor_tile_large74"]
-[editable path="Walls/floor_tile_large75"]
-[editable path="Walls/floor_tile_large76"]
-[editable path="Walls/floor_tile_large77"]
-[editable path="Walls/floor_tile_large78"]
-[editable path="Walls/floor_tile_large79"]
-[editable path="Walls/floor_tile_large80"]
-[editable path="Walls/floor_tile_large81"]
-[editable path="Walls/floor_tile_large82"]
-[editable path="Walls/floor_tile_large83"]
-[editable path="Walls/floor_tile_large84"]
-[editable path="Walls/floor_tile_large85"]
-[editable path="Walls/floor_tile_large86"]
-[editable path="Walls/floor_tile_large87"]
-[editable path="Walls/floor_tile_large88"]
-[editable path="Walls/floor_tile_large89"]
-[editable path="Walls/floor_tile_large90"]
-[editable path="Walls/floor_tile_large91"]
-[editable path="Walls/floor_tile_large92"]
-[editable path="Walls/floor_tile_large93"]
-[editable path="Walls/floor_tile_large94"]
-[editable path="Walls/floor_tile_large95"]
-[editable path="Walls/floor_tile_large96"]
-[editable path="Walls/floor_tile_large97"]
-[editable path="Walls/floor_tile_large98"]
-[editable path="Walls/floor_tile_large99"]
-[editable path="Walls/floor_tile_large100"]
-[editable path="Walls/floor_tile_large101"]
-[editable path="Walls/floor_tile_large102"]
-[editable path="Walls/floor_tile_large103"]
-[editable path="Walls/floor_tile_large104"]
-[editable path="Walls/floor_tile_large105"]
-[editable path="Walls/floor_tile_large106"]
-[editable path="Walls/floor_tile_large107"]
-[editable path="Walls/floor_tile_large108"]
-[editable path="Walls/floor_tile_large109"]
-[editable path="Walls/floor_tile_large110"]
-[editable path="Walls/floor_tile_large111"]
-[editable path="Walls/floor_tile_large112"]
-[editable path="Walls/floor_tile_large113"]
-[editable path="Walls/floor_tile_large114"]
-[editable path="Walls/floor_tile_large115"]
-[editable path="Walls/floor_tile_large116"]
-[editable path="Walls/floor_tile_large117"]
-[editable path="Walls/floor_tile_large118"]
-[editable path="Walls/floor_tile_large119"]
-[editable path="Walls/floor_tile_large120"]
-[editable path="Walls/floor_tile_large121"]
-[editable path="Walls/floor_tile_large122"]
-[editable path="Walls/floor_tile_large123"]
-[editable path="Walls/floor_tile_large124"]
-[editable path="Walls/floor_tile_large125"]
-[editable path="Walls/floor_tile_large126"]
-[editable path="Walls/floor_tile_large127"]
-[editable path="Walls/floor_tile_large128"]
-[editable path="Walls/floor_tile_large129"]
-[editable path="Walls/floor_tile_large130"]
-[editable path="Walls/floor_tile_large131"]
-[editable path="Walls/floor_tile_large132"]
-[editable path="Walls/floor_tile_large133"]
-[editable path="Walls/floor_tile_large134"]
-[editable path="Walls/floor_tile_large135"]
-[editable path="Walls/floor_tile_large136"]
+[editable path="MovingFloor/floor_tile_large49"]
+[editable path="MovingFloor/floor_tile_large50"]
+[editable path="MovingFloor/floor_tile_large51"]
+[editable path="MovingFloor/floor_tile_large52"]
+[editable path="MovingFloor/floor_tile_large53"]
+[editable path="MovingFloor/floor_tile_large54"]
+[editable path="MovingFloor/floor_tile_large55"]
+[editable path="MovingFloor/floor_tile_large56"]
+[editable path="MovingFloor/floor_tile_large57"]

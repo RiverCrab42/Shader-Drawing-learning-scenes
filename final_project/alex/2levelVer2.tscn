@@ -1,7 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://cafv51pnunw10"]
+[gd_scene load_steps=37 format=3 uid="uid://cafv51pnunw10"]
 
 [ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="1_3qgcu"]
-[ext_resource type="Script" uid="uid://bvm7y71bhb0j3" path="res://scripts/utility/post_effect_activator.gd" id="1_n2ynn"]
+[ext_resource type="Script" uid="uid://dh3hgp33apgy" path="res://scripts/utility/post_effect_activator.gd" id="1_n2ynn"]
 [ext_resource type="PackedScene" uid="uid://b2q4nan23yur2" path="res://scenes/assets/walls/wall_doorway.tscn" id="2_73kt3"]
 [ext_resource type="PackedScene" uid="uid://difxijpdmy4rm" path="res://scenes/assets/floors/floor_dirt_large.tscn" id="3_lmuiv"]
 [ext_resource type="PackedScene" uid="uid://bsiwjnxp5nopy" path="res://scenes/assets/floors/floor_dirt_large_rocky.tscn" id="4_8ilef"]
@@ -13,14 +13,16 @@
 [ext_resource type="PackedScene" uid="uid://dxt8eiwd4kuk5" path="res://scenes/assets/floors/floor_tile_large.tscn" id="10_sa2dy"]
 [ext_resource type="PackedScene" uid="uid://ch4628slb0l0l" path="res://scenes/assets/walls/wall_half.tscn" id="11_q1w1s"]
 [ext_resource type="PackedScene" uid="uid://6k4syrvb2v3a" path="res://scenes/assets/walls/wall.tscn" id="12_jsxus"]
-[ext_resource type="PackedScene" uid="uid://bvvsmifjvoyg8" path="res://scenes/assets/walls/wall_corner.tscn" id="13_7imdo"]
+[ext_resource type="PackedScene" path="res://scenes/assets/walls/wall_corner.tscn" id="13_7imdo"]
 [ext_resource type="PackedScene" uid="uid://c4ome1rfnjcj1" path="res://scenes/assets/lights/torch_mounted.tscn" id="14_jttb4"]
-[ext_resource type="PackedScene" uid="uid://d03unn0hp31w8" path="res://scenes/assets/stairs/stairs_wide.tscn" id="15_hu3pn"]
+[ext_resource type="PackedScene" path="res://scenes/assets/stairs/stairs_wide.tscn" id="15_hu3pn"]
 [ext_resource type="PackedScene" uid="uid://cet0ahagu3cnk" path="res://scenes/assets/walls/wall_corner_small.tscn" id="15_n2ynn"]
 [ext_resource type="PackedScene" uid="uid://cuctrxuw83jed" path="res://Kostya/labirint.tscn" id="16_3auqs"]
-[ext_resource type="Shader" uid="uid://158am658txsx" path="res://alex/shaders/water_post_process.gdshader" id="17_smiwv"]
-[ext_resource type="Shader" uid="uid://m1qy8la6twpn" path="res://alex/shaders/water_surface.gdshader" id="18_73kt3"]
+[ext_resource type="Shader" uid="uid://diw8qv2olj2ef" path="res://alex/shaders/water_surface.gdshader" id="18_73kt3"]
+[ext_resource type="Shader" uid="uid://dysjm87y7h30m" path="res://alex/shaders/water_post_process_shake.gdshader" id="18_n2ynn"]
 [ext_resource type="PackedScene" uid="uid://c1mi2d7dhivny" path="res://scenes/assets/level_complition/chest_gold.tscn" id="20_8ilef"]
+[ext_resource type="Shader" uid="uid://dtcnfuekx86mr" path="res://VLADIMIR/PixelTeleport.gdshader" id="22_ojogh"]
+[ext_resource type="Script" uid="uid://b4sqaiii3wap" path="res://scripts/utility/level_changer.gd" id="23_ayiw3"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_6f7rb"]
 flip_faces = true
@@ -34,12 +36,12 @@ seamless = true
 seamless_blend_skirt = 1.0
 noise = SubResource("FastNoiseLite_dajvi")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a2q6g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ojogh"]
 render_priority = 0
-shader = ExtResource("17_smiwv")
+shader = ExtResource("18_n2ynn")
 shader_parameter/noise = SubResource("NoiseTexture2D_6f7rb")
 shader_parameter/scr_shaking = 50.0
-shader_parameter/fog_color = Color(0.219608, 0.172549, 0.945098, 1)
+shader_parameter/fog_color = Color(0.117647, 0.145098, 0.945098, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_lmuiv"]
 size = Vector2(30, 20)
@@ -66,11 +68,82 @@ shader_parameter/xk = PackedFloat32Array(0.5, 0.6)
 shader_parameter/jxk = PackedFloat32Array(0.1, 0.14)
 shader_parameter/lkm = PackedFloat32Array(0.5, 0.6)
 
-[node name="Level2" type="Node3D" node_paths=PackedStringArray("post_effect", "player_camera")]
+[sub_resource type="QuadMesh" id="QuadMesh_ayiw3"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48hbk"]
+render_priority = 0
+shader = ExtResource("22_ojogh")
+shader_parameter/stepPix = 1.0
+shader_parameter/start = false
+
+[sub_resource type="Animation" id="Animation_sa2dy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PortalPostEffect:surface_material_override/0:shader_parameter/stepPix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PortalPostEffect:surface_material_override/0:shader_parameter/start")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_xpnbg"]
+resource_name = "TP"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PortalPostEffect:surface_material_override/0:shader_parameter/stepPix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PortalPostEffect:surface_material_override/0:shader_parameter/start")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1w1s"]
+_data = {
+&"RESET": SubResource("Animation_sa2dy"),
+&"TP": SubResource("Animation_xpnbg")
+}
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("post_effect", "player_camera", "player")]
 script = ExtResource("1_n2ynn")
 height_activation = -2.764
 post_effect = NodePath("fog&shaking")
 player_camera = NodePath("CharacterBody3D/Camera3D")
+player = NodePath("CharacterBody3D")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_3qgcu")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7, 1, 0)
@@ -619,7 +692,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_6f7rb")
-surface_material_override/0 = SubResource("ShaderMaterial_a2q6g")
+surface_material_override/0 = SubResource("ShaderMaterial_ojogh")
 
 [node name="foam" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0086, -2.76424, 0.00903225)
@@ -644,6 +717,18 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 33, 0,
 [node name="wall_doorway3" parent="Doors" instance=ExtResource("2_73kt3")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 38, 0, 0)
 
+[node name="PortalPostEffect" type="MeshInstance3D" parent="."]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_ayiw3")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_48hbk")
+
+[node name="LevelLoader" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_q1w1s")
+}
+script = ExtResource("23_ayiw3")
+
 [editable path="CharacterBody3D"]
 [editable path="floor/floor_dirt_small_B"]
 [editable path="floor/floor_dirt_small_B2"]
@@ -657,5 +742,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 38, 0,
 [editable path="floor/floor_dirt_large4"]
 [editable path="Doors/wall_doorway"]
 [editable path="Doors/wall_doorway4"]
+[editable path="Doors/wall_doorway4/ActivatableArea"]
 [editable path="Doors/wall_doorway2"]
 [editable path="Doors/wall_doorway3"]

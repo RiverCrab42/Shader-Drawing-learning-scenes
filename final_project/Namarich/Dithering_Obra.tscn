@@ -1,0 +1,1817 @@
+[gd_scene load_steps=47 format=4 uid="uid://besd1ix7tkg2g"]
+
+[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="1_fimmi"]
+[ext_resource type="PackedScene" uid="uid://dxt8eiwd4kuk5" path="res://scenes/assets/floors/floor_tile_large.tscn" id="2_3xxlu"]
+[ext_resource type="Material" uid="uid://nt8gvxptkrbw" path="res://Namarich/Materials/dithering.tres" id="3_i7luq"]
+[ext_resource type="PackedScene" uid="uid://djjtj000gtgm7" path="res://scenes/assets/extras/pillar.tscn" id="4_q80yx"]
+[ext_resource type="PackedScene" uid="uid://6k4syrvb2v3a" path="res://scenes/assets/walls/wall.tscn" id="5_3vrpf"]
+[ext_resource type="PackedScene" uid="uid://cet0ahagu3cnk" path="res://scenes/assets/walls/wall_corner_small.tscn" id="6_373tr"]
+[ext_resource type="PackedScene" uid="uid://b2q4nan23yur2" path="res://scenes/assets/walls/wall_doorway.tscn" id="7_d4odh"]
+[ext_resource type="PackedScene" uid="uid://c4ome1rfnjcj1" path="res://scenes/assets/lights/torch_mounted.tscn" id="8_ufjg7"]
+[ext_resource type="Material" uid="uid://hwx4w6lsg0yy" path="res://Namarich/Materials/blue_noise.tres" id="9_xgakk"]
+[ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="10_i7luq"]
+[ext_resource type="PackedScene" uid="uid://q7y4urvroqev" path="res://scenes/assets/ceiling/ceiling_tile.tscn" id="11_ogaod"]
+[ext_resource type="PackedScene" uid="uid://bu0lqt11c2ydw" path="res://scenes/assets/extras/chest.tscn" id="12_74bxu"]
+[ext_resource type="PackedScene" uid="uid://ddcjmfckurrmh" path="res://scenes/assets/extras/barrel_large_decorated.tscn" id="13_ltimm"]
+[ext_resource type="PackedScene" uid="uid://dh4p85w57fmwc" path="res://scenes/assets/extras/bed_decorated.tscn" id="14_w8erx"]
+[ext_resource type="PackedScene" uid="uid://gwdsosqtypm0" path="res://scenes/assets/extras/chair.tscn" id="15_533op"]
+[ext_resource type="PackedScene" uid="uid://chvws3fycvpx0" path="res://scenes/assets/extras/box_large.tscn" id="16_u1f4j"]
+[ext_resource type="PackedScene" uid="uid://c1mi2d7dhivny" path="res://scenes/assets/level_complition/chest_gold.tscn" id="17_k5smy"]
+[ext_resource type="PackedScene" uid="uid://f6p4ajl36p66" path="res://scenes/assets/barriers/barrier_column.tscn" id="18_kqyno"]
+[ext_resource type="PackedScene" uid="uid://34d7gs4v6tca" path="res://scenes/assets/barriers/barrier_corner.tscn" id="19_2juk8"]
+[ext_resource type="PackedScene" uid="uid://ctrwoktx44fox" path="res://scenes/assets/stairs/stairs.tscn" id="20_6ha1k"]
+[ext_resource type="PackedScene" uid="uid://bu2oxh51r7hl4" path="res://scenes/assets/extras/keg.tscn" id="21_keciw"]
+[ext_resource type="Shader" uid="uid://3uf0lepdl311" path="res://Namarich/Materials/gambling.gdshader" id="22_5iikm"]
+[ext_resource type="CompressedCubemap" uid="uid://cbuirgc2xy3mj" path="res://Namarich/textures/BlueNoise64_cubemap.png" id="23_hr3cb"]
+[ext_resource type="PackedScene" uid="uid://dq67wllwyganm" path="res://scenes/assets/floors/floor_tile_small.tscn" id="24_ohapd"]
+[ext_resource type="PackedScene" uid="uid://bq0dcihhlbc05" path="res://scenes/assets/key/key.tscn" id="25_vb3qo"]
+[ext_resource type="Shader" uid="uid://bucowicufc1fv" path="res://Namarich/ObraDinn.gdshader" id="26_7gi5k"]
+[ext_resource type="Texture2D" uid="uid://ds8tpw8pb20kj" path="res://Namarich/textures/BlueNoise64.png" id="27_olcqv"]
+[ext_resource type="Shader" uid="uid://dhjvgxtu7mdp2" path="res://Namarich/Pixelization.gdshader" id="28_aagyd"]
+[ext_resource type="Script" uid="uid://2ig0ywpl5sbm" path="res://scripts/utility/camera_follower.gd" id="29_d2tnb"]
+[ext_resource type="Script" uid="uid://b4sqaiii3wap" path="res://scripts/utility/level_changer.gd" id="30_3xxlu"]
+[ext_resource type="Script" uid="uid://glbegeynlocw" path="res://scripts/utility/menu.gd" id="30_qc1d1"]
+
+[sub_resource type="GDScript" id="GDScript_i7luq"]
+script/source = "extends Node3D
+
+var paused : bool = false
+@onready var camera_3d: Camera3D = $CharacterBody3D/Camera3D
+@onready var panel: Panel = $CanvasLayer/Panel
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"pause\"):
+		paused = !paused
+	if paused:
+		panel.visible = true
+		camera_3d.active = false
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		panel.visible = false
+		camera_3d.active = true
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6m7ri"]
+resource_name = "texture"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("10_i7luq")
+emission_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cbvee"]
+_surfaces = [{
+"aabb": AABB(-0.00275142, -0.00275142, -0.00395046, 0.00550283, 0.00550283, 0.010416),
+"format": 34359742465,
+"index_count": 648,
+"index_data": PackedByteArray("AAABAAIAAgABADgAAAA5AAEAOgABADkAAQAHADgABwABADoAOQA7ADoAOgA8AAcAOwA5AD0APQA5AAAABAA6ADsAPAA6AAQAPQAHADwABwA9AAAAPAA+AD0APQA+ADsABAAFADwAPgA8AAUAOwADAAQAAwA7AD4ABQAEAAMAPgAGAAMAAwAGAAUABQAGAD4ABwAAAAkACQALAAcABwALAAoACgA4AAcACQA/AAsAQAALAD8ACwAQAAoAEAALAEAAPwBBAEAAQABCABAAQQA/AEMAQwA/AAkADQBAAEEAQgBAAA0AQwAQAEIAQQAMAA0AEABDAAkAQwBEAEEAQgBEAEMADABBAEQADQAPAEIARABCAA8ADQAMAA4ARAAOAAwADgAPAA0ADwAOAEQAEAAJABEAEwARAAkACQAUABMAFAAJAAAAAAAVABQAFAAVABYAFwAVAAAAFgAVABcAAAAYABcAFgAZABQAEwAUABkAEwAXABgAFwAaABYAGgAXABMAGQAWABsAGwAWABoAAgAYAAAAGwAcABkAHAAbAB0AGQAeABMAHgAZABwAEwAeABoAHwAcAB0AHAAfAB4AGwAgAB0AGgAgABsAIAAfAB0AIAAaAB4AHgAfACAAGAARABMAAgBFABgAJgARABgARQACAEYARQBHABgAGABHACMAGAAjACYARgACACMAIwACAAgAJgAjAAgAOAAIAAIASAAjAEcAIwBIAEYASQBHAEUARwBJAEgARQBKAEkARgBKAEUAJQBJAEoAIgBGAEgASgBGACIASgAhACUAIgAhAEoASQAlACQAJABIAEkAJAAlACEASAAkACIAIQAiACQACAA4AEsASwAnAAgATABLADgATAA4AAoATQAnAEsATQBLAEwAJwBOAAgATQBOACcATwAIAE4ATQBMAFAACgBQAEwATQBRAE4ATgBRAE8ATQBQACgAKABQAAoATQBSAFEATQAoAFIAUgAoAAoAUQBSAE8ACgBPAFIATwAKABAACABPACYAEAASAE8AEgAmAE8AEQASABAAJgASAFMAEQBUABIAUwASAFQAJgBVABEAVQBUABEAVQAmAFYAUwBWACYAVABVAFcAVgBXAFUAVABYAFMAVwBYAFQAKgBWAFMAVwBWACoAKwBTAFgAUwArACoAKgAsAFcAWABXACwALAAqACsAWAApACsAKwApACwALAApAFgAWQBaAC0ALQBbAFkANgBZAFsAMgBbAC0AWwAuADYALgBbADIANwBZADYAWgBZADcANgAuAFwANgBdADcAMgA3AF0AXgBdADYAXwA3ADIANwBfAFoAMgBgAC4AXQBgADIAXAAuAGAAYABdAF4AXABhADYANgBhAF4AYABiAFwAXgBiAGAAYQBcAGMAYwBcAGIAXgBhAGQAYwBkAGEAYgBeAGUAZABlAF4AYgBmAGMAZQBmAGIAZABjADUANQBjAGYANABlAGQAZgBlADQAZgAzADUANAAzAGYANQAzAGcAZwAzADQANQBoAGQAZABoADQAZwAwADUAaAA1ADAANABoAC8AMAAvAGgALwBpADQANABpAGcAMABnADEAMQBnAGkAaQBqADEAagBpAC8AawAvADAALwBrAGoAMABsAGsAMQBsADAAagBrAFoAWgBrAGwAWgBfAGoAbAAtAFoAagBfAG0AbQAxAGoAbAAxAG0AbQAtAGwAMgBtAF8ALQBtADIA"),
+"lods": [0.00150321, PackedByteArray("AAABAAIAAAADAAEABAABAAMABQAEAAMABQABAAQAAwAGAAUAAAAGAAMABQAGAAAAAQAFAAcAAAAHAAUAAgABAAgAAQAHAAgABwAAAAkACgAIAAcACQALAAcABwALAAoACQAMAAsADQALAAwADQAMAA4ACQAOAAwADgAPAA0ADwALAA0ADwAOAAkACwAPABAACwAQAAoACQAQAA8AEAAJABEAEAASAAoAEQASABAAEwARAAkACQAUABMAFAAJAAAAAAAVABQAFAAVABYAFwAVAAAAFgAVABcAAAAYABcAFgAZABQAEwAUABkAEwAXABgAFwAaABYAGgAXABMAGQAWABsAGwAWABoAAgAYAAAAGwAcABkAGAARABMAHAAbAB0AGQAeABMAHgAZABwAEwAeABoAHwAcAB0AHAAfAB4AGwAgAB0AGgAgABsAIAAfAB0AIAAaAB4AHgAfACAAAgAhABgAIQACACIAIgACACMAIQAiACQAIwAkACIAJAAlACEAJQAYACEAGAAlACQAJAAjABgAIwACAAgAGAAjACYAJgAjAAgAJgARABgACAAKACYACgAIACcAKAAnAAgAJwAoAAoAKAAIAAoAEgAmAAoAEQApABIAEgAqACYAEQAmACoAKwASACkAEgArACoALAApABEAKwApACwAKgAsABEALAAqACsALQAuAC8AMAAtAC8AMQAtADAAMgAuAC0ALQAxADIAMgAzAC4AMAAzADEANAAzADIAMQAzADQAMwAwADUANQAuADMALwA1ADAANgAuADUANgAvAC4ANQAvADYANgAvADQAMgAxADcANwAvADYAMgA3ADQALwA3ADQANAA3ADYANAA3ADEA")],
+"name": "texture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 110,
+"vertex_data": PackedByteArray("1lyzOgrXIy+aUgo711yzOsKWFDp60j47vZYUOtNcszp60j47HVE0O7z+7zllCMs7MI8KO8T+7zlI3dM7MY8KO8b+77lK3dM7HVE0O8z+77llCMs701yzOr2WFLp60j47CtcjriWw2jkDjU47pptEL9dcs7qaUgo7bxIDLiyw2rkDjU47wZYUOtdcs7p60j47if3vORpRNLtlCMs7jv3vOTCPCrtI3dM7///vuRpRNLtlCMs7AADwuS+PCrtK3dM7upYUutdcs7p60j4711yzum8Sg6+aUgo711yzusOWFLp60j478z4iultkWzMl1c86a7wENM1DIrol1c86hU8iOgrXWzMl1c86fk8iOjMzWzPlPiq7K4cENKpKIjol1c86pptEr9ZcszqaUgo7000ENNFDIrrlPiq7lBgENKhKIjrlPiq7vJ6+OSUGATNb7nu7j8KbM/yQvrlb7nu7hoybM+b1ADPVcoG7+j4iuiGwWjPlPiq7Sou+uQisADNb7nu7OImbMwmZvjlb7nu7nP3vORtRNDtlCMs7lv3vOS+PCjtI3dM7w5YUutdcszp60j47///vuTGPCjtI3dM79v/vuR1RNDtlCMs711yzurqWFDp60j47jSZkOXmzCTp7HIQ7hSZkuXuzCbp7HIQ7HFE0u8H+77llCMs7L48Ku8P+7zlI3dM7MI8Ku8P+77lI3dM7G1E0u8n+7zllCMs7c2jRMuNlDTv446A7IWYNO8P1KDL446A7FA76ugAAAAA8DbE7UGUNu1YOLTL446A7ewWsuiMFrDphLZA7CQWsOiUFrDphLZA7egWsul8FrLphLZA72Ct8utsrfLr446A7f/bHuvv2x7r446A7FA76OgAAAAA8DbE72yt8OtorfDr446A7JrDaOaabxK0DjU47nQD/OsX+7zkNOzo7D26/OsH+7zn446A7ccgQO8D+7zn446A7D26/OsT+77n446A7mwD/OsP+77kNOzo7csgQO8b+77n446A7jf3vOZgA/7oNOzo7kv3vOQ9uv7r446A7if3vOXDIELv446A7/f/vuQ5uv7r446A7///vuZoA/7oNOzo7/P/vuXDIELv446A7jv3vOZgA/zoNOzo7k/3vOQ5uvzr446A7+P/vuZoA/zoNOzo7+v/vuQ5uvzr446A7+v/vuXHIEDv446A7mv3vOXLIEDv446A7eLMJOoomZDl7HIQ7ebMJOo4mZLl7HIQ7Ne2FLZa8ka7VmI47jiZkuXizCTp7HIQ7KbDauaabxK4DjU47jSZkOXqzCbp7HIQ7erMJuoMmZDl7HIQ7ebMJuo8mZLl7HIQ7Dm6/usX+77n446A7mAD/usH+77kNOzo7mAD/usb+7zkNOzo7Dm6/usT+7zn446A7b8gQu8X+7zn446A7cMgQu8H+77n446A7zdCwOszQsDo8DbE7AAAAABQO+jo8DbE7I/jHOqX3xzr446A7H/jHOvr2x7r446A74E+yOqabRK/446A72it8OtsrfLr446A7AAAAAOFPsjr446A72kXzOmmRbbFhLZA7zNCwOs3QsLo8DbE7CAWsOl8FrLphLZA7BFbOMo1lDbv446A7pptErxQO+ro8DbE7bxKDr+BPsrr446A71njpsTFG87phLZA7TUbzukFgZbFhLZA7zNCwuszQsLo8DbE74E+yuqabRC/446A72yt8utgrfDr446A7zNCwuszQsDo8DbE7gfbHuqj3xzr446A7rkfhsfdF8zphLZA7")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2xh0d"]
+resource_name = "torch"
+_surfaces = [{
+"aabb": AABB(-0.00275142, -0.00275142, -0.00395046, 0.00550283, 0.00550283, 0.010416),
+"attribute_data": PackedByteArray("qUBPPnz1KT6pQE8+NEcYPqbRQT40Rxg+ptFBPnz1KT6m0UE+4FktPjv9Pz4ouck9O/0/PojTvT3zbWY+KLnJPalATz7gWS0+hsBbPojTvT2m0UE+fPUpPqbRQT40Rxg+qUBPPjRHGD6pQE8+fPUpPqlATz7gWS0+hsBbPojTvT3zbWY+KLnJPTv9Pz4ouck9ptFBPuBZLT47/T8+iNO9PZhjIT589Sk+mGMhPjRHGD6e0S4+NEcYPp7RLj589Sk+ntEuPuBZLT4JpjA+iNO9PQmmMD4ouck9TzYKPii5yT2YYyE+4FktPrvjFD6I0709ntEuPnz1KT6e0S4+NEcYPphjIT40Rxg+mGMhPnz1KT6YYyE+4FktPrvjFD6I0709TzYKPii5yT0JpjA+KLnJPQmmMD6I0709ntEuPuBZLT6Enjw+MLE/PvmxQj4wsT8+qUBPPtgaND6m0UE+2Bo0PkXzLT4wsT8+vwU0PjCxPz6e0S4+2Bo0PphjIT7YGjQ+RfMtPjCxPz6YYyE+2Bo0Pp7RLj7YGjQ+vwU0PjCxPz6Enjw+MLE/PqbRQT7YGjQ+qUBPPtgaND75sUI+MLE/Pr8kbT/Asyo+wCRtP2iaqj0goGs/aJqqPSCgaz/Asyo+vyRtP8CzKj4goGs/wLMqPiCgaz9omqo9wCRtP2iaqj3Nz3A/wLMqPvBKbz/Asyo+8EpvP2iaqj3Oz3A/aJqqPc3PcD/Asyo+zs9wP2iaqj3wSm8/aJqqPfBKbz/Asyo+ZJZtPwCXTz6/JG0/wLM6PiCgaz/Aszo+3bFsPwCXTz5klm0/AJdPPt2xbD8Al08+IKBrP8CzOj6/JG0/wLM6PpK9bz8Al08+StluPwCXTz7wSm8/wLM6Ps3PcD/Aszo+kr1vPwCXTz7Nz3A/wLM6PvBKbz/Aszo+StluPwCXTz6SvW8/AJdfPkrZbj8Al18+uDduPwBfYT5K2W4/AJdfPmSWbT8Al18+3bFsPwCXXz5klm0/AJdfPqbRQT6wQ9w9qUBPPrBD3D3JNzs+kKvRPZ7RLj6wQ9w9qUBPPrBD3D3JNzs+kKvRPabRQT6wQ9w9ntEuPrBD3D14bDU+kKvRPZhjIT6wQ9w9mGMhPrBD3D14bDU+kKvRPTArZT/wjl8+8s1mPyT7cj7yzWY/JPtyPuD9Zj/wjl8+HltlPyT7cj4eW2U/JPtyPmx/RT4YNN09jyJYPhg03T2/yBo+WA/HPbKBGD4YNN09soEYPhg03T2G2lU+WA/HPeVBIz5YD8c9X2FNPlgPxz3yaiw+mNEjPvMOVT6Y0SM+T5UbPpjRIz5fYU0+oMSSPb/IGj6gxJI9htpVPqDEkj3lQSM+oMSSPfJqLD48rAk+bH9FPhg0/T2ygRg+GDT9PfMOVT48rAk+T5UbPjysCT6PIlg+GDT9PbKBGD4YNP09TzYKPtCTnz1PNgo+0JOfPZhjIT58wzk+ptFBPjRHGD4JpjA+MK6TPZ7RLj40Rxg+O/0/PjCukz2YYyE+NEcYPrvjFD4wrpM9mGMhPjRHGD674xQ+MK6TPalATz40Rxg+hsBbPjCukz2pQE8+NEcYPobAWz4wrpM9qUBPPnzDOT7zbWY+0JOfPfNtZj7Qk589ptFBPnzDOT4JpjA+0JOfPTv9Pz7Qk589ntEuPjRHGD4JpjA+MK6TPTv9Pz4wrpM9ptFBPjRHGD4JpjA+0JOfPZ7RLj58wzk+O/0/PtCTnz07/T8+MJIWPTv9Pz7gjf08CaYwPuCN/TwJpjA+MJIWPTv9Pz7gjf08O/0/PjCSFj0JpjA+MJIWPQmmMD7gjf08821mPjCSFj3zbWY+MJIWPYbAWz7gjf08hsBbPuCN/Ty74xQ+4I39PE82Cj4wkhY9TzYKPjCSFj274xQ+4I39PDv9Pz7A5S4+O/0/PpiYAT47/T8+BEMBPifsWD7A5S4+9cpQPpiYAT6tV10+BEMBPifsWD7A5S4+9cpQPpiYAT6tV10+BEMBPjv9Pz7A5S4+O/0/PpiYAT47/T8+BEMBPgmmMD7A5S4+CaYwPpiYAT4JpjA+BEMBPh23Fz7A5S4+T9gfPpiYAT6VTBM+BEMBPh23Fz7A5S4+T9gfPpiYAT6VTBM+BEMBPgmmMD7A5S4+CaYwPpiYAT4JpjA+BEMBPktQPz6Qq9E991MxPpCr0T1pFGY/9H4oPuD9Zj/wji8+8kdoP/COLz4wK2U/8I4vPvJHaD/wji8+4OBjP/COLz7g/WY/8I4vPuDgYz/wji8+MCtlP/COLz7yR2g/8I5fPhPUZz8k+3I+4P1mP/COXz7yR2g/8I5fPjArZT/wjl8+/lRkPyT7cj7g4GM/8I5fPuDgYz/wjl8+htpVPlgPxz1OjUQ+WA/HPdUkKz4YNN09jyJYPhg03T31FSw+WA/HPWx/RT4YNN09v8gaPlgPxz1OjUQ+WA/HPdUkKz4YNN099RUsPlgPxz0+mS8+WA/HPQQLQT5YD8c9UThEPpjRIz7lQSM+WA/HPU+VGz6Y0SM+X2FNPlgPxz3zDlU+mNEjPgQLQT5YD8c98mosPpjRIz5ROEQ+mNEjPj6ZLz5YD8c9To1EPqDEkj2G2lU+oMSSPQQLQT6gxJI9X2FNPqDEkj0+mS8+oMSSPQQLQT6gxJI99RUsPqDEkj1OjUQ+oMSSPfUVLD6gxJI95UEjPqDEkj0+mS8+oMSSPb/IGj6gxJI9UThEPjysCT7VJCs+GDT9PY8iWD4YNP09T5UbPjysCT7zDlU+PKwJPmx/RT4YNP098mosPjysCT5ROEQ+PKwJPtUkKz4YNP09O/0/PhTTGT4JpjA+FNMZPgmmMD6wYNg9O/0/PrBg2D2VTBM+sGDYPZVMEz6wYNg9HbcXPhTTGT4dtxc+FNMZPgmmMD4U0xk+O/0/PhTTGT47/T8+sGDYPQmmMD6wYNg9J+xYPhTTGT4n7Fg+FNMZPq1XXT6wYNg9rVddPrBg2D07/T8+0AvZPQmmMD7QC9k9O/0/PtAL2T0JpjA+0AvZPU/YHz7QC9k9T9gfPtAL2T31ylA+0AvZPfXKUD7QC9k9"),
+"format": 34359742487,
+"index_count": 648,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABACzAAMAswAEALQAtAC1ALMAtQC0AAYABgAFALUAAAC2AAgAtwAIALYAtgC4ALcACQC3ALgAuAAHAAkACgALAAwADAANAAoADgC5AA0AuQAOALoAugC7ALkAuwC6AA8ADwAQALsACgC8ABIAvQASALwAvAC+AL0AEwC9AL4AvgARABMAFAAVABYAFgAXABQAGAC/ABcAvwAYAMAAwADBAL8AwQDAABkAGQAaAMEAFADCABwAwwAcAMIAwgDEAMMAHQDDAMQAxAAbAB0AHgAfACAAIAAhAB4AIgDFACEAxQAiAMYAxgDHAMUAxwDGACMAIwAkAMcAHgDIACcAyQAnAMgAyADKAMkAJgDJAMoAygAlACYAKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAPAA9AD4APgA/ADwAQABBAEIAQgBDAEAARABFAEYARgBHAEQASABJAEoASgBLAEgATABNAE4ATgBPAEwAUABRAFIAUgBTAFAAVABVAFYAVgBXAFQAWABZAFoAWwBYAFoAXABdAFoAXQBeAFoAXwBgAMsAYABjAMsAywBhAF8AYgBfAGEAZADLAGMAYwBlAGQAaQBiAGoAagDMAGkAaABpAMwAZgBoAMwAZQBmAGcAzABnAGYAzQDOAM8AzQDQAM4AzQDPANEAzQDSANAAzQDRANMAzQDUANIAzQDTANUAzQDVANQA1gDXAG0AbQDYANYAawDYAG0A1gDZANcAbADXANkA2QBuAGwAbgDaAHAA2wBwANoA2gDcANsA3ADdANsA3QBrAG8AbwDbAN0A3gDfAHEA4ABxAN8AcQDhAN4A3wDiAOAAdgDeAOEAdADgAOIA4QByAHYA4gBzAHQAdgByAOMAdABzAOQA4wDlAHYA5AB1AHQA5QDjAOYAdQDkAOcA5gDnAOUA5wDmAHUA6ADpAOoA6gB5AOgAegDqAOkA6wDoAHkA6QB4AHoAeQDsAOsAegB4AO0AdwDrAOwA7QDuAHoA7AB7AHcA7gDtAO8AdwB7APAA7wDxAO4A8ADyAHcA8QDvAPIA8gDwAPEA8wD0AHwAfAD0AH4AfAD1APMAfgD2AHwA8wD1APcA+AD2AH4A9wD5APMAfgD6APgAfQD5APcA+AD6APsA9wD8AH0A+wD9APgAfQD8AH8AfwD9APsAfwD+AH0A+wD+AH8A/wCBAAABAAGAAP8AgQD/AIMAgAAAAYIAgwABAYEAggACAYAAhQABAYMAAgGCAIYAgwADAYUAhgCEAAIBBAGFAAMBBQGEAIYAAwEGAQQBhgAHAQUBBwEEAQYBBgEFAQcBCAEJAaEACgEJAQgBCAELAQoBoAAKAQsBCwGiAKAADAENAQ4BDQEMAYcAhwCIAA0BDgEPAQwBDwEOAYkAEAERAZkAEgERARABEAETARIBmwASARMBEwGaAJsAFAEVAZYAFgEVARQBFAEXARYBmAAWARcBFwGXAJgAGAEZAYwAjACKABgBGQEYAY0AjQCLABkBGgGfAJwAnAAbARoBngAaARsBGwGdAJ4AHAEdAZAAkACOABwBjwAdARwBHAGRAI8AHgEfAZQAlACSAB4BHwEeAZUAlQCTAB8BowCkAKUApQCmAKMApwCoAKkAqQCqAKcAqwCsAK0ArQCuAKsArwCwALEAsQCyAK8A"),
+"lods": [0.00150321, PackedByteArray("AAABAAIAAgADAAAABAAFAAMABQAEAAYAAAAHAAgACQAIAAcACgALAAwADAANAAoADQAOAA8ADwAQAA0ACgARABIAEwASABEAFAAVABYAFgAXABQAFwAYABkAGQAaABcAFAAbABwAHQAcABsAHgAfACAAIAAhAB4AIQAiACMAIwAkACEAHgAlACYAJgAnAB4AKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAPAA9AD4APgA/ADwAQABBAEIAQgBDAEAARABFAEYARgBHAEQASABJAEoASgBLAEgATABNAE4ATgBPAEwAUABRAFIAUgBTAFAAVABVAFYAVgBXAFQAWABZAFoAWwBYAFoAXABdAFoAXQBeAFoAXwBgAGEAYgBfAGEAYABjAGEAZABhAGMAYwBlAGQAZQBmAGcAZgBoAGcAaABpAGcAaQBiAGoAagBnAGkAawBsAG0AawBuAGwAbgBrAG8AbwBwAG4AcQByAHMAdABxAHMAcwB1AHQAdgByAHUAdgBzAHIAdQBzAHYAdwB4AHkAegB5AHgAegB4AHcAeQB7AHcAdwB7AHoAfAB9AH4AfgB9AH8AfQB8AH8AfwB8AH4AgACBAIIAgQCAAIMAggCEAIAAgwCFAIEAgwCEAIUAhACCAIYAhgCFAIQAhwCIAIkAigCLAIwAiwCKAI0AjgCPAJAAjgCRAI8AkgCTAJQAkwCSAJUAlgCXAJgAmQCaAJsAnACdAJ4AngCfAJwAoAChAKIAowCkAKUApQCmAKMApwCoAKkAqQCqAKcAqwCsAK0ArQCuAKsArwCwALEAsQCyAK8A")],
+"material": SubResource("StandardMaterial3D_6m7ri"),
+"name": "texture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 288,
+"vertex_data": PackedByteArray("1lyzOgrXIy+aUgo711yzOsKWFDp60j47vZYUOtNcszp60j47pptEr9ZcszqaUgo7vZYUOtNcszp60j47nP3vORtRNDtlCMs7lv3vOS+PCjtI3dM7HVE0O7z+7zllCMs711yzOsKWFDp60j47MI8KO8T+7zlI3dM7pptEL9dcs7qaUgo7wZYUOtdcs7p60j4701yzOr2WFLp60j471lyzOgrXIy+aUgo701yzOr2WFLp60j47MY8KO8b+77lK3dM7HVE0O8z+77llCMs7if3vORpRNLtlCMs7wZYUOtdcs7p60j47jv3vOTCPCrtI3dM711yzum8Sg6+aUgo711yzusOWFLp60j47upYUutdcs7p60j47pptEL9dcs7qaUgo7upYUutdcs7p60j47AADwuS+PCrtK3dM7///vuRpRNLtlCMs7HFE0u8H+77llCMs711yzusOWFLp60j47MI8Ku8P+77lI3dM7pptEr9ZcszqaUgo7w5YUutdcszp60j4711yzurqWFDp60j4711yzum8Sg6+aUgo711yzurqWFDp60j47L48Ku8P+7zlI3dM7G1E0u8n+7zllCMs79v/vuR1RNDtlCMs7///vuTGPCjtI3dM7w5YUutdcszp60j47K4cENKpKIjol1c86hU8iOgrXWzMl1c861lyzOgrXIy+aUgo7pptEr9ZcszqaUgo78z4iultkWzMl1c86K4cENKpKIjol1c86pptEr9ZcszqaUgo711yzum8Sg6+aUgo78z4iultkWzMl1c8611yzum8Sg6+aUgo7pptEL9dcs7qaUgo7a7wENM1DIrol1c86a7wENM1DIrol1c86pptEL9dcs7qaUgo71lyzOgrXIy+aUgo7hU8iOgrXWzMl1c86lBgENKhKIjrlPiq7K4cENKpKIjol1c868z4iultkWzMl1c86+j4iuiGwWjPlPiq7000ENNFDIrrlPiq7+j4iuiGwWjPlPiq78z4iultkWzMl1c86a7wENM1DIrol1c86fk8iOjMzWzPlPiq7000ENNFDIrrlPiq7a7wENM1DIrol1c86hU8iOgrXWzMl1c86fk8iOjMzWzPlPiq7hU8iOgrXWzMl1c86K4cENKpKIjol1c86lBgENKhKIjrlPiq7OImbMwmZvjlb7nu7lBgENKhKIjrlPiq7+j4iuiGwWjPlPiq7Sou+uQisADNb7nu7j8KbM/yQvrlb7nu7Sou+uQisADNb7nu7+j4iuiGwWjPlPiq7000ENNFDIrrlPiq7vJ6+OSUGATNb7nu7j8KbM/yQvrlb7nu7000ENNFDIrrlPiq7fk8iOjMzWzPlPiq7vJ6+OSUGATNb7nu7fk8iOjMzWzPlPiq7lBgENKhKIjrlPiq7OImbMwmZvjlb7nu7vJ6+OSUGATNb7nu7OImbMwmZvjlb7nu7hoybM+b1ADPVcoG7j8KbM/yQvrlb7nu7OImbMwmZvjlb7nu7Sou+uQisADNb7nu7j8KbM/yQvrlb7nu7vZYUOtNcszp60j4711yzOsKWFDp60j47CtcjriWw2jkDjU47w5YUutdcszp60j4701yzOr2WFLp60j47bxIDLiyw2rkDjU47wZYUOtdcs7p60j47upYUutdcs7p60j47bxIDLiyw2rkDjU4711yzusOWFLp60j4711yzurqWFDp60j47CtcjriWw2jkDjU47hSZkuXuzCbp7HIQ7CtcjriWw2jkDjU47bxIDLiyw2rkDjU47jSZkOXmzCTp7HIQ7bxIDLiyw2rkDjU47CtcjriWw2jkDjU47c2jRMuNlDTv446A7IWYNO8P1KDL446A7FA76ugAAAAA8DbE7UGUNu1YOLTL446A7f/bHuvv2x7r446A7FA76OgAAAAA8DbE72Ct8utsrfLr446A72yt8OtorfDr446A7ewWsuiMFrDphLZA7CQWsOiUFrDphLZA7egWsul8FrLphLZA72yt8OtorfDr446A7FA76ugAAAAA8DbE7FA76OgAAAAA8DbE72Ct8utsrfLr446A7ewWsuiMFrDphLZA7c2jRMuNlDTv446A7UGUNu1YOLTL446A7CQWsOiUFrDphLZA7egWsul8FrLphLZA7IWYNO8P1KDL446A7f/bHuvv2x7r446A7G1E0u8n+7zllCMs7HFE0u8H+77llCMs711yzum8Sg6+aUgo7wZYUOtdcs7p60j47AADwuS+PCrtK3dM7upYUutdcs7p60j47jv3vOTCPCrtI3dM711yzusOWFLp60j47L48Ku8P+7zlI3dM711yzurqWFDp60j47MI8Ku8P+77lI3dM711yzOsKWFDp60j47MY8KO8b+77lK3dM701yzOr2WFLp60j47MI8KO8T+7zlI3dM71lyzOgrXIy+aUgo7HVE0O8z+77llCMs7HVE0O7z+7zllCMs7pptEL9dcs7qaUgo7///vuRpRNLtlCMs7if3vORpRNLtlCMs7w5YUutdcszp60j47///vuTGPCjtI3dM7lv3vOS+PCjtI3dM7vZYUOtNcszp60j479v/vuR1RNDtlCMs7pptEr9ZcszqaUgo7nP3vORtRNDtlCMs7nP3vORtRNDtlCMs7lv3vOS+PCjtI3dM7///vuTGPCjtI3dM79v/vuR1RNDtlCMs7jv3vOTCPCrtI3dM7if3vORpRNLtlCMs7///vuRpRNLtlCMs7AADwuS+PCrtK3dM7HVE0O7z+7zllCMs7HVE0O8z+77llCMs7MY8KO8b+77lK3dM7MI8KO8T+7zlI3dM7MI8Ku8P+77lI3dM7HFE0u8H+77llCMs7G1E0u8n+7zllCMs7L48Ku8P+7zlI3dM7jv3vOZgA/zoNOzo7k/3vOQ5uvzr446A7mv3vOXLIEDv446A7nQD/OsX+7zkNOzo7D26/OsH+7zn446A7ccgQO8D+7zn446A7mwD/OsP+77kNOzo7D26/OsT+77n446A7csgQO8b+77n446A7jf3vOZgA/7oNOzo7kv3vOQ9uv7r446A7if3vOXDIELv446A7///vuZoA/7oNOzo7/f/vuQ5uv7r446A7/P/vuXDIELv446A7mAD/usH+77kNOzo7Dm6/usX+77n446A7cMgQu8H+77n446A7mAD/usb+7zkNOzo7Dm6/usT+7zn446A7b8gQu8X+7zn446A7+P/vuZoA/zoNOzo7+v/vuQ5uvzr446A7+v/vuXHIEDv446A7JrDaOaabxK0DjU47KbDauaabxK4DjU47Ne2FLZa8ka7VmI47jSZkOXmzCTp7HIQ7eLMJOoomZDl7HIQ7jiZkuXizCTp7HIQ7ebMJOo4mZLl7HIQ7erMJuoMmZDl7HIQ7jSZkOXqzCbp7HIQ7ebMJuo8mZLl7HIQ7hSZkuXuzCbp7HIQ7ebMJOo4mZLl7HIQ7JrDaOaabxK0DjU47jSZkOXqzCbp7HIQ7eLMJOoomZDl7HIQ7jiZkuXizCTp7HIQ7KbDauaabxK4DjU47erMJuoMmZDl7HIQ7ebMJuo8mZLl7HIQ7zdCwOszQsDo8DbE7AAAAABQO+jo8DbE7gfbHuqj3xzr446A7I/jHOqX3xzr446A7zNCwuszQsDo8DbE7H/jHOvr2x7r446A7zNCwuszQsLo8DbE7zNCwOs3QsLo8DbE7BFbOMo1lDbv446A7pptErxQO+ro8DbE72yt8utgrfDr446A7AAAAAOFPsjr446A7rkfhsfdF8zphLZA74E+yuqabRC/446A7TUbzukFgZbFhLZA74E+yOqabRK/446A72kXzOmmRbbFhLZA72it8OtsrfLr446A71njpsTFG87phLZA7CAWsOl8FrLphLZA7bxKDr+BPsrr446A7AAAAABQO+jo8DbE7zdCwOszQsDo8DbE7AAAAAOFPsjr446A74E+yOqabRK/446A72yt8utgrfDr446A72it8OtsrfLr446A7zNCwuszQsDo8DbE7zNCwOs3QsLo8DbE7pptErxQO+ro8DbE74E+yuqabRC/446A7bxKDr+BPsrr446A7zNCwuszQsLo8DbE7rkfhsfdF8zphLZA7gfbHuqj3xzr446A7I/jHOqX3xzr446A7TUbzukFgZbFhLZA72kXzOmmRbbFhLZA7H/jHOvr2x7r446A71njpsTFG87phLZA7CAWsOl8FrLphLZA7BFbOMo1lDbv446A7jv3vOZgA/zoNOzo7+P/vuZoA/zoNOzo7+v/vuXHIEDv446A7mv3vOXLIEDv446A7b8gQu8X+7zn446A7cMgQu8H+77n446A7mAD/usH+77kNOzo7mAD/usb+7zkNOzo7///vuZoA/7oNOzo7jf3vOZgA/7oNOzo7if3vOXDIELv446A7/P/vuXDIELv446A7mwD/OsP+77kNOzo7nQD/OsX+7zkNOzo7ccgQO8D+7zn446A7csgQO8b+77n446A7kv3vOQ9uv7r446A7/f/vuQ5uv7r446A7k/3vOQ5uvzr446A7+v/vuQ5uvzr446A7Dm6/usX+77n446A7Dm6/usT+7zn446A7D26/OsH+7zn446A7D26/OsT+77n446A7w88j3N/GJ5ZzuPzkl9xHWPzkc7hmo7dnI9zDzx6516n85HO4dKUNcP7//3////8//v//f////z//f/7//v8CQHO4/OSK2vFP/3/+//7/YkAk3DswHrnXKfzki0dmo7fnc7gCG5fcRtjDz9oj38YoFnO4Ahvy20ga/38AAP7/nL//fwAA/v/8v/7//3////+//OSLR3SlDPD+//9/////vzow2iNPrI9ci0cCG3DPS64CG4tHjrCykdojOjCu029jAhuLR+OfuZIAAP9/////vwAA/3////+//38AAPj//7+LRwIbG+BFrf9/AAA6//+/2iPDz67Tb+MCG3O4jrCzEYtH/ORwz0wuOzAk3E+sj9yLR/zkG+BFLf9//v86//8//3/+//j//z8AAP9/////vwAA/3////+/AhtzuOOfuhKl2qXa/7//X6Xapdr/v/9fw88j3NbInF4j3MPPKLdiYVglptr/v/8fWCWm2v+//x/aI8PPOb2UGzswJNzFwmskVyVXJf+//586MNojxcJqpNojOjA5vZObVyVXJf+//5+m2lgl/7//3yTcOzAot2Lhw8/aI9bInN6m2lgl/7//3wk99cL/v/8f/z//v/+//x//P/+//7//Hwk99cL/v/8fCT0JPf+//58JPQk9/7//n/8//z//v/+f/z//P/+//5/1wgk9/7//3/XCCT3/v//f/7//P/+//9//v/8//7//3/bC9sL/v/9f/7//v/+//1//v/+//7//X/bC9sL/v/9fDDryxf+//x8JPfXC/7//Hwk99cL/v/8fDDryxf+//x8MOgw6/7//nww6DDr/v/+fCT0JPf+//58JPQk9/7//n/LFDDr/v//f8sUMOv+//9/1wgk9/7//3/XCCT3/v//f8sXyxf+//1/2wvbC/7//X/bC9sL/v/9f8sXyxf+//1///wnj07U23Qnj//8ryshiAAD///+//x8J4wAAK8rH4gnj//9tuhUlAAAJ45DF6RoJ4wAAbboVpc+I0ZOl1nBU0ZPPiEzCFGL/f3CTbs4EVS930ZMpxNke0ZMvd0zCFOL/f45svbvw3M+ILWwF/u/FL3ctbB3XUqv/f45s9tU3py1sL3fVuyWhLWzPiNW7JiH/f3CTG8bfHVhLyiKt24ipvWD//0X33FFBnwAA4/iMzqa0NN2e2B9XQZ8AAEbcoru9YP//5OJxPP9/9tT+//8/9tT/f7mZq/sHK/9/pIjcDAcr/3+liNwM31DfUBS+y6X21P9/uZmr+w/aD9oOw0xW7yXvJWbThqEP2u8l/7//3+8l7yVm04ahD9oP2g7DTFYjXCNc////P6q8/3////8/VEP/f////z/bo9uj////PyEt3NL/v/8fjq/+//7//z8AAIyvrJxTBd3S3dLOvlFZIi0iLVvNZp/+/46vp4qo8SItIi1bzWafAAD1pf///78AAPWl////vwAAd7j///+//39b+v///z//fx/a/v//P/9/W/r///8//38f2v7//z9b+v9/////Px/a/3////8/W/r/f////z8f2v9/////P6MF/3////8/3yX/f////z+jBf9/////P98l/3////8//v+HR////7////Wl////v///9aX///+/d7gAAP7//7/1pQAA////v/WlAAD///+//3+jBf7//7//f98l/v//v/9/3yX+//+//3+jBf7//7/1pf7//v//P3e4///+//8/9aX+//7//z//fwum/v//P/9/C6b+//8//38Lpv7//z//fwum/v//P/9/81n+//+//3/zWf7//7//f/NZ/v//v/9/81n+//+/C6b/f////z8Lpv9/////Pwum/3////8/C6b/f////z/zWf9/////P/NZ/3////8/81n/f////z/zWf9/////P173AqERixx5zvjShTCGD32r+k+E////PwKhXvcI9XxG0oXO+Dz6/UNPhKv6vfs2QwKhoAjX7UYe0oUwBzz6/MNPhFMFvfs1w173/F4Rixv5zvgsejCGDv2r+q97////P6AI/F7FjYiFMAcset+FF4NSBa97////P/xeoAgG84S6LHowBwT4Hb2ve1MFkfnevfxeXvcG84Q6LHrO+AT4Hj2ve6v6kfnePaAIAqHFjYgFMAfShd+FGANSBU+E////P3CT/39AxA3jjmz/f+K5ICL/f/9/////v+KPWaaB2r5SWabij8/B8WUccFmmgdpBLVmmHHDPwfDlpVnijxu05yDij6VZgdq90qVZHHAbtOegHHClWYHaQK003VhLX6ff6P7/QZ+4iCNuprTKIpLXPdQ03aa0X6ffaFhLNN2C18krAABBn7ijXITKIqa0////v8oiWEs/rq+THq8er5jL9GD/f/bU/v//P99QH6//v/8fHq8er5jL9WDfUB+v/7//Hx+v4FD/v//f31DfUBS+y6Uer99Q/7//3/9/Byv+//+//38HK/7//78P2u8l/7//3+pAAAD+//+/FL8AAP7//7/+/+pASJJx7f7/FL9IknHtAADqQBmlJAkAABS/GaUkCe8lD9r/v/8fFL/+//7//z/vJQ/a/7//H+pA/v/+//8//39UQ////z8jXCNc////P/9/VEP///8/VEP/f////z/boyNc////PyNc26P///8/26MjXP///z8jXNuj////P/9/qrz///8/qrz/f////z//f6q8////P9uj26P///8/cFD+//7//z8iLdzS/7//H93S3dLNvlFZAAByUKycUwX+/3BQp4qo8d3SIS3/v//fcVAAAP7//r/c0iEt/7//342vAAD+//+/QKL//////z9Aov//////PySb//////8/JJv//////z8AACSb////vwAAJJv///+/AABAov///78AAECi////v0CiAAD+//+/QKIAAP7//78kmwAA////vySbAAD///+///++Xf///7///75d////v///JJv///+///8km////7//f7Po/v//P/9/s+j+//8//39LF/7//7//f0sX/v//v7Po/3////8/s+j/f////z9LF/9/////P0sX/3////8/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_cbvee")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_is2f8"]
+shader = ExtResource("22_5iikm")
+shader_parameter/cube_map = ExtResource("23_hr3cb")
+
+[sub_resource type="Sky" id="Sky_4pgc7"]
+sky_material = SubResource("ShaderMaterial_is2f8")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_nyq75"]
+background_mode = 2
+sky = SubResource("Sky_4pgc7")
+ambient_light_source = 1
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+reflected_light_source = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_6mlib"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7er6"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("26_7gi5k")
+shader_parameter/blue_noise = ExtResource("27_olcqv")
+shader_parameter/dark_color = Color(0.2, 0.2, 0.0980392, 1)
+shader_parameter/bright_color = Color(0.7124, 0.871108, 0.829764, 1)
+shader_parameter/outline_color = Color(0.594103, 0.789692, 0.742562, 1)
+shader_parameter/FOV = 75.0
+shader_parameter/pixelization_size = 1.0
+shader_parameter/count_color = 10.0
+shader_parameter/tresh_hold_n = 1.0
+shader_parameter/tresh_hold_d = 0.8
+shader_parameter/coff = 0.5
+
+[sub_resource type="GDScript" id="GDScript_3xxlu"]
+script/source = "extends MeshInstance3D
+
+var mat : ShaderMaterial
+
+@onready var dt: HSlider = $\"../CanvasLayer/Panel/DT\"
+@onready var nt: HSlider = $\"../CanvasLayer/Panel/NT\"
+@onready var pix: HSlider = $\"../CanvasLayer/Panel/PIX\"
+@onready var spcb: CheckBox = $\"../CanvasLayer/Panel/SPCB\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	mat = get_surface_override_material(0)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	mat.set_shader_parameter(\"tresh_hold_n\", nt.value)
+	mat.set_shader_parameter(\"tresh_hold_d\", dt.value)
+	mat.set_shader_parameter(\"pixelization_size\", pix.value)
+	visible = spcb.button_pressed
+"
+
+[sub_resource type="QuadMesh" id="QuadMesh_ow2gt"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3f65v"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("28_aagyd")
+
+[sub_resource type="Animation" id="Animation_3xxlu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parkour/key:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-5, 0, -48)]
+}
+
+[sub_resource type="Animation" id="Animation_j12ct"]
+resource_name = "TP"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Parkour/key:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-5, 0, -48), Vector3(-5, 0, -48)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_akdtr"]
+_data = {
+&"RESET": SubResource("Animation_3xxlu"),
+&"TP": SubResource("Animation_j12ct")
+}
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = SubResource("GDScript_i7luq")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_fimmi")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, -27)
+
+[node name="LevelLayout" type="Node3D" parent="."]
+
+[node name="Floor" type="Node3D" parent="LevelLayout"]
+
+[node name="floor_tile_large2" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -6)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large3" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large4" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -6)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large5" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -10)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large6" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -14)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large17" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -18)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large17" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large18" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -18)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large18" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large19" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -18)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large19" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large20" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -22)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large20" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large21" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -26)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large21" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large22" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -26)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large22" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large23" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -22)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large23" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large24" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -22)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large24" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large45" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -26)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large45" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large46" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -26)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large46" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large47" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -22)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large47" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large48" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -30)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large48" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large49" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -30)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large49" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large50" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -30)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large50" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large51" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -30)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large51" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large52" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -30)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large52" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large25" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -22)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large25" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large26" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -18)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large26" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large27" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -18)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large27" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large28" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -14)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large28" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large29" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -10)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large29" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large30" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -6)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large30" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large31" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large31" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large32" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, 2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large32" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large33" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, 2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large33" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large34" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, 2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large34" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large35" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, 2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large35" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large36" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large36" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large37" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large37" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large38" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large38" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large39" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -6)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large39" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large40" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -10)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large40" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large41" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -14)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large41" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large42" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -18)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large42" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large43" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -22)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large43" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large44" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -26)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large44" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large7" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -10)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large8" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -14)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large9" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large9" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large10" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -6)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large10" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large11" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -2)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large11" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large12" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -6)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large12" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large13" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -10)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large13" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large14" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -14)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large14" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large15" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -10)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large15" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_large16" parent="LevelLayout/Floor" instance=ExtResource("2_3xxlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -14)
+
+[node name="floor_tile_large" parent="LevelLayout/Floor/floor_tile_large16" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="pillar" parent="LevelLayout/Floor" instance=ExtResource("4_q80yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -14)
+
+[node name="pillar" parent="LevelLayout/Floor/pillar" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="pillar2" parent="LevelLayout/Floor" instance=ExtResource("4_q80yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -8)
+
+[node name="pillar" parent="LevelLayout/Floor/pillar2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="pillar3" parent="LevelLayout/Floor" instance=ExtResource("4_q80yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -1, -8)
+
+[node name="pillar" parent="LevelLayout/Floor/pillar3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="Walls" type="Node3D" parent="LevelLayout"]
+
+[node name="wall" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -4)
+
+[node name="wall" parent="LevelLayout/Walls/wall" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall2" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, 0)
+
+[node name="wall" parent="LevelLayout/Walls/wall2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall3" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, 0)
+
+[node name="wall" parent="LevelLayout/Walls/wall3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall4" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, 0)
+
+[node name="wall" parent="LevelLayout/Walls/wall4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall5" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -16)
+
+[node name="wall" parent="LevelLayout/Walls/wall5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall6" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -20)
+
+[node name="wall" parent="LevelLayout/Walls/wall6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall7" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -20)
+
+[node name="wall" parent="LevelLayout/Walls/wall7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall8" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, -1, -22)
+
+[node name="wall" parent="LevelLayout/Walls/wall8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall9" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -22)
+
+[node name="wall" parent="LevelLayout/Walls/wall9" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall10" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -18)
+
+[node name="wall" parent="LevelLayout/Walls/wall10" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall11" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -14)
+
+[node name="wall" parent="LevelLayout/Walls/wall11" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall12" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -10)
+
+[node name="wall" parent="LevelLayout/Walls/wall12" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall13" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, -6)
+
+[node name="wall" parent="LevelLayout/Walls/wall13" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall14" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, -1, -2)
+
+[node name="wall" parent="LevelLayout/Walls/wall14" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall15" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, -1, -2)
+
+[node name="wall" parent="LevelLayout/Walls/wall15" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall16" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, -1, -6)
+
+[node name="wall" parent="LevelLayout/Walls/wall16" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall17" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, -1, -10)
+
+[node name="wall" parent="LevelLayout/Walls/wall17" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall18" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, -1, -14)
+
+[node name="wall" parent="LevelLayout/Walls/wall18" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall19" parent="LevelLayout/Walls" instance=ExtResource("5_3vrpf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12, -1, -18)
+
+[node name="wall" parent="LevelLayout/Walls/wall19" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_corner_small" parent="LevelLayout/Walls" instance=ExtResource("6_373tr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -1, -4)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls/wall_corner_small" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_corner_small5" parent="LevelLayout/Walls" instance=ExtResource("6_373tr")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, -1, -16)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls/wall_corner_small5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_corner_small6" parent="LevelLayout/Walls" instance=ExtResource("6_373tr")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, -1, -20)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls/wall_corner_small6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_corner_small2" parent="LevelLayout/Walls" instance=ExtResource("6_373tr")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -4)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls/wall_corner_small2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_corner_small3" parent="LevelLayout/Walls" instance=ExtResource("6_373tr")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, -1, 0)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls/wall_corner_small3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_corner_small4" parent="LevelLayout/Walls" instance=ExtResource("6_373tr")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16, -1, 0)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls/wall_corner_small4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_corner_small7" parent="LevelLayout/Walls" instance=ExtResource("6_373tr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -1, -16)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls/wall_corner_small7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_corner_small8" parent="LevelLayout/Walls" instance=ExtResource("6_373tr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -1, -20)
+
+[node name="wall_corner_small" parent="LevelLayout/Walls/wall_corner_small8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_doorway" parent="LevelLayout/Walls" instance=ExtResource("7_d4odh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -23)
+
+[node name="wall_doorway" parent="LevelLayout/Walls/wall_doorway" index="1"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="wall_doorway_door" parent="LevelLayout/Walls/wall_doorway/wall_doorway" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="Lights" type="Node3D" parent="LevelLayout"]
+
+[node name="torch_mounted3" parent="LevelLayout/Lights" instance=ExtResource("8_ufjg7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.7587, 1, -14)
+
+[node name="torch_mounted" parent="LevelLayout/Lights/torch_mounted3" index="0"]
+layers = 256
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LevelLayout/Lights/torch_mounted3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0338917, 0.660293, 0.510992)
+light_energy = 0.2
+light_size = 0.5
+light_bake_mode = 1
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_blur = 0.0
+shadow_caster_mask = 4294967039
+omni_range = 8.0
+omni_attenuation = 0.9
+
+[node name="torch_mounted4" parent="LevelLayout/Lights" instance=ExtResource("8_ufjg7")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.94066, 1, -0.232283)
+
+[node name="torch_mounted" parent="LevelLayout/Lights/torch_mounted4" index="0"]
+layers = 256
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LevelLayout/Lights/torch_mounted4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0655909, 0.660293, 0.479292)
+light_energy = 0.2
+light_size = 0.5
+light_bake_mode = 1
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_blur = 0.05
+shadow_caster_mask = 4294967039
+omni_range = 8.0
+omni_attenuation = 0.9
+
+[node name="torch" type="Node3D" parent="LevelLayout/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09324, 4.64956, -20.0971)
+
+[node name="torch" type="MeshInstance3D" parent="LevelLayout/Lights/torch"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0)
+layers = 256
+mesh = SubResource("ArrayMesh_2xh0d")
+skeleton = NodePath("")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LevelLayout/Lights/torch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00865221, 0.727753, 0.00632668)
+light_energy = 0.2
+light_size = 0.5
+light_bake_mode = 1
+light_cull_mask = 4294967039
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_blur = 0.05
+shadow_caster_mask = 4294967039
+omni_range = 8.0
+omni_attenuation = 0.9
+
+[node name="torch2" type="Node3D" parent="LevelLayout/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8983, 4.64956, -19.9159)
+
+[node name="torch" type="MeshInstance3D" parent="LevelLayout/Lights/torch2"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0)
+layers = 256
+mesh = SubResource("ArrayMesh_2xh0d")
+skeleton = NodePath("")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LevelLayout/Lights/torch2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00865173, 0.727753, 0.00632668)
+light_energy = 0.2
+light_size = 0.5
+light_bake_mode = 1
+light_cull_mask = 4294967039
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_blur = 0.05
+shadow_caster_mask = 4294967039
+omni_range = 8.0
+omni_attenuation = 0.9
+
+[node name="Ceiling" type="Node3D" parent="LevelLayout"]
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -6)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile6" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -6)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile8" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -10)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile9" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -14)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile9" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile10" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -18)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile10" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile7" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -2)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile11" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -6)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile11" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile12" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -10)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile12" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile13" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -14)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile13" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile14" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -18)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile14" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile15" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -2)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile15" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile16" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -6)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile16" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile17" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -10)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile17" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile18" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -14)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile18" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile20" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -2)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile20" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile2" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -10)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile3" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -14)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile4" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -18)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="ceiling_tile5" parent="LevelLayout/Ceiling" instance=ExtResource("11_ogaod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -22)
+
+[node name="ceiling_tile" parent="LevelLayout/Ceiling/ceiling_tile5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="Props" type="Node3D" parent="LevelLayout"]
+
+[node name="chest" parent="LevelLayout/Props" instance=ExtResource("12_74bxu")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, -1, -3)
+visible = false
+
+[node name="chest" parent="LevelLayout/Props/chest" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="chest_lid" parent="LevelLayout/Props/chest/chest" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, -6)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props/barrel_large_decorated" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="bed_decorated" parent="LevelLayout/Props" instance=ExtResource("14_w8erx")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14, -1, -14)
+
+[node name="bed_decorated" parent="LevelLayout/Props/bed_decorated" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="chair" parent="LevelLayout/Props" instance=ExtResource("15_533op")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, -1, -11.6515)
+
+[node name="chair" parent="LevelLayout/Props/chair" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="box_large" parent="LevelLayout/Props" instance=ExtResource("16_u1f4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6926, -1, -18.741)
+
+[node name="box_large" parent="LevelLayout/Props/box_large" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="box_large4" parent="LevelLayout/Props" instance=ExtResource("16_u1f4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6926, 0.400941, -18.741)
+
+[node name="box_large" parent="LevelLayout/Props/box_large4" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="box_large3" parent="LevelLayout/Props" instance=ExtResource("16_u1f4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.21263, -1, -18.741)
+
+[node name="box_large" parent="LevelLayout/Props/box_large3" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="box_large2" parent="LevelLayout/Props" instance=ExtResource("16_u1f4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6926, -1, -17.2561)
+
+[node name="box_large" parent="LevelLayout/Props/box_large2" index="0"]
+surface_material_override/0 = ExtResource("9_xgakk")
+
+[node name="chest_gold" parent="LevelLayout/Props" instance=ExtResource("17_k5smy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, -1, -3)
+
+[node name="Barriers" type="Node3D" parent="LevelLayout"]
+
+[node name="barrier_column" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -10)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column3" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -14)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column8" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 3, -14)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column9" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 3, -10)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column9" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column10" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 3, -6)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column10" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column11" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16, 3, -2)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column11" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column12" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 3, -2)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column12" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column13" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 0)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column13" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column14" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, 0)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column14" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column15" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, 0)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column15" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column16" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -4)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column16" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column17" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -16)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column17" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column20" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -24)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column20" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column4" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -18)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column7" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12, 3, -18)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column5" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -22)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column6" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 3, -22)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_column2" parent="LevelLayout/Barriers" instance=ExtResource("18_kqyno")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -6)
+
+[node name="barrier_column" parent="LevelLayout/Barriers/barrier_column2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 3, -24)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner2" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -24)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner4" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, -20)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner5" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 3, -16)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner3" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 3, -20)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner6" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 3, -4)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner10" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, 3, -16)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner10" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner7" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 3, 0)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner8" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16, 3, 0)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrier_corner9" parent="LevelLayout/Barriers" instance=ExtResource("19_2juk8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -4)
+
+[node name="barrier_corner" parent="LevelLayout/Barriers/barrier_corner9" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="Stairs" type="Node3D" parent="LevelLayout"]
+
+[node name="stairs" parent="LevelLayout/Stairs" instance=ExtResource("20_6ha1k")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.97529, -1, -20.5083)
+
+[node name="stairs" parent="LevelLayout/Stairs/stairs" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="Props(2nd Floor)" type="Node3D" parent="LevelLayout"]
+
+[node name="keg" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("21_keciw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 14, 3, -5)
+
+[node name="keg" parent="LevelLayout/Props(2nd Floor)/keg" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="keg2" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("21_keciw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, 3, -5)
+
+[node name="keg" parent="LevelLayout/Props(2nd Floor)/keg2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="keg3" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("21_keciw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, 3, -2)
+
+[node name="keg" parent="LevelLayout/Props(2nd Floor)/keg3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="keg4" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("21_keciw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12, 3, -2)
+
+[node name="keg" parent="LevelLayout/Props(2nd Floor)/keg4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="keg5" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("21_keciw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 14, 3, -2)
+
+[node name="keg" parent="LevelLayout/Props(2nd Floor)/keg5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40891, 3, -5.32074)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated6" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40891, 3, -7.32074)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated7" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40891, 3, -9.32074)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated8" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40891, 3, -11.3207)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated9" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40891, 3, -13.3207)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated9" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated10" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40891, 3, -15.3207)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated10" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated2" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.40891, 3, -5.32074)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated3" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.40891, 3, -1.32074)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated4" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.40891, 3, -3.32074)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="barrel_large_decorated5" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("13_ltimm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.40891, 3, -5.32074)
+
+[node name="barrel_large_decorated" parent="LevelLayout/Props(2nd Floor)/barrel_large_decorated5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="bed_decorated" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("14_w8erx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5704, 3, -22)
+
+[node name="bed_decorated" parent="LevelLayout/Props(2nd Floor)/bed_decorated" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(0.992546, 0, 0.121869, 0, 1, 0, -0.121869, 0, 0.992546, 11.0075, 3, -11.8781)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest6" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(-0.0348995, 0, 0.999391, 0, 1, 0, -0.999391, 0, -0.0348995, 13.3582, 3, -9.14423)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest6/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest2" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(-0.358368, 0, 0.93358, 0, 1, 0, -0.93358, 0, -0.358368, 10, 3, -8)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest2/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest3" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3, -14)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest3/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest4" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(0.241922, 0, 0.970296, 0, 1, 0, -0.970296, 0, 0.241922, 9, 3, -14)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest4/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest9" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(0.978148, 0, 0.207912, 0, 1, 0, -0.207912, 0, 0.978148, 7.54325, 3, -16.4244)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest9" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest9/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest5" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(0.829038, 0, 0.559193, 0, 1, 0, -0.559193, 0, 0.829038, 7, 3, -11)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest5/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest7" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(0.469472, 0, 0.882948, 0, 1, 0, -0.882948, 0, 0.469472, 5.03307, 3, -15.7044)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest7/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest8" parent="LevelLayout/Props(2nd Floor)" instance=ExtResource("12_74bxu")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 10.0293, 3, -18.7107)
+
+[node name="chest" parent="LevelLayout/Props(2nd Floor)/chest8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="chest_lid" parent="LevelLayout/Props(2nd Floor)/chest8/chest" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nyq75")
+
+[node name="Parkour" type="Node3D" parent="."]
+
+[node name="floor_tile_small" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, -36)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small2" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, -39)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small2" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small3" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -1, -45)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small3" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small4" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, -49)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small4" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small5" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -1, -48)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small5" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small6" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -1, -44)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small6" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small7" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -1, -39)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small7" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small8" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -1, -33)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small8" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small9" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -1, -27)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small9" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small10" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -22)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small10" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small11" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1, -18)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small11" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small12" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -14)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small12" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small13" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -10)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small13" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small14" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, -7)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small14" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small15" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 4, -7)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small15" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small16" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3, -12)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small16" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small17" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 2, -17)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small17" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small18" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, -24)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small18" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small19" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -30)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small19" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small20" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, -1, -35)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small20" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small21" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -2, -39)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small21" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="floor_tile_small22" parent="Parkour" instance=ExtResource("24_ohapd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, -1, -39)
+
+[node name="floor_tile_small" parent="Parkour/floor_tile_small22" index="0"]
+surface_material_override/0 = ExtResource("3_i7luq")
+
+[node name="key" parent="Parkour" instance=ExtResource("25_vb3qo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -48)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Parkour"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -48)
+light_energy = 0.7
+light_size = 1.0
+shadow_enabled = true
+shadow_bias = 0.302
+shadow_transmittance_bias = 0.696
+shadow_blur = 0.53
+omni_range = 15.0
+
+[node name="PostProcess" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.060173, 0, 0)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_6mlib")
+surface_material_override/0 = SubResource("ShaderMaterial_w7er6")
+script = SubResource("GDScript_3xxlu")
+
+[node name="Pixelization" type="MeshInstance3D" parent="."]
+visible = false
+layers = 2
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_ow2gt")
+surface_material_override/0 = SubResource("ShaderMaterial_3f65v")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" node_paths=PackedStringArray("camera_3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+cull_mask = 1048574
+script = ExtResource("29_d2tnb")
+camera_3d = NodePath("../../CharacterBody3D/Camera3D")
+
+[node name="LevelLoader" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_akdtr")
+}
+script = ExtResource("30_3xxlu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("30_qc1d1")
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DTL" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_top = 3.0
+offset_right = 64.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "Depth threshold"
+
+[node name="DT" type="HSlider" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_top = 30.0
+offset_right = 51.0
+offset_bottom = 46.0
+grow_horizontal = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="NTL" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.0
+offset_top = 55.0
+offset_right = 70.0
+offset_bottom = 78.0
+grow_horizontal = 2
+text = "Normal threshold"
+
+[node name="NT" type="HSlider" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_top = 84.0
+offset_right = 51.0
+offset_bottom = 100.0
+grow_horizontal = 2
+max_value = 1.0
+step = 0.1
+value = 0.8
+tick_count = 10
+ticks_on_borders = true
+
+[node name="PL" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -67.0
+offset_top = 109.0
+offset_right = 71.0
+offset_bottom = 132.0
+grow_horizontal = 2
+text = "Pixelization"
+horizontal_alignment = 1
+
+[node name="PIX" type="HSlider" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = 135.0
+offset_right = 52.0
+offset_bottom = 151.0
+grow_horizontal = 2
+min_value = 1.0
+max_value = 4.0
+value = 1.0
+tick_count = 4
+ticks_on_borders = true
+
+[node name="SP" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.0
+offset_top = 161.0
+offset_right = 54.0
+offset_bottom = 184.0
+grow_horizontal = 2
+text = "Use second pass"
+horizontal_alignment = 1
+
+[node name="SPCB" type="CheckBox" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 163.0
+offset_right = 181.0
+offset_bottom = 187.0
+button_pressed = true
+
+[node name="chest_gold" parent="." instance=ExtResource("17_k5smy")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8, 3, -2)
+
+[editable path="CharacterBody3D"]
+[editable path="LevelLayout/Floor/floor_tile_large2"]
+[editable path="LevelLayout/Floor/floor_tile_large3"]
+[editable path="LevelLayout/Floor/floor_tile_large4"]
+[editable path="LevelLayout/Floor/floor_tile_large5"]
+[editable path="LevelLayout/Floor/floor_tile_large6"]
+[editable path="LevelLayout/Floor/floor_tile_large17"]
+[editable path="LevelLayout/Floor/floor_tile_large18"]
+[editable path="LevelLayout/Floor/floor_tile_large19"]
+[editable path="LevelLayout/Floor/floor_tile_large20"]
+[editable path="LevelLayout/Floor/floor_tile_large21"]
+[editable path="LevelLayout/Floor/floor_tile_large22"]
+[editable path="LevelLayout/Floor/floor_tile_large23"]
+[editable path="LevelLayout/Floor/floor_tile_large24"]
+[editable path="LevelLayout/Floor/floor_tile_large45"]
+[editable path="LevelLayout/Floor/floor_tile_large46"]
+[editable path="LevelLayout/Floor/floor_tile_large47"]
+[editable path="LevelLayout/Floor/floor_tile_large48"]
+[editable path="LevelLayout/Floor/floor_tile_large49"]
+[editable path="LevelLayout/Floor/floor_tile_large50"]
+[editable path="LevelLayout/Floor/floor_tile_large51"]
+[editable path="LevelLayout/Floor/floor_tile_large52"]
+[editable path="LevelLayout/Floor/floor_tile_large25"]
+[editable path="LevelLayout/Floor/floor_tile_large26"]
+[editable path="LevelLayout/Floor/floor_tile_large27"]
+[editable path="LevelLayout/Floor/floor_tile_large28"]
+[editable path="LevelLayout/Floor/floor_tile_large29"]
+[editable path="LevelLayout/Floor/floor_tile_large30"]
+[editable path="LevelLayout/Floor/floor_tile_large31"]
+[editable path="LevelLayout/Floor/floor_tile_large32"]
+[editable path="LevelLayout/Floor/floor_tile_large33"]
+[editable path="LevelLayout/Floor/floor_tile_large34"]
+[editable path="LevelLayout/Floor/floor_tile_large35"]
+[editable path="LevelLayout/Floor/floor_tile_large36"]
+[editable path="LevelLayout/Floor/floor_tile_large37"]
+[editable path="LevelLayout/Floor/floor_tile_large38"]
+[editable path="LevelLayout/Floor/floor_tile_large39"]
+[editable path="LevelLayout/Floor/floor_tile_large40"]
+[editable path="LevelLayout/Floor/floor_tile_large41"]
+[editable path="LevelLayout/Floor/floor_tile_large42"]
+[editable path="LevelLayout/Floor/floor_tile_large43"]
+[editable path="LevelLayout/Floor/floor_tile_large44"]
+[editable path="LevelLayout/Floor/floor_tile_large7"]
+[editable path="LevelLayout/Floor/floor_tile_large8"]
+[editable path="LevelLayout/Floor/floor_tile_large9"]
+[editable path="LevelLayout/Floor/floor_tile_large10"]
+[editable path="LevelLayout/Floor/floor_tile_large11"]
+[editable path="LevelLayout/Floor/floor_tile_large12"]
+[editable path="LevelLayout/Floor/floor_tile_large13"]
+[editable path="LevelLayout/Floor/floor_tile_large14"]
+[editable path="LevelLayout/Floor/floor_tile_large15"]
+[editable path="LevelLayout/Floor/floor_tile_large16"]
+[editable path="LevelLayout/Floor/pillar"]
+[editable path="LevelLayout/Floor/pillar2"]
+[editable path="LevelLayout/Floor/pillar3"]
+[editable path="LevelLayout/Walls/wall"]
+[editable path="LevelLayout/Walls/wall2"]
+[editable path="LevelLayout/Walls/wall3"]
+[editable path="LevelLayout/Walls/wall4"]
+[editable path="LevelLayout/Walls/wall5"]
+[editable path="LevelLayout/Walls/wall6"]
+[editable path="LevelLayout/Walls/wall7"]
+[editable path="LevelLayout/Walls/wall8"]
+[editable path="LevelLayout/Walls/wall9"]
+[editable path="LevelLayout/Walls/wall10"]
+[editable path="LevelLayout/Walls/wall11"]
+[editable path="LevelLayout/Walls/wall12"]
+[editable path="LevelLayout/Walls/wall13"]
+[editable path="LevelLayout/Walls/wall14"]
+[editable path="LevelLayout/Walls/wall15"]
+[editable path="LevelLayout/Walls/wall16"]
+[editable path="LevelLayout/Walls/wall17"]
+[editable path="LevelLayout/Walls/wall18"]
+[editable path="LevelLayout/Walls/wall19"]
+[editable path="LevelLayout/Walls/wall_corner_small"]
+[editable path="LevelLayout/Walls/wall_corner_small5"]
+[editable path="LevelLayout/Walls/wall_corner_small6"]
+[editable path="LevelLayout/Walls/wall_corner_small2"]
+[editable path="LevelLayout/Walls/wall_corner_small3"]
+[editable path="LevelLayout/Walls/wall_corner_small4"]
+[editable path="LevelLayout/Walls/wall_corner_small7"]
+[editable path="LevelLayout/Walls/wall_corner_small8"]
+[editable path="LevelLayout/Walls/wall_doorway"]
+[editable path="LevelLayout/Walls/wall_doorway/ActivatableArea"]
+[editable path="LevelLayout/Lights/torch_mounted3"]
+[editable path="LevelLayout/Lights/torch_mounted4"]
+[editable path="LevelLayout/Ceiling/ceiling_tile"]
+[editable path="LevelLayout/Ceiling/ceiling_tile6"]
+[editable path="LevelLayout/Ceiling/ceiling_tile8"]
+[editable path="LevelLayout/Ceiling/ceiling_tile9"]
+[editable path="LevelLayout/Ceiling/ceiling_tile10"]
+[editable path="LevelLayout/Ceiling/ceiling_tile7"]
+[editable path="LevelLayout/Ceiling/ceiling_tile11"]
+[editable path="LevelLayout/Ceiling/ceiling_tile12"]
+[editable path="LevelLayout/Ceiling/ceiling_tile13"]
+[editable path="LevelLayout/Ceiling/ceiling_tile14"]
+[editable path="LevelLayout/Ceiling/ceiling_tile15"]
+[editable path="LevelLayout/Ceiling/ceiling_tile16"]
+[editable path="LevelLayout/Ceiling/ceiling_tile17"]
+[editable path="LevelLayout/Ceiling/ceiling_tile18"]
+[editable path="LevelLayout/Ceiling/ceiling_tile20"]
+[editable path="LevelLayout/Ceiling/ceiling_tile2"]
+[editable path="LevelLayout/Ceiling/ceiling_tile3"]
+[editable path="LevelLayout/Ceiling/ceiling_tile4"]
+[editable path="LevelLayout/Ceiling/ceiling_tile5"]
+[editable path="LevelLayout/Props/chest"]
+[editable path="LevelLayout/Props/barrel_large_decorated"]
+[editable path="LevelLayout/Props/bed_decorated"]
+[editable path="LevelLayout/Props/chair"]
+[editable path="LevelLayout/Props/box_large"]
+[editable path="LevelLayout/Props/box_large4"]
+[editable path="LevelLayout/Props/box_large3"]
+[editable path="LevelLayout/Props/box_large2"]
+[editable path="LevelLayout/Props/chest_gold"]
+[editable path="LevelLayout/Props/chest_gold/ActivatableArea"]
+[editable path="LevelLayout/Barriers/barrier_column"]
+[editable path="LevelLayout/Barriers/barrier_column3"]
+[editable path="LevelLayout/Barriers/barrier_column8"]
+[editable path="LevelLayout/Barriers/barrier_column9"]
+[editable path="LevelLayout/Barriers/barrier_column10"]
+[editable path="LevelLayout/Barriers/barrier_column11"]
+[editable path="LevelLayout/Barriers/barrier_column12"]
+[editable path="LevelLayout/Barriers/barrier_column13"]
+[editable path="LevelLayout/Barriers/barrier_column14"]
+[editable path="LevelLayout/Barriers/barrier_column15"]
+[editable path="LevelLayout/Barriers/barrier_column16"]
+[editable path="LevelLayout/Barriers/barrier_column17"]
+[editable path="LevelLayout/Barriers/barrier_column20"]
+[editable path="LevelLayout/Barriers/barrier_column4"]
+[editable path="LevelLayout/Barriers/barrier_column7"]
+[editable path="LevelLayout/Barriers/barrier_column5"]
+[editable path="LevelLayout/Barriers/barrier_column6"]
+[editable path="LevelLayout/Barriers/barrier_column2"]
+[editable path="LevelLayout/Barriers/barrier_corner"]
+[editable path="LevelLayout/Barriers/barrier_corner2"]
+[editable path="LevelLayout/Barriers/barrier_corner4"]
+[editable path="LevelLayout/Barriers/barrier_corner5"]
+[editable path="LevelLayout/Barriers/barrier_corner3"]
+[editable path="LevelLayout/Barriers/barrier_corner6"]
+[editable path="LevelLayout/Barriers/barrier_corner10"]
+[editable path="LevelLayout/Barriers/barrier_corner7"]
+[editable path="LevelLayout/Barriers/barrier_corner8"]
+[editable path="LevelLayout/Barriers/barrier_corner9"]
+[editable path="LevelLayout/Stairs/stairs"]
+[editable path="LevelLayout/Props(2nd Floor)/keg"]
+[editable path="LevelLayout/Props(2nd Floor)/keg2"]
+[editable path="LevelLayout/Props(2nd Floor)/keg3"]
+[editable path="LevelLayout/Props(2nd Floor)/keg4"]
+[editable path="LevelLayout/Props(2nd Floor)/keg5"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated6"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated7"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated8"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated9"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated10"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated2"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated3"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated4"]
+[editable path="LevelLayout/Props(2nd Floor)/barrel_large_decorated5"]
+[editable path="LevelLayout/Props(2nd Floor)/bed_decorated"]
+[editable path="LevelLayout/Props(2nd Floor)/chest"]
+[editable path="LevelLayout/Props(2nd Floor)/chest6"]
+[editable path="LevelLayout/Props(2nd Floor)/chest2"]
+[editable path="LevelLayout/Props(2nd Floor)/chest3"]
+[editable path="LevelLayout/Props(2nd Floor)/chest4"]
+[editable path="LevelLayout/Props(2nd Floor)/chest9"]
+[editable path="LevelLayout/Props(2nd Floor)/chest5"]
+[editable path="LevelLayout/Props(2nd Floor)/chest7"]
+[editable path="LevelLayout/Props(2nd Floor)/chest8"]
+[editable path="Parkour/floor_tile_small"]
+[editable path="Parkour/floor_tile_small2"]
+[editable path="Parkour/floor_tile_small3"]
+[editable path="Parkour/floor_tile_small4"]
+[editable path="Parkour/floor_tile_small5"]
+[editable path="Parkour/floor_tile_small6"]
+[editable path="Parkour/floor_tile_small7"]
+[editable path="Parkour/floor_tile_small8"]
+[editable path="Parkour/floor_tile_small9"]
+[editable path="Parkour/floor_tile_small10"]
+[editable path="Parkour/floor_tile_small11"]
+[editable path="Parkour/floor_tile_small12"]
+[editable path="Parkour/floor_tile_small13"]
+[editable path="Parkour/floor_tile_small14"]
+[editable path="Parkour/floor_tile_small15"]
+[editable path="Parkour/floor_tile_small16"]
+[editable path="Parkour/floor_tile_small17"]
+[editable path="Parkour/floor_tile_small18"]
+[editable path="Parkour/floor_tile_small19"]
+[editable path="Parkour/floor_tile_small20"]
+[editable path="Parkour/floor_tile_small21"]
+[editable path="Parkour/floor_tile_small22"]

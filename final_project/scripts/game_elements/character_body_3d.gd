@@ -1,13 +1,19 @@
+class_name Player
 extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+@export var tp_height : float = -1000.0
 
+var start_pos : Vector3
 var prev_mouse_pos : Vector2
 var underwater : bool
 
 @onready var camera_3d: Camera3D = $Camera3D
 @onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
+
+func _ready() -> void:
+	start_pos = global_position
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -39,6 +45,9 @@ func _physics_process(delta: float) -> void:
 	check_raycast()
 	
 	move_and_slide()
+	if global_position.y < tp_height:
+		global_position = start_pos
+		velocity = Vector3.ZERO
 
 var selected_this_frame : bool = false
 

@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://b32w05e3k5iw2"]
+
+[ext_resource type="Shader" uid="uid://d8f42kwicd6u" path="res://shaders/common.gdshader" id="1_vo686"]
+[ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="2_h8qet"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bbaoo"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ub8o8"]
+seamless = true
+noise = SubResource("FastNoiseLite_bbaoo")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_vo686")
+shader_parameter/noise = SubResource("NoiseTexture2D_ub8o8")
+shader_parameter/common_texture = ExtResource("2_h8qet")
+shader_parameter/ghost_pos_w = Vector3(0, 0, 0)
