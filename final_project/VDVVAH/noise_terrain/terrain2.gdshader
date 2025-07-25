@@ -2,6 +2,8 @@ shader_type spatial;
 
 uniform float persistance = 0.5;
 uniform float number_of_octaves = 10.;
+uniform float frequency = 0.25;
+uniform float amplitude = 2.;
 
 uniform sampler2D stone;
 uniform sampler2D grass;
@@ -9,7 +11,7 @@ uniform sampler2D water;
 uniform sampler2D snow;
 uniform sampler2D sand;
 
-const float levels[] = {-0.2, -0.19, -0.1, 0.75, 1.};
+const float levels[] = {-0.2, -0.19, -0.1, 0.7, 1.};
 const float slopes[] = {0.95, 0.9};
 
 float _rand_function1(ivec2 vertex) {
@@ -68,10 +70,18 @@ float _terrain(vec2 args) {
 }
 
 float _terrain_iterated(vec2 args) {
-	float sum = 0., c;
+	float sum = 0.;
+	
+	float _number_of_octaves = number_of_octaves;
+	float _persistance = persistance;
+	
+	//float n = 12.;
+	//_number_of_octaves = floor(sin(TIME / 2.) * n) + n;
+	
+	//_persistance = sin(TIME / 2.) * persistance;
 
-	for (float k = 0.; k < number_of_octaves; k++) {
-		sum += _terrain(args * pow(2, k)) * pow(persistance, k);
+	for (float k = 0.; k < _number_of_octaves; k++) {
+		sum += _terrain(args * pow(2, k) * frequency) * pow(_persistance, k) * amplitude;
 	}
 
 	return sum;
@@ -138,24 +148,14 @@ void vertex() {
 
 void fragment() {
 	vec3 vertex_w = (INV_VIEW_MATRIX * vec4(VERTEX, 1.)).xyz;
-//
+
 	vertex_w.y = _generate_terrain(vertex_w.xz);
 	vec3 normal = _normal_of_terrain(vertex_w);
 	
 	normal = normal_of_landscape(vertex_w.y, normal);
 	ALBEDO = colorize_landscape(vertex_w.y, UV, normal);
-//
-	NORMAL = (VIEW_MATRIX * vec4(normal, 0.)).xyz;
-	
-	//ALBEDO = vec3(_generate_terrain(vertex_w.xz));
-	
-	//vec2 debug;
-	//
-//
-	//ALBEDO = vec3(_generate_terrain(vertex_w.xz, 10.));
 
-	//if (debug.x > 0.99)
-		//ALBEDO = vec3(1., 0., 0.);
+	NORMAL = (VIEW_MATRIX * vec4(normal, 0.)).xyz;
 }
 
 //void light() {
