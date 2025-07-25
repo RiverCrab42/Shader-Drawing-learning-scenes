@@ -3,7 +3,7 @@ extends Node
 var level_to_load : PackedScene
 
 func _ready() -> void:
-	GlobalSignal.load_level.connect(load_level)
+	GlobalSignals.load_level.connect(load_level)
 
 
 func load_level(level : PackedScene) -> void:
