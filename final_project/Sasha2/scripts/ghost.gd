@@ -1,7 +1,7 @@
 extends Node3D
 
 const GHOST_MATERIAL = preload("res://Sasha2/ghost.tres")
-const GHOST = preload("res://Sasha2/ghost.tscn")
+const GHOST = preload("res://Namarich/scenes/ghost.tscn")
 @onready var ghost: Node3D = $"."
 @export var speed : float = 3.0
 @export var target_radius : float = 8.0
@@ -17,10 +17,14 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	
+	if (ghost == null || target == null) :
+		return;
+	
 	if (ghost.global_position - target.global_position).length() <= target_radius:
 		ghost.global_position += (target.global_position - ghost.global_position).normalized() * speed * delta
 		see = 1
 		#GHOST.set_shader_parameter("see", see)
+		
 		time += delta
 		if time >= 100*delta:
 			var ghost_clone = GHOST.instantiate()
@@ -34,6 +38,11 @@ func _process(delta: float) -> void:
 			ghost_clone.scale = ghost.scale / 2
 			ghost_clone.time = -900 * delta
 			print("clon sozdan")
+			
+			
+		ghost.look_at(target.global_position);
+		ghost.rotate_object_local(Vector3(0,1,0),90.0);
+		
 	else:
 		see = 0
 		#GHOST.set_shader_parameter("see", see)
@@ -43,6 +52,10 @@ func _process(delta: float) -> void:
 			number_targets += 1
 			if number_targets > len(targets) - 1:
 				number_targets = 0
+		
+		ghost.look_at(targets[number_targets].global_position);
+		ghost.rotate_object_local(Vector3(0,1,0),90.0);
+		
 	GHOST_MATERIAL.set_shader_parameter("see", see)
 		#ghost.global_position += (targets[number_targets].global_position - ghost.global_position).normalized() * 45.2
 		
