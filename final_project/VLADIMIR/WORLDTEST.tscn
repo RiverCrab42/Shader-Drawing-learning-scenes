@@ -26,6 +26,8 @@ shader_parameter/ASK = ExtResource("30_i1y4t")
 shader_parameter/Slash = ExtResource("31_xbq1x")
 shader_parameter/MinAgnleCount = 2
 shader_parameter/StepOutline = 0.05
+shader_parameter/ColorFirst = Color(0, 0, 0, 1)
+shader_parameter/ColorSecond = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lexaa"]
 render_priority = 0

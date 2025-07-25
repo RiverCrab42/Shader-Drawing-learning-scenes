@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://16q53nughrwl"]
+
+[ext_resource type="Shader" uid="uid://buwss0btl8mbh" path="res://VLADIMIR/PixelTeleport.gdshader" id="1_ss76r"]
+[ext_resource type="PackedScene" uid="uid://bbvi62e5upn7q" path="res://scenes/assets/floors/floor_tile_extralarge_grates.tscn" id="2_e8q2e"]
+[ext_resource type="PackedScene" uid="uid://d1pu2cjsxob11" path="res://scenes/assets/walls/wall_doorway_sides.tscn" id="3_2fmx4"]
+[ext_resource type="Shader" uid="uid://c1q8vamb60iu6" path="res://VLADIMIR/Portal.gdshader" id="4_tk4it"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_2fmx4"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tk4it"]
+render_priority = 0
+shader = ExtResource("1_ss76r")
+shader_parameter/stepPix = 1.0
+shader_parameter/start = true
+
+[sub_resource type="Animation" id="Animation_ss76r"]
+resource_name = "TP"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/TeleportEffect:surface_material_override/0:shader_parameter/stepPix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 40.0]
+}
+
+[sub_resource type="Animation" id="Animation_e8q2e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/TeleportEffect:surface_material_override/0:shader_parameter/stepPix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2fmx4"]
+_data = {
+&"RESET": SubResource("Animation_e8q2e"),
+&"TP": SubResource("Animation_ss76r")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_15aqo"]
+size = Vector2(4, 4)
+
+[sub_resource type="Gradient" id="Gradient_2fmx4"]
+colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tk4it"]
+gradient = SubResource("Gradient_2fmx4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_doapq"]
+render_priority = 0
+shader = ExtResource("4_tk4it")
+shader_parameter/speed = 4.495
+shader_parameter/color = SubResource("GradientTexture2D_tk4it")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, -4)
+
+[node name="TeleportEffect" type="MeshInstance3D" parent="Camera3D"]
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_2fmx4")
+surface_material_override/0 = SubResource("ShaderMaterial_tk4it")
+
+[node name="TeleportAnimation" type="AnimationPlayer" parent="Camera3D/TeleportEffect"]
+root_node = NodePath("../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_2fmx4")
+}
+
+[node name="floor_tile_extralarge_grates" parent="." instance=ExtResource("2_e8q2e")]
+
+[node name="wall_doorway_sides" parent="." instance=ExtResource("3_2fmx4")]
+
+[node name="PortalEffect" type="MeshInstance3D" parent="wall_doorway_sides"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, 0)
+mesh = SubResource("QuadMesh_15aqo")
+surface_material_override/0 = SubResource("ShaderMaterial_doapq")
