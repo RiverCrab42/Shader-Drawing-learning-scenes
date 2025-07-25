@@ -105,9 +105,8 @@ void fragment() {
 	
 	if (intersection_exist)
 		ALBEDO = texture(scr_tex, uv).xyz;
-	//else
-		//ALPHA = 0.;
-	//ALBEDO = reflection_v;
+	else
+		ALPHA = 0.;
 }
 
 //void light() {
