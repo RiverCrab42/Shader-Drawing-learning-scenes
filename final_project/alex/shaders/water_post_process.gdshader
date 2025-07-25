@@ -17,11 +17,15 @@ void vertex() {
 void fragment() {
 	float noise_val = texture(noise,UV + TIME/5.0).x - 0.5;
 	
-	vec4 depth_tex_nds = texture(depth_tex, SCREEN_UV);
-	vec4 depth_tex_v = INV_PROJECTION_MATRIX * depth_tex_nds.yzxw;
-	float depth_lin = - depth_tex_v.z / depth_tex_v.w;
-
-	float x =clamp(smoothstep(1.0,10.0,depth_lin),0.0,0.9);
+	vec4 depth_tex_nds = texture(depth_tex, SCREEN_UV + noise_val / scr_shaking);
+	vec4 depth_tex_ndsXY = vec4((SCREEN_UV.x + noise_val / scr_shaking)* 2.0 - 1.0, (SCREEN_UV.y + noise_val / scr_shaking) * 2.0 - 1.0, 0.0, 0.0);
+	depth_tex_nds.z = depth_tex_nds.x;
+	depth_tex_nds.xy = depth_tex_ndsXY.xy;
+	vec4 depth_tex_v = INV_PROJECTION_MATRIX * depth_tex_nds;
+	//float depth_lin = - depth_tex_v.z / depth_tex_v.w;
+	vec3 depth_view = depth_tex_v.xyz / depth_tex_v.w;
+	float depth_lin = length(depth_view);
+	float x = clamp(smoothstep(1.0,10.0,depth_lin),0.0,0.9);
 	vec3 tex_color = texture(scr_tex,vec2(SCREEN_UV.x + noise_val / scr_shaking, SCREEN_UV.y + noise_val / scr_shaking)).rgb;
 	vec3 shaking_fog = mix(tex_color,fog_color,x+0.1);
 	ALBEDO = shaking_fog;

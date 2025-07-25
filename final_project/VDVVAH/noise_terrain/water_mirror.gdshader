@@ -4,6 +4,7 @@ render_mode unshaded;
 uniform sampler2D depth_tex : hint_depth_texture;
 uniform sampler2D scr_tex : hint_screen_texture;
 
+uniform sampler2D normal_map;
 uniform sampler2D water;
 
 uniform int steps = 100;
@@ -31,6 +32,10 @@ vec2 from_nds_to_uv(vec2 nds) {
 
 vec2 from_uv_to_nds(vec2 uv) {
 	return uv * 2. - 1.;
+}
+
+vec3 normal_from_world_to_view(mat4 view_matrix, vec3 normal) {
+	return (view_matrix * vec4(normal, 0.)).xyz;
 }
 
 float get_depth(vec2 xy_nds) {
@@ -97,6 +102,17 @@ vec3 find_intersection(vec3 start_point_v, vec3 reflection_direction_v,
 	return intersection_exist ? binary_search(last_point, this_point, projection_matrix): vec3(0.);
 }
 
+vec3 unpack_normal(vec3 normal) {
+	vec3 n = normal * 2.0 - 1.0;
+	n.z *= -1.0;
+	return n;
+}
+
+void vertex() {
+	//vec3 normal = normalize(unpack_normal(texture(normal_map, UV).xyz));
+	//NORMAL = normal;
+}
+
 void fragment() {
 	vec3 reflection_v = normalize(reflect(normalize(VERTEX), NORMAL));
 
@@ -106,9 +122,10 @@ void fragment() {
 	vec2 uv = from_nds_to_uv(find_intersection(VERTEX, reflection_v, PROJECTION_MATRIX, INV_PROJECTION_MATRIX, intersection_exist).xy);
 
 	if (intersection_exist)
-		ALBEDO = texture(scr_tex, uv).xyz;
+		ALBEDO = mix(texture(water, UV).xyz, texture(scr_tex, uv).xyz, smoothstep(0., 1., length(uv)));
 	else
 		ALBEDO = texture(water, UV).xyz;
+	ALPHA = 0.8;
 }
 
 //void light() {
