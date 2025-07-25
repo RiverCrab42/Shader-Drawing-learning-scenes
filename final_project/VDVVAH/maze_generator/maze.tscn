@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl4gnrt7fedvh"]
+
+[ext_resource type="Script" uid="uid://c8ho5sn2yiv6u" path="res://maze.gd" id="1_upnsh"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_upnsh")

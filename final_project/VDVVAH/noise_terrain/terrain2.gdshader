@@ -11,7 +11,7 @@ uniform sampler2D water;
 uniform sampler2D snow;
 uniform sampler2D sand;
 
-const float levels[] = {-0.05, 0.05, 0., 0.4, 0.5};
+const float levels[] = {-0.05, 0.1, 0.05, 0.4, 0.5};
 const float slopes[] = {0.95, 0.9};
 
 #define level(index) (levels[index] * amplitude)
