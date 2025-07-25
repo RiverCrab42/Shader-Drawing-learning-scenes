@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bv4p80bkebilk"]
+
+[ext_resource type="PackedScene" uid="uid://bqfr8d6qjiwgs" path="res://VLADIMIR/Ghost.fbx" id="1_u65ox"]
+[ext_resource type="Script" uid="uid://51mfkg81i7q" path="res://Sasha2/scripts/ghost.gd" id="2_nkpof"]
+[ext_resource type="Material" uid="uid://bg266w0mtfkbl" path="res://Sasha2/ghost.tres" id="3_ildpc"]
+
+[node name="Ghost" instance=ExtResource("1_u65ox")]
+script = ExtResource("2_nkpof")
+
+[node name="Плоскость_001" parent="." index="0"]
+surface_material_override/0 = ExtResource("3_ildpc")

@@ -4,6 +4,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 var prev_mouse_pos : Vector2
+var underwater : bool
 
 @onready var camera_3d: Camera3D = $Camera3D
 @onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
@@ -11,11 +12,18 @@ var prev_mouse_pos : Vector2
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		if underwater:
+			velocity += get_gravity() * delta * 0.5
+		else:
+			velocity += get_gravity() * delta
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if underwater:
+		if Input.is_action_pressed("ui_accept"):
+			velocity.y = JUMP_VELOCITY
+	else:
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
 	
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backwards")
