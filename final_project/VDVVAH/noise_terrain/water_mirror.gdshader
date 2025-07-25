@@ -11,7 +11,7 @@ uniform int steps = 100;
 uniform float max_dist = 2.;
 uniform float detect_threshold = 0.05;
 uniform int binary_search_steps = 8;
-uniform float opacity = 0.4;
+uniform float opacity = 0.8;
 
 vec3 from_view_to_nds(mat4 projection_matrix, vec3 vec) {
 	vec4 temp = projection_matrix * vec4(vec, 1.);
@@ -109,9 +109,13 @@ vec3 unpack_normal(vec3 normal) {
 	return n;
 }
 
+//#define MOVING_WATER
+
 void vertex() {
+#ifdef MOVING_WATER
 	vec3 normal = texture(normal_map, UV + TIME * vec2(0.1, 0.1)).xzy;
 	NORMAL += 0.2 * normal;
+#endif
 	NORMAL = normalize(NORMAL);
 }
 
@@ -119,14 +123,20 @@ void fragment() {
 	vec3 reflection_v = normalize(reflect(normalize(VERTEX), NORMAL));
 
 	bool intersection_exist = true;
+	
+	vec2 Uv = UV;
 
 	//vec3 test_vertex = (VERTEX + vec3(5., 5., 0.)) / 10.;
 	vec2 uv = from_nds_to_uv(find_intersection(VERTEX, reflection_v, PROJECTION_MATRIX, INV_PROJECTION_MATRIX, intersection_exist).xy);
+#ifdef MOVING_WATER
+	Uv = UV + TIME * vec2(0.05, 0.05);
+#endif
+
 
 	if (intersection_exist)
-		ALBEDO = mix(texture(water, UV).xyz, texture(scr_tex, uv).xyz, smoothstep(0., 1., length(uv)));
+		ALBEDO = mix(texture(water, Uv).xyz, texture(scr_tex, uv).xyz, smoothstep(0., 1., length(uv)));
 	else
-		ALBEDO = texture(water, UV).xyz;
+		ALBEDO = texture(water, Uv).xyz;
 	ALPHA = opacity;
 }
 
