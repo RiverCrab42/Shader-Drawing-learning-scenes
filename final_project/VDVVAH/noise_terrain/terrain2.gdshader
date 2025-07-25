@@ -11,8 +11,11 @@ uniform sampler2D water;
 uniform sampler2D snow;
 uniform sampler2D sand;
 
-const float levels[] = {-0.2, -0.19, -0.1, 0.7, 1.};
+const float levels[] = {0., 0.05, 0., 0.4, 0.5};
 const float slopes[] = {0.95, 0.9};
+
+#define level(index) (levels[index] * amplitude)
+#define slope(index) (slopes[index])
 
 float _rand_function1(ivec2 vertex) {
 	 int n = vertex.x + 43*vertex.y;
@@ -110,7 +113,7 @@ vec3 mix_texture(vec3 color, sampler2D tex, float k, vec2 uv) {
 }
 
 vec3 normal_of_landscape(float height, vec3 normal) {
-	return (height < levels[0]) ? vec3(0., 1., 0.): normal;
+	return (height < level(0)) ? vec3(0., 1., 0.): normal;
 }
 
 vec3 colorize_landscape(float height, vec2 uv, vec3 normal) {
@@ -120,23 +123,23 @@ vec3 colorize_landscape(float height, vec2 uv, vec3 normal) {
 		//normal = vec3(0., 1., 0.);
 		//result_color = texture(water, uv).xyz;
 	//} else 
-	if (height < levels[1])
+	if (height < level(1))
 		result_color = texture(sand, uv).xyz;
-	else if (height < levels[2])
-		result_color = mix_texture(sand, grass, smoothstep(levels[1], levels[2], height), uv);
-	else if (height > levels[4])
+	else if (height < level(2))
+		result_color = mix_texture(sand, grass, smoothstep(level(1), level(2), height), uv);
+	else if (height > level(4))
 		result_color = texture(snow, uv).xyz;
-	else if (height > levels[3])
-		result_color = mix_texture(grass, snow, smoothstep(levels[3], levels[4], height), uv);
+	else if (height > level(3))
+		result_color = mix_texture(grass, snow, smoothstep(level(3), level(4), height), uv);
 	else
 		result_color = texture(grass, uv).xyz;
 		
-	float slope = length(normal.xz);
+	float _slope = length(normal.xz);
 		
-	if (slope > slopes[0])
+	if (_slope > slope(0))
 		result_color = texture(stone, uv).xyz;
-	else if (slope > slopes[1])
-		result_color = mix_texture(result_color, stone, smoothstep(slopes[1], slopes[0], slope), uv);
+	else if (_slope > slope(1))
+		result_color = mix_texture(result_color, stone, smoothstep(slope(1), slope(0), _slope), uv);
 		
 	return result_color;
 }
