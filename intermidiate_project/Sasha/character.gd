@@ -1,29 +1,29 @@
-class_name Player
-extends CharacterBody2D
+class_name Sasha
+extends Player
 
 
-const arrow = preload("res://scenes/collectables/arrow.tscn")
-
-@export var speed : float = 200.0
-@export var gravity : float = 2000.0
-@export var acceleration_ground : float = 50000.0
-@export var acceleration_air = 3600.0
-@export var jump_velocity = -800.0
-@export var max_fall_speed = 800.0
-@export var coyote_time = 0.1
-@export var time_between_shots = 0.1
-
-
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-
-var lastOnFloor = 0.0
-var lastShot = 0.0
-var level_viewport : Vector2i
+#const arrow = preload("res://scenes/collectables/arrow.tscn")
+#
+#@export var speed : float = 200.0
+#@export var gravity : float = 2000.0
+#@export var acceleration_ground : float = 50000.0
+#@export var acceleration_air = 3600.0
+#@export var jump_velocity = -800.0
+#@export var max_fall_speed = 800.0
+#@export var coyote_time = 0.1
+#@export var time_between_shots = 0.1
+#
+#
+#@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+#@onready var animation_player: AnimationPlayer = $AnimationPlayer
+#
+#var lastOnFloor = 0.0
+#var lastShot = 0.0
+#var level_viewport : Vector2i
 
 var GAME_OVER: bool = false
 
-const arrow_offset : float = 5.0
+#const arrow_offset : float = 5.0
 
 func _ready() -> void:
 	add_to_group("player")
@@ -108,7 +108,7 @@ func _animate(direction : float) -> void:
 	if (direction == 1):
 		animated_sprite_2d.flip_h = false
 
-var can_get_hit : bool = true
+#var can_get_hit : bool = true
 
 func get_hit() -> void:
 	if can_get_hit:
@@ -116,6 +116,7 @@ func get_hit() -> void:
 		GlobalSignals.took_damage.emit()
 		animation_player.animation_finished.connect(reset_hit)
 		can_get_hit = false
+		
 	
 func reset_hit(anim_name : String) -> void:
 	can_get_hit = true

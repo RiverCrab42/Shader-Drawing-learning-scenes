@@ -10,13 +10,13 @@ subdivide_depth = 100
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ap80o"]
 render_priority = 0
 shader = ExtResource("1_gfddc")
-shader_parameter/persistance = 0.0
-shader_parameter/number_of_octaves = 0.0
+shader_parameter/persistance = 0.25
+shader_parameter/number_of_octaves = 1.0
 
 [node name="NoiseTerrain" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.594316, 0.62719, -0.992089)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_awfsy")
 surface_material_override/0 = SubResource("ShaderMaterial_ap80o")
 

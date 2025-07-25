@@ -2,7 +2,11 @@
 extends EditorScript
 
 var object_groups : Array
-var material_to_set = preload("res://assets/materials/common.tres")
+var material_to_set = preload("res://Namarich/Materials/dithering.tres")
+
+var dith = "res://Namarich/Materials/dithering.tres"
+var blu = "res://Namarich/Materials/blue_noise.tres"
+
 func recursive_make_editable(obj : Node) -> void:
 	var parent = obj.get_parent()
 	if parent:

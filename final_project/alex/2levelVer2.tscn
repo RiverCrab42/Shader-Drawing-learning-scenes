@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cafv51pnunw10"]
+[gd_scene load_steps=27 format=3 uid="uid://cafv51pnunw10"]
 
 [ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="1_3qgcu"]
 [ext_resource type="PackedScene" uid="uid://b2q4nan23yur2" path="res://scenes/assets/walls/wall_doorway.tscn" id="2_73kt3"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://d03unn0hp31w8" path="res://scenes/assets/stairs/stairs_wide.tscn" id="15_hu3pn"]
 [ext_resource type="PackedScene" uid="uid://cuctrxuw83jed" path="res://Kostya/labirint.tscn" id="16_3auqs"]
 [ext_resource type="Shader" uid="uid://158am658txsx" path="res://alex/shaders/water_post_process.gdshader" id="17_smiwv"]
+[ext_resource type="Shader" uid="uid://m1qy8la6twpn" path="res://alex/shaders/water_surface.gdshader" id="18_73kt3"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_6f7rb"]
 flip_faces = true
@@ -34,8 +35,27 @@ noise = SubResource("FastNoiseLite_dajvi")
 render_priority = 0
 shader = ExtResource("17_smiwv")
 shader_parameter/noise = SubResource("NoiseTexture2D_6f7rb")
-shader_parameter/scr_shaking = 37.0
+shader_parameter/scr_shaking = 50.0
 shader_parameter/fog_color = Color(0.219608, 0.172549, 0.945098, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lmuiv"]
+size = Vector2(16, 20)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_73kt3"]
+noise_type = 3
+frequency = 0.0342
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lmuiv"]
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_73kt3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ilef"]
+render_priority = 0
+shader = ExtResource("18_73kt3")
+shader_parameter/noise = SubResource("NoiseTexture2D_lmuiv")
+shader_parameter/foam = 0.4
+shader_parameter/scr_shaking = 80.0
 
 [node name="Level2" type="Node3D"]
 
@@ -449,11 +469,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 [node name="Labirint" parent="floor_2" instance=ExtResource("16_3auqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, -5.1, -8)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="fog&shaking" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_6f7rb")
 surface_material_override/0 = SubResource("ShaderMaterial_a2q6g")
+
+[node name="foam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0086, -3.14509, 0.00903225)
+visibility_parent = NodePath(".")
+mesh = SubResource("PlaneMesh_lmuiv")
+surface_material_override/0 = SubResource("ShaderMaterial_8ilef")
 
 [editable path="wall_doorway"]

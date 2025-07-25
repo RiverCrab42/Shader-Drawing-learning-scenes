@@ -1,0 +1,63 @@
+[gd_scene load_steps=14 format=3 uid="uid://daci5id4gcjtn"]
+
+[ext_resource type="Shader" uid="uid://dag4qbp3dfugb" path="res://VDVVAH/noise_terrain/terrain2.gdshader" id="1_xgjgh"]
+[ext_resource type="Texture2D" uid="uid://qngw4whmd88i" path="res://VDVVAH/textures/grass.webp" id="2_oonx1"]
+[ext_resource type="Texture2D" uid="uid://45cggo6pbmpl" path="res://VDVVAH/textures/sand.webp" id="3_ti6br"]
+[ext_resource type="Texture2D" uid="uid://dwv1hj8wt0abb" path="res://VDVVAH/textures/snow.webp" id="4_d7aby"]
+[ext_resource type="Texture2D" uid="uid://r66u718tuk3j" path="res://VDVVAH/textures/stone.webp" id="5_nibi2"]
+[ext_resource type="Texture2D" uid="uid://n7wa3o50an1q" path="res://VDVVAH/textures/water.webp" id="6_by6q8"]
+[ext_resource type="Shader" uid="uid://s5pfyhiye820" path="res://VDVVAH/noise_terrain/water_mirror.gdshader" id="8_nibi2"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_antai"]
+size = Vector2(10, 10)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4kuob"]
+render_priority = 0
+shader = ExtResource("1_xgjgh")
+shader_parameter/persistance = 0.5
+shader_parameter/number_of_octaves = 10.0
+shader_parameter/stone = ExtResource("5_nibi2")
+shader_parameter/grass = ExtResource("2_oonx1")
+shader_parameter/water = ExtResource("6_by6q8")
+shader_parameter/snow = ExtResource("4_d7aby")
+shader_parameter/sand = ExtResource("3_ti6br")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d7aby"]
+size = Vector2(10, 10)
+subdivide_width = 200
+subdivide_depth = 200
+center_offset = Vector3(0, -0.2, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ti6br"]
+frequency = 0.0089
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ti6br"]
+seamless = true
+as_normal_map = true
+bump_strength = 11.8
+noise = SubResource("FastNoiseLite_ti6br")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nibi2"]
+render_priority = 0
+shader = ExtResource("8_nibi2")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_ti6br")
+shader_parameter/water = ExtResource("6_by6q8")
+shader_parameter/steps = 100
+shader_parameter/max_dist = 1.5
+shader_parameter/detect_threshold = 0.09
+shader_parameter/binary_search_steps = 24
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_antai")
+surface_material_override/0 = SubResource("ShaderMaterial_4kuob")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.961516, -0.133669, 0.24004, -0.12941, 0.991026, 0.0334936, -0.242363, 0.00114123, -0.970185, 0, 2, -4)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_d7aby")
+surface_material_override/0 = SubResource("ShaderMaterial_nibi2")

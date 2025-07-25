@@ -65,7 +65,7 @@ float _terrain_iterated(vec2 args) {
 }
 
 float _generate_terrain(vec2 args) {
-	return sin(args.x+args.y) + cos(args.y);
+	//return sin(args.x+args.y) + cos(args.y);
 	return _terrain_iterated(args);
 }
 
@@ -80,14 +80,12 @@ vec3 _normal_of_terrain(vec3 args) {
 
 
 void vertex() {
-	VERTEX.y = _generate_terrain(VERTEX.xz);
+	vec3 vertex_w = (MODEL_MATRIX * vec4(VERTEX, 1.)).xyz;
+	VERTEX.y = _generate_terrain(vertex_w.xz);
 }
 
 void fragment() {
 	vec3 vertex_w = (INV_VIEW_MATRIX * vec4(VERTEX, 1.)).xyz;
-	if (abs (vertex_w.y - _generate_terrain(vertex_w.xz))< 0.001){
-		ALBEDO = vec3(1.0, 0.0, 0.0);
-	}
 
 	vertex_w.y = _generate_terrain(vertex_w.xz);
 	float eps = 0.0001;
