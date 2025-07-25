@@ -50,10 +50,10 @@ shader = ExtResource("8_nibi2")
 shader_parameter/normal_map = SubResource("NoiseTexture2D_ti6br")
 shader_parameter/water = ExtResource("6_by6q8")
 shader_parameter/steps = 100
-shader_parameter/max_dist = 9.0
+shader_parameter/max_dist = 10.0
 shader_parameter/detect_threshold = 0.25
 shader_parameter/binary_search_steps = 20
-shader_parameter/opacity = 0.0
+shader_parameter/opacity = 0.9
 
 [node name="Node3D" type="Node3D"]
 
