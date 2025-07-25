@@ -1,6 +1,6 @@
-[gd_scene load_steps=29 format=3 uid="uid://ds1c55uv08k80"]
+[gd_scene load_steps=38 format=3 uid="uid://ds1c55uv08k80"]
 
-[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="3_3dfww"]
+[ext_resource type="PackedScene" uid="uid://b1e0dj5qnrapp" path="res://scenes/game_elements/character.tscn" id="3_3dfww"]
 [ext_resource type="PackedScene" uid="uid://c4ome1rfnjcj1" path="res://scenes/assets/lights/torch_mounted.tscn" id="3_ui72h"]
 [ext_resource type="PackedScene" uid="uid://bp8us8trdoxn8" path="res://scenes/assets/lights/torch.tscn" id="4_1sjxa"]
 [ext_resource type="PackedScene" uid="uid://difxijpdmy4rm" path="res://scenes/assets/floors/floor_dirt_large.tscn" id="4_64ib8"]
@@ -11,13 +11,16 @@
 [ext_resource type="PackedScene" uid="uid://b2q4nan23yur2" path="res://scenes/assets/walls/wall_doorway.tscn" id="9_cvlg2"]
 [ext_resource type="PackedScene" uid="uid://7op6ogn2cmrx" path="res://scenes/assets/walls/wall_window_open.tscn" id="10_3d7xd"]
 [ext_resource type="PackedScene" uid="uid://ch4628slb0l0l" path="res://scenes/assets/walls/wall_half.tscn" id="11_t6bnw"]
-[ext_resource type="PackedScene" uid="uid://bu0lqt11c2ydw" path="res://scenes/assets/extras/chest.tscn" id="12_cvlg2"]
 [ext_resource type="PackedScene" uid="uid://gwdsosqtypm0" path="res://scenes/assets/extras/chair.tscn" id="13_3d7xd"]
+[ext_resource type="Script" uid="uid://bbmx6nv6nh8op" path="res://Danil/touch.gd" id="13_351ww"]
+[ext_resource type="PackedScene" uid="uid://cijivo5wnu5ip" path="res://scenes/utils/activatable_area.tscn" id="14_8eswp"]
 [ext_resource type="PackedScene" uid="uid://giu4ajqq0pig" path="res://scenes/assets/extras/bed_frame.tscn" id="14_t6bnw"]
 [ext_resource type="PackedScene" uid="uid://dgavabl80atr2" path="res://scenes/assets/extras/banners/banner_green.tscn" id="15_klubj"]
 [ext_resource type="Texture2D" uid="uid://c47qyvawswp1r" path="res://assets/textures/hatch_down_left.jpg" id="16_3d7xd"]
 [ext_resource type="Shader" uid="uid://fekk21vll1lg" path="res://Danil/outline.gdshader" id="16_4gqmq"]
+[ext_resource type="Script" uid="uid://dkw2qfevaoc8s" path="res://scripts/chest_gold.gd" id="16_wn84n"]
 [ext_resource type="Texture2D" uid="uid://0sen4lckfksv" path="res://assets/textures/hatch_down_right.jpg" id="17_t6bnw"]
+[ext_resource type="PackedScene" uid="uid://c1mi2d7dhivny" path="res://scenes/assets/level_complition/chest_gold.tscn" id="18_icpob"]
 [ext_resource type="PackedScene" uid="uid://bu2oxh51r7hl4" path="res://scenes/assets/extras/keg.tscn" id="18_j501b"]
 [ext_resource type="PackedScene" uid="uid://2k5ag4miss8c" path="res://scenes/assets/floors/floor_tile_big_grate.tscn" id="19_yxgc2"]
 [ext_resource type="PackedScene" uid="uid://dxt8eiwd4kuk5" path="res://scenes/assets/floors/floor_tile_large.tscn" id="20_uvq1n"]
@@ -25,8 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://d1pu2cjsxob11" path="res://scenes/assets/walls/wall_doorway_sides.tscn" id="22_uvq1n"]
 [ext_resource type="PackedScene" uid="uid://bxon34i6qq5jh" path="res://scenes/assets/extras/banners/banner_yellow.tscn" id="23_4gqmq"]
 [ext_resource type="PackedScene" uid="uid://rgak3tlos0ot" path="res://scenes/assets/extras/banner_blue.tscn" id="24_he5we"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_cvlg2"]
+[ext_resource type="PackedScene" uid="uid://c785le0jye60w" path="res://scenes/assets/floors/floor_dirt_small_a.tscn" id="26_0vd3o"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cvlg2"]
 flip_faces = true
@@ -37,14 +39,79 @@ render_priority = 0
 shader = ExtResource("16_4gqmq")
 shader_parameter/tresh_hold_n = 0.65
 shader_parameter/tresh_hold_d = 0.16
-shader_parameter/coff = 1.0
+shader_parameter/frequency = 13.0
+shader_parameter/amplitude = 1.0
 shader_parameter/hatch_down_left = ExtResource("16_3d7xd")
 shader_parameter/hatch_down_right = ExtResource("17_t6bnw")
+shader_parameter/normal_edge = true
+shader_parameter/depth_edge = true
+shader_parameter/count_color = 0.0
+shader_parameter/coff = 0.98
+
+[sub_resource type="Animation" id="Animation_351ww"]
+resource_name = "ON"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.0472, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8eswp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ei4su"]
+resource_name = "OFF"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.0472, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sjvkt"]
+_data = {
+&"OFF": SubResource("Animation_ei4su"),
+&"ON": SubResource("Animation_351ww"),
+&"RESET": SubResource("Animation_8eswp")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8eswp"]
+size = Vector3(0.5, 1.1, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cvlg2"]
 
 [node name="Example" type="Node3D"]
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("3_3dfww")]
-transform = Transform3D(0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, 0.642788, 0.79622, 1.2, 3)
+transform = Transform3D(0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, 0.642788, 17.7962, 9.2, 3)
+visible = false
 
 [node name="Home" type="Node" parent="."]
 
@@ -89,9 +156,6 @@ transform = Transform3D(0.00392694, 0, -0.999992, 0, 1, 0, 0.999992, 0, 0.003926
 
 [node name="wall_half2" parent="Home" instance=ExtResource("11_t6bnw")]
 transform = Transform3D(0.00392694, 0, -0.999992, 0, 1, 0, 0.999992, 0, 0.00392694, 23.3, 7.9, 4.96985)
-
-[node name="chest" parent="Home" instance=ExtResource("12_cvlg2")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 22, 7.9, 4)
 
 [node name="chair" parent="Home" instance=ExtResource("13_3d7xd")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, 7.9, 6.9)
@@ -139,13 +203,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 7.9, 5.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 7.9, 5.5)
 
 [node name="torch_mounted" parent="." instance=ExtResource("3_ui72h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 9.5, 0.3)
+script = ExtResource("13_351ww")
+
+[node name="postprocessing" type="Node" parent="torch_mounted"]
+
+[node name="outline" type="MeshInstance3D" parent="torch_mounted/postprocessing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24537e-08, 0.00950301, -0.6)
+extra_cull_margin = 16384.0
+instance_shader_parameters/moebius = false
+mesh = SubResource("PlaneMesh_cvlg2")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_3d7xd")
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="torch_mounted"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0.4, 0.3)
 light_color = Color(0.948098, 0.575234, 3.85046e-07, 1)
 light_energy = 5.041
 omni_range = 6.433
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="torch_mounted"]
+libraries = {
+&"": SubResource("AnimationLibrary_sjvkt")
+}
+
+[node name="ActivatableArea" parent="torch_mounted" instance=ExtResource("14_8eswp")]
+
+[node name="Collision" parent="torch_mounted/ActivatableArea/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 2.5, 0, 0, 0, 1, 0, -0.00473022, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="torch_mounted"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="torch_mounted/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0493145, 0.244933, 0.351565)
+shape = SubResource("BoxShape3D_8eswp")
 
 [node name="torch" parent="." instance=ExtResource("4_1sjxa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.4, 0)
@@ -166,28 +257,23 @@ light_energy = 5.041
 omni_range = 6.433
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9, 9.6, 3.2)
-light_energy = 5.041
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 9.6, 3.4)
+light_energy = 5.687
 omni_range = 6.433
 
 [node name="key" parent="." instance=ExtResource("5_0r63w")]
 transform = Transform3D(1, 2.98023e-08, 0, 0, 1, 0, 0, 1.49012e-08, 1, -2, 0.3, 1.19209e-07)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.5, -0.75, -0.433013, -9.28753e-07, -0.500001, 0.866025, -0.866026, 0.433013, 0.249999, 0, 4, 0)
+transform = Transform3D(-0.866026, 0.353555, -0.353553, 2.52881e-07, 0.707106, 0.707107, 0.499999, 0.612373, -0.612372, 0, 4, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0)
 mesh = SubResource("CylinderMesh_cvlg2")
 
-[node name="postprocessing" type="Node" parent="."]
-
-[node name="outline" type="MeshInstance3D" parent="postprocessing"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24537e-08, 0.00950301, -0.6)
-extra_cull_margin = 16384.0
-mesh = SubResource("PlaneMesh_cvlg2")
-skeleton = NodePath("../../..")
-surface_material_override/0 = SubResource("ShaderMaterial_3d7xd")
+[node name="chest_gold" parent="." instance=ExtResource("18_icpob")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 20, 8, 4)
+script = ExtResource("16_wn84n")
 
 [node name="keg" parent="." instance=ExtResource("18_j501b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
@@ -477,5 +563,27 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.1, 
 [node name="banner_blue2" parent="." instance=ExtResource("24_he5we")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.1, 0, 0)
 
+[node name="floor_dirt_small_A" parent="." instance=ExtResource("26_0vd3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 25)
+
+[node name="floor_dirt_small_A2" parent="." instance=ExtResource("26_0vd3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 1, 27)
+
+[node name="floor_dirt_small_A3" parent="." instance=ExtResource("26_0vd3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2, 32)
+
+[node name="floor_dirt_small_A4" parent="." instance=ExtResource("26_0vd3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, -1, 38)
+
+[node name="floor_dirt_small_A5" parent="." instance=ExtResource("26_0vd3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 42)
+
+[node name="floor_dirt_small_A6" parent="." instance=ExtResource("26_0vd3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.2, 0.1, 37.3)
+
+[node name="floor_dirt_small_A7" parent="." instance=ExtResource("26_0vd3o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0.1, 37.3)
+
 [editable path="Home/wall2"]
 [editable path="Home/wall_corner_small"]
+[editable path="torch_mounted/ActivatableArea"]
