@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://daci5id4gcjtn"]
 
 [ext_resource type="Shader" uid="uid://dag4qbp3dfugb" path="res://VDVVAH/noise_terrain/terrain2.gdshader" id="1_xgjgh"]
-[ext_resource type="Texture2D" uid="uid://qngw4whmd88i" path="res://VDVVAH/textures/grass.webp" id="2_oonx1"]
+[ext_resource type="Texture2D" uid="uid://dua8fj1n4b0nx" path="res://VDVVAH/textures/grass.jpg" id="2_ti6br"]
 [ext_resource type="Texture2D" uid="uid://45cggo6pbmpl" path="res://VDVVAH/textures/sand.webp" id="3_ti6br"]
 [ext_resource type="Texture2D" uid="uid://dwv1hj8wt0abb" path="res://VDVVAH/textures/snow.webp" id="4_d7aby"]
-[ext_resource type="Texture2D" uid="uid://r66u718tuk3j" path="res://VDVVAH/textures/stone.webp" id="5_nibi2"]
+[ext_resource type="Texture2D" uid="uid://daohkulqhbvbg" path="res://VDVVAH/textures/stone.jpg" id="5_d7aby"]
 [ext_resource type="Texture2D" uid="uid://n7wa3o50an1q" path="res://VDVVAH/textures/water.webp" id="6_by6q8"]
 [ext_resource type="Shader" uid="uid://s5pfyhiye820" path="res://VDVVAH/noise_terrain/water_mirror.gdshader" id="8_nibi2"]
 
@@ -20,8 +20,8 @@ shader_parameter/persistance = 0.5
 shader_parameter/number_of_octaves = 10.0
 shader_parameter/frequency = 0.2
 shader_parameter/amplitude = 4.0
-shader_parameter/stone = ExtResource("5_nibi2")
-shader_parameter/grass = ExtResource("2_oonx1")
+shader_parameter/stone = ExtResource("5_d7aby")
+shader_parameter/grass = ExtResource("2_ti6br")
 shader_parameter/water = ExtResource("6_by6q8")
 shader_parameter/snow = ExtResource("4_d7aby")
 shader_parameter/sand = ExtResource("3_ti6br")
