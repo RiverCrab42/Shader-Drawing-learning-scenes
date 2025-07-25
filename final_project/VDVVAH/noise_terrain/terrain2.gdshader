@@ -11,7 +11,7 @@ uniform sampler2D water;
 uniform sampler2D snow;
 uniform sampler2D sand;
 
-const float levels[] = {0., 0.05, 0., 0.4, 0.5};
+const float levels[] = {-0.05, 0.05, 0., 0.4, 0.5};
 const float slopes[] = {0.95, 0.9};
 
 #define level(index) (levels[index] * amplitude)
@@ -113,7 +113,8 @@ vec3 mix_texture(vec3 color, sampler2D tex, float k, vec2 uv) {
 }
 
 vec3 normal_of_landscape(float height, vec3 normal) {
-	return (height < level(0)) ? vec3(0., 1., 0.): normal;
+	// return (height < level(0)) ? vec3(0., 1., 0.): normal;
+	return normal;
 }
 
 vec3 colorize_landscape(float height, vec2 uv, vec3 normal) {
