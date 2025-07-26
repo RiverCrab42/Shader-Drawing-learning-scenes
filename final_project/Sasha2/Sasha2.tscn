@@ -1,13 +1,13 @@
-[gd_scene load_steps=62 format=3 uid="uid://h04nectitlpb"]
+[gd_scene load_steps=63 format=3 uid="uid://mes7ivao5n6t"]
 
-[ext_resource type="Script" uid="uid://dil8lw5jvwmnh" path="res://Sasha2/scripts/ghost_setter.gd" id="1_v8td7"]
-[ext_resource type="PackedScene" uid="uid://w5oc8ruyl8lo" path="res://VLADIMIR/ghost.tscn" id="2_v8td7"]
-[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="3_d0aca"]
+[ext_resource type="Script" uid="uid://bhsrdg72keahf" path="res://Sasha2/scripts/ghost_setter.gd" id="1_v8td7"]
+[ext_resource type="PackedScene" uid="uid://r0msufcf13c6" path="res://VLADIMIR/ghost.tscn" id="2_v8td7"]
+[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://Sasha2/scripts/character.tscn" id="3_d0aca"]
 [ext_resource type="PackedScene" uid="uid://bp8us8trdoxn8" path="res://Sasha2/torch.tscn" id="4_cv3f0"]
 [ext_resource type="PackedScene" uid="uid://c4ome1rfnjcj1" path="res://scenes/assets/lights/torch_mounted.tscn" id="5_wa03a"]
 [ext_resource type="PackedScene" uid="uid://bq0dcihhlbc05" path="res://scenes/assets/key/key.tscn" id="6_kxbfs"]
 [ext_resource type="PackedScene" uid="uid://difxijpdmy4rm" path="res://scenes/assets/floors/floor_dirt_large.tscn" id="7_ga2xj"]
-[ext_resource type="Material" uid="uid://bovc5u42v2tlq" path="res://assets/materials/common.tres" id="8_xnoj0"]
+[ext_resource type="Material" uid="uid://byf6fqunhbcb7" path="res://assets/materials/ghost_reacting_material.tres" id="8_khjl0"]
 [ext_resource type="PackedScene" uid="uid://dsg3nri2j2a8v" path="res://scenes/assets/floors/floor_foundation_diagonal_corner.tscn" id="9_pm1qn"]
 [ext_resource type="PackedScene" uid="uid://bsiwjnxp5nopy" path="res://scenes/assets/floors/floor_dirt_large_rocky.tscn" id="10_ilnub"]
 [ext_resource type="PackedScene" uid="uid://2k5ag4miss8c" path="res://scenes/assets/floors/floor_tile_big_grate.tscn" id="11_khjl0"]
@@ -46,15 +46,16 @@
 [ext_resource type="PackedScene" uid="uid://cb1t8bm0kfse0" path="res://scenes/assets/extras/barrel_large.tscn" id="44_bq54t"]
 [ext_resource type="PackedScene" uid="uid://bmdlijldyr2jw" path="res://Sasha2/mirror-x.tscn" id="45_ewmn5"]
 [ext_resource type="PackedScene" uid="uid://c1mi2d7dhivny" path="res://scenes/assets/level_complition/chest_gold.tscn" id="46_tu1su"]
-[ext_resource type="PackedScene" uid="uid://daci5id4gcjtn" path="res://VDVVAH/noise_terrain/terrain2.tscn" id="47_pm1qn"]
-[ext_resource type="Shader" uid="uid://dpumw0l54m6w5" path="res://VDVVAH/noise_terrain/terrain2.gdshader" id="48_ilnub"]
-[ext_resource type="Texture2D" uid="uid://x84rcgyp01yu" path="res://VDVVAH/textures/grass.jpg" id="49_khjl0"]
-[ext_resource type="Texture2D" uid="uid://cg00o8mrgue2t" path="res://VDVVAH/textures/sand.webp" id="50_kryrn"]
-[ext_resource type="Texture2D" uid="uid://5kmlclco408i" path="res://VDVVAH/textures/snow.webp" id="51_5d05p"]
-[ext_resource type="Texture2D" uid="uid://itm0i2tvkrrw" path="res://VDVVAH/textures/stone.jpg" id="52_534hl"]
-[ext_resource type="Texture2D" uid="uid://d3ujett7stk1i" path="res://VDVVAH/textures/water.webp" id="53_4lnxx"]
-[ext_resource type="Script" uid="uid://b4sqaiii3wap" path="res://scripts/utility/level_changer.gd" id="54_ilnub"]
-[ext_resource type="Shader" uid="uid://dmuw5p72ahdwt" path="res://Sasha2/pol.gdshader" id="54_khjl0"]
+[ext_resource type="PackedScene" uid="uid://vp1amcipq8mp" path="res://VDVVAH/noise_terrain/terrain2.tscn" id="47_pm1qn"]
+[ext_resource type="Shader" path="res://VDVVAH/noise_terrain/terrain2.gdshader" id="48_ilnub"]
+[ext_resource type="Texture2D" uid="uid://e6vdywsmydxd" path="res://VDVVAH/textures/grass.jpg" id="49_khjl0"]
+[ext_resource type="Texture2D" uid="uid://c28ybqa245nb8" path="res://VDVVAH/textures/sand.webp" id="50_kryrn"]
+[ext_resource type="Texture2D" uid="uid://bfh8iyfho47f0" path="res://VDVVAH/textures/snow.webp" id="51_5d05p"]
+[ext_resource type="Texture2D" uid="uid://bgfltu2d25wv6" path="res://VDVVAH/textures/stone.jpg" id="52_534hl"]
+[ext_resource type="Texture2D" uid="uid://cnigsshiga016" path="res://VDVVAH/textures/water.webp" id="53_4lnxx"]
+[ext_resource type="Script" path="res://scripts/utility/level_changer.gd" id="54_ilnub"]
+[ext_resource type="Shader" uid="uid://dyxrslnnqjnvg" path="res://Sasha2/pol.gdshader" id="54_khjl0"]
+[ext_resource type="Texture2D" uid="uid://bdnt4kw1in6ye" path="res://assets/fbx/dungeon_texture.png" id="55_kryrn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_67so1"]
 size = Vector2(200, 200)
@@ -83,6 +84,7 @@ subdivide_depth = 200
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kryrn"]
 render_priority = 0
 shader = ExtResource("54_khjl0")
+shader_parameter/tex = ExtResource("55_kryrn")
 
 [sub_resource type="Animation" id="Animation_khjl0"]
 resource_name = "TP"
@@ -105,7 +107,6 @@ targets = [NodePath("../ghost_tochki/1"), NodePath("../ghost_tochki/2"), NodePat
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("3_d0aca")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
-tp_height = -5.0
 
 [node name="torch" parent="." instance=ExtResource("4_cv3f0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3, -1)
@@ -126,379 +127,415 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -6, -287, -159)
 visible = false
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large18" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large17" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 14, -22)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large17" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large16" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 14, -22)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large16" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large15" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 14, -22)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large15" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large14" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 17, -19)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large14" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large13" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -22)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large13" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large11" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 17, -58)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large11" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large10" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 17, -52)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large10" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large7" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 15, -24)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large7" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large8" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 15, -29)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large8" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large6" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, -0.258819, -0.965926, 0, 0.965926, -0.258819, -2, 5, 7)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large6" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large5" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 15, -21)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large5" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_foundation_diagonal_corner" parent="Node3D" instance=ExtResource("9_pm1qn")]
 transform = Transform3D(27.4806, -29.4139, -11.985, 31.7107, 24.5088, 12.5597, -1.8022, -17.2667, 38.2441, -104, 228, 159)
 
 [node name="floor_foundation_diagonal_corner" parent="Node3D/floor_foundation_diagonal_corner" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large4" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 4, 6)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large4" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large_rocky2" parent="Node3D" instance=ExtResource("10_ilnub")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 4, 5)
 
 [node name="floor_dirt_large_rocky" parent="Node3D/floor_dirt_large_rocky2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_tile_big_grate" parent="Node3D" instance=ExtResource("11_khjl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 8)
 
 [node name="floor_tile_big_grate" parent="Node3D/floor_tile_big_grate" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_tile_big_grate_open" parent="Node3D" instance=ExtResource("12_kryrn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4, -1)
 
 [node name="floor_tile_big_grate_open" parent="Node3D/floor_tile_big_grate_open" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_tile_big_grate_open2" parent="Node3D" instance=ExtResource("12_kryrn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 4)
 
 [node name="floor_tile_big_grate_open" parent="Node3D/floor_tile_big_grate_open2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_tile_large" parent="Node3D" instance=ExtResource("13_5d05p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4, 1)
 
 [node name="floor_tile_large" parent="Node3D/floor_tile_large" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_tile_small_corner" parent="Node3D" instance=ExtResource("14_534hl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, -2)
 
 [node name="floor_tile_small_corner" parent="Node3D/floor_tile_small_corner" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_tile_small" parent="Node3D" instance=ExtResource("15_4lnxx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, -1)
 
 [node name="floor_tile_small" parent="Node3D/floor_tile_small" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_tile_big_grate2" parent="Node3D" instance=ExtResource("11_khjl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
 
 [node name="floor_tile_big_grate" parent="Node3D/floor_tile_big_grate2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_foundation_front_and_sides" parent="Node3D" instance=ExtResource("16_67so1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 5)
 
 [node name="floor_foundation_front_and_sides" parent="Node3D/floor_foundation_front_and_sides" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_tile_big_grate3" parent="Node3D" instance=ExtResource("11_khjl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
 [node name="floor_tile_big_grate" parent="Node3D/floor_tile_big_grate3" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.159664, 0, 0.201515)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large2" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.83288, 0, 0.214132)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large_rocky" parent="Node3D" instance=ExtResource("10_ilnub")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8451, 0, 4.18824)
 
 [node name="floor_dirt_large_rocky" parent="Node3D/floor_dirt_large_rocky" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="floor_dirt_large3" parent="Node3D" instance=ExtResource("7_ga2xj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13665, 4.76837e-07, 4.19716)
 
 [node name="floor_dirt_large" parent="Node3D/floor_dirt_large3" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall10" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 3, 14, -20)
 
 [node name="wall" parent="Node3D/wall10" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall9" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, 2)
 
 [node name="wall" parent="Node3D/wall9" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_endcap4" parent="Node3D" instance=ExtResource("18_aqot5")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 4, 7, -2)
 
 [node name="wall_endcap" parent="Node3D/wall_endcap4" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_endcap3" parent="Node3D" instance=ExtResource("18_aqot5")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 4, 4, 0)
 
 [node name="wall_endcap" parent="Node3D/wall_endcap3" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_doorway3" parent="Node3D" instance=ExtResource("19_pbhq1")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 15, -22)
 
 [node name="wall_doorway" parent="Node3D/wall_doorway3" index="1"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_doorway_door" parent="Node3D/wall_doorway3/wall_doorway" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA3" parent="Node3D/wall_doorway3/wall_doorway/wall_doorway_door" index="1"]
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA" parent="Node3D/wall_doorway3" index="3"]
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA2" parent="Node3D/wall_doorway3" index="4"]
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_doorway2" parent="Node3D" instance=ExtResource("19_pbhq1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 15, -19)
 
 [node name="wall_doorway" parent="Node3D/wall_doorway2" index="1"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_doorway_door" parent="Node3D/wall_doorway2/wall_doorway" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA3" parent="Node3D/wall_doorway2/wall_doorway/wall_doorway_door" index="1"]
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA" parent="Node3D/wall_doorway2" index="3"]
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA2" parent="Node3D/wall_doorway2" index="4"]
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_doorway" parent="Node3D" instance=ExtResource("19_pbhq1")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 4, 8)
 
 [node name="wall_doorway" parent="Node3D/wall_doorway" index="1"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_doorway_door" parent="Node3D/wall_doorway/wall_doorway" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA3" parent="Node3D/wall_doorway/wall_doorway/wall_doorway_door" index="1"]
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA" parent="Node3D/wall_doorway" index="3"]
+surface_material_override/0 = ExtResource("8_khjl0")
+
+[node name="AAA2" parent="Node3D/wall_doorway" index="4"]
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall7" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 12)
 
 [node name="wall" parent="Node3D/wall7" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall8" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(-1, 0, 5.96046e-08, -5.75737e-08, 0.258819, -0.965926, -1.54268e-08, -0.965926, -0.258819, -6, 3, 11)
 
 [node name="wall" parent="Node3D/wall8" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.241922, -0.443386, -2.02448)
 
 [node name="wall" parent="Node3D/wall" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_endcap" parent="Node3D" instance=ExtResource("18_aqot5")]
 transform = Transform3D(1, 0, 0, 0, 0.80953, -0.587079, 0, 0.587079, 0.80953, 3.74764, -0.0653327, 1.16051)
 
 [node name="wall_endcap" parent="Node3D/wall_endcap" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_half" parent="Node3D" instance=ExtResource("20_4j8cq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94612, 0.0190001, 6.12923)
+
+[node name="wall_half" parent="Node3D/wall_half" index="0"]
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall2" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.63556, -0.513287, -1.61009)
 
 [node name="wall" parent="Node3D/wall2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_doorway_sides" parent="Node3D" instance=ExtResource("21_w121t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.72727, 0.0190007, 5.63715)
 
 [node name="wall_doorway_sides" parent="Node3D/wall_doorway_sides" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_endcap2" parent="Node3D" instance=ExtResource("18_aqot5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.41811, 0, -0.886845)
 
 [node name="wall_endcap" parent="Node3D/wall_endcap2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_window_open" parent="Node3D" instance=ExtResource("22_avbe1")]
 transform = Transform3D(-0.0850865, -0.00773847, -0.996343, 0, 0.99997, -0.00776664, 0.996374, -0.000660836, -0.0850839, -2.31767, -0.372693, 1.62992)
 
 [node name="wall_window_open" parent="Node3D/wall_window_open" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall3" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(-0.0282008, 0, -0.999602, 0, 1, 0, 0.999602, 0, -0.0282008, -2.617, -0.225376, 4.7238)
 
 [node name="wall" parent="Node3D/wall3" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall_scaffold" parent="Node3D" instance=ExtResource("23_xgg3t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.30854, 0, 6.36057)
 
 [node name="wall_scaffold" parent="Node3D/wall_scaffold" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall4" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, -0.214353, 0)
 
 [node name="wall" parent="Node3D/wall4" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall5" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, -1)
 
 [node name="wall" parent="Node3D/wall5" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall6" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, 4)
 
 [node name="wall" parent="Node3D/wall6" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="wall11" parent="Node3D" instance=ExtResource("17_002s4")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.51271, -0.4678, 9.3227)
 
 [node name="wall" parent="Node3D/wall11" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="pillar3" parent="Node3D" instance=ExtResource("24_7fnf6")]
 transform = Transform3D(0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0, 1, 19, 16, -21)
 
+[node name="pillar" parent="Node3D/pillar3" index="0"]
+surface_material_override/0 = ExtResource("8_khjl0")
+
 [node name="pillar2" parent="Node3D" instance=ExtResource("24_7fnf6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -7)
+
+[node name="pillar" parent="Node3D/pillar2" index="0"]
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="stairs2" parent="Node3D" instance=ExtResource("25_rpi1y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 13, -50)
 
 [node name="stairs" parent="Node3D/stairs2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="stairs_long" parent="Node3D" instance=ExtResource("26_esg4n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -7)
 
 [node name="stairs_long" parent="Node3D/stairs_long" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="stairs_narrow" parent="Node3D" instance=ExtResource("27_ilves")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 6, -10)
 
 [node name="stairs_narrow" parent="Node3D/stairs_narrow" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="stairs_long2" parent="Node3D" instance=ExtResource("26_esg4n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 8, -17)
 
 [node name="stairs_long" parent="Node3D/stairs_long2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="stairs_walled" parent="Node3D" instance=ExtResource("28_vjhqp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 11, -19)
 
 [node name="stairs_walled" parent="Node3D/stairs_walled" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="stairs_walled2" parent="Node3D" instance=ExtResource("28_vjhqp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 22, 13)
 
 [node name="stairs_walled" parent="Node3D/stairs_walled2" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="barrier_column3" parent="Node3D" instance=ExtResource("29_vjeiq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, 7)
 
 [node name="barrier_column" parent="Node3D/barrier_column3" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="barrier_half" parent="Node3D" instance=ExtResource("30_hp3el")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 10)
 
 [node name="barrier_half" parent="Node3D/barrier_half" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="barrier_column" parent="Node3D" instance=ExtResource("29_vjeiq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 11)
 
 [node name="barrier_column" parent="Node3D/barrier_column" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="ceiling_tile" parent="Node3D" instance=ExtResource("31_sfii1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 13)
 
 [node name="ceiling_tile" parent="Node3D/ceiling_tile" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="stairs" parent="." instance=ExtResource("25_rpi1y")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, 8)
 
 [node name="stairs" parent="stairs" index="0"]
-surface_material_override/0 = ExtResource("8_xnoj0")
+surface_material_override/0 = ExtResource("8_khjl0")
 
 [node name="chair" parent="." instance=ExtResource("33_0x6uh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 13)
@@ -585,7 +622,7 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 31, 110, 58)
 transform = Transform3D(-0.5, 0, 7.54979e-08, 0, 0.5, 0, -7.54979e-08, 0, -0.5, 2, 2, 10)
 
 [node name="Mirror2" parent="." instance=ExtResource("45_ewmn5")]
-transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 2, 6, 3)
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 2, 6, 5)
 instance_shader_parameters/tex_index = 1
 mirror_index = 1
 
@@ -595,7 +632,7 @@ instance_shader_parameters/tex_index = 0
 mirror_index = 2
 
 [node name="Mirror4" parent="." instance=ExtResource("45_ewmn5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 1)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 7, 5)
 mirror_index = 4
 
 [node name="torch3" parent="." instance=ExtResource("4_cv3f0")]
@@ -610,13 +647,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 16, -24)
 [node name="ghost_tochki" type="Node3D" parent="."]
 
 [node name="1" type="Node3D" parent="ghost_tochki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 15, -21)
 
 [node name="2" type="Node3D" parent="ghost_tochki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="3" type="Node3D" parent="ghost_tochki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 17, -58)
 
 [node name="chest_gold" parent="." instance=ExtResource("46_tu1su")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 17, -59)
@@ -635,6 +672,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_002s4")
 visible = false
 
 [node name="MeshInstance3D3" parent="Terrain" index="2"]
+visible = false
 mesh = SubResource("PlaneMesh_aqot5")
 
 [node name="MovingFloor" type="Node3D" parent="."]
@@ -713,6 +751,7 @@ libraries = {
 }
 script = ExtResource("54_ilnub")
 
+[editable path="CharacterBody3D"]
 [editable path="Node3D/floor_dirt_large18"]
 [editable path="Node3D/floor_dirt_large17"]
 [editable path="Node3D/floor_dirt_large16"]
