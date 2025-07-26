@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cqmtm5mhpn7br"]
+
+[ext_resource type="Shader" uid="uid://158am658txsx" path="res://alex/shaders/water_post_process.gdshader" id="1_y7sgc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dajvi"]
+frequency = 0.007
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6f7rb"]
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_dajvi")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_y7sgc")
+shader_parameter/noise = SubResource("NoiseTexture2D_6f7rb")
+shader_parameter/fog_color = Color(0.219608, 0.172549, 0.945098, 1)
+shader_parameter/silaha = 0.2
+shader_parameter/centr = Vector2(0.5, 0.5)
+shader_parameter/scr_shaking = 54.0
+shader_parameter/underwater_timer = 0.0
+shader_parameter/drown_time = 10.0
+shader_parameter/drowning_start = 4.0

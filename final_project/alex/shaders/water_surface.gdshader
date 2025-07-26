@@ -26,6 +26,7 @@ void vertex() {
 void fragment() {
 	
 	ALBEDO = vec3(0.0,0.0,1.0);
+	
 
 	float noise_val = (texture(noise,UV + TIME/5.0).x - 0.8) ;
 	vec4 depth_tex_nds = texture(depth_tex, SCREEN_UV + noise_val / scr_shaking);
@@ -50,10 +51,9 @@ void fragment() {
 	float dist_water = length(-camera_pos_v + water_v);
 	
 	vec3 shaking = texture(scr_tex,vec2(SCREEN_UV.x + noise_val / scr_shaking, SCREEN_UV.y + noise_val / scr_shaking)).rgb;
-	
 
 
-	if(dot(NORMAL, normalize(water_v)) < -0.2){
+	if(dot(NORMAL, normalize(water_v)) < -0.05){
 		vec3 fog_under = mix(shaking,vec3(0.0,0.0,1.0),clamp(smoothstep(0.0,1.0,depth_lin/10.0),0.0,1.0));
 		vec3 fog_top = mix(shaking,vec3(0.0,0.0,1.0),smoothstep(0.0,0.7,dot(NORMAL, normalize(water_v))/1.0 +1.0));
 		ALBEDO = mix(fog_under,fog_top,0.5);
@@ -68,4 +68,5 @@ void fragment() {
 		if((length(view_wall) - dist_water) < clamp(foam + noise_val * foam,0.0,1.0)){
 			ALBEDO = mix(shaking,vec3(1.0),1.0);
 		}
+		
 }
