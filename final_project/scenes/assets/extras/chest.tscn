@@ -1,18 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bu0lqt11c2ydw"]
+[gd_scene load_steps=3 format=3 uid="uid://bu0lqt11c2ydw"]
 
 [ext_resource type="PackedScene" uid="uid://clktxkcuyxl4m" path="res://assets/fbx/chest.fbx" id="1_lodpo"]
-[ext_resource type="Material" uid="uid://ceyort1jqgjre" path="res://materials/import.tres" id="2_hg2uo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lodpo"]
 size = Vector3(1.59863, 1.18616, 1.20313)
 
 [node name="chest" instance=ExtResource("1_lodpo")]
-
-[node name="chest" parent="." index="0"]
-surface_material_override/0 = ExtResource("2_hg2uo")
-
-[node name="chest_lid" parent="chest" index="0"]
-surface_material_override/0 = ExtResource("2_hg2uo")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
 

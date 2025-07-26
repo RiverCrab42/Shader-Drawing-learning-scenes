@@ -1,12 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cuctrxuw83jed"]
+[gd_scene load_steps=12 format=3 uid="uid://cuctrxuw83jed"]
 
 [ext_resource type="PackedScene" uid="uid://6k4syrvb2v3a" path="res://scenes/assets/walls/wall.tscn" id="1_xifrx"]
 [ext_resource type="PackedScene" uid="uid://cet0ahagu3cnk" path="res://scenes/assets/walls/wall_corner_small.tscn" id="2_sinpu"]
-[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="3_1871a"]
 [ext_resource type="PackedScene" uid="uid://bbvi62e5upn7q" path="res://scenes/assets/floors/floor_tile_extralarge_grates.tscn" id="4_1871a"]
 [ext_resource type="PackedScene" uid="uid://dxt8eiwd4kuk5" path="res://scenes/assets/floors/floor_tile_large.tscn" id="5_tdevx"]
 [ext_resource type="PackedScene" uid="uid://bq0dcihhlbc05" path="res://scenes/assets/key/key.tscn" id="6_tdevx"]
-[ext_resource type="Shader" uid="uid://dd178jujpqief" path="res://Kostya/shaders/effect.gdshader" id="7_cwueg"]
+[ext_resource type="Shader" uid="uid://0m22eg0rtp2l" path="res://Kostya/shaders/effect.gdshader" id="7_cwueg"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tdevx"]
 size = Vector2(40, 40)
@@ -300,9 +299,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -20, 0
 
 [node name="wall_corner_small9" parent="." instance=ExtResource("2_sinpu")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8, 0, 16)
-
-[node name="CharacterBody3D" parent="." instance=ExtResource("3_1871a")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8, 1, 8)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 5)
@@ -760,10 +756,10 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -22, 4
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 9, 0)
+visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_cwueg")
 surface_material_override/0 = SubResource("ShaderMaterial_k6fon")
 
 [editable path="wall_corner_small"]
 [editable path="wall_corner_small7"]
-[editable path="CharacterBody3D"]

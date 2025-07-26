@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 	else:
 		drowning_timer = 0.0
 		post_effect.visible = false
-		player.underwater = false
+		(player as Player).underwater = false
 	(post_effect.get_surface_override_material(0) as ShaderMaterial).\
 		set_shader_parameter("underwater_timer", drowning_timer)
 	if drowning_timer > drown_time:

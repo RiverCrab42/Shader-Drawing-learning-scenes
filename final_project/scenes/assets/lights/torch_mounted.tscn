@@ -1,12 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4ome1rfnjcj1"]
+[gd_scene load_steps=9 format=3 uid="uid://c4ome1rfnjcj1"]
 
 [ext_resource type="PackedScene" uid="uid://c2air05a365p0" path="res://assets/fbx/torch_mounted.fbx" id="1_sdf1s"]
 [ext_resource type="Texture2D" uid="uid://bups6jv5qfuee" path="res://assets/textures/dungeon_texture.png" id="2_ot5pk"]
+[ext_resource type="Shader" uid="uid://024yss6gxhif" path="res://Sasha2/fire.gdshader" id="3_ot5pk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_robsl"]
 albedo_texture = ExtResource("2_ot5pk")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_robsl"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1dp0l"]
+frequency = 0.08
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ot5pk"]
+invert = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_1dp0l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n8fmq"]
+render_priority = 0
+shader = ExtResource("3_ot5pk")
+shader_parameter/noise = SubResource("NoiseTexture2D_ot5pk")
+shader_parameter/color_red = Color(0.72549, 0.223529, 0, 1)
+shader_parameter/color_yellow = Color(0.803922, 0.596078, 0, 1)
 
 [node name="torch_mounted" instance=ExtResource("1_sdf1s")]
 
 [node name="torch_mounted" parent="." index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_robsl")
+
+[node name="Fire" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.975258, -0.221072, 0, 0.221072, 0.975258, 0, 0.667232, 0.366046)
+layers = 256
+mesh = SubResource("CylinderMesh_robsl")
+surface_material_override/0 = SubResource("ShaderMaterial_n8fmq")

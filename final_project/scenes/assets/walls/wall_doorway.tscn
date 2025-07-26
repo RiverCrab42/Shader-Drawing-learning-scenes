@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2q4nan23yur2"]
+[gd_scene load_steps=17 format=3 uid="uid://b2q4nan23yur2"]
 
 [ext_resource type="PackedScene" uid="uid://7ukhqgse8m50" path="res://assets/fbx/wall_doorway.fbx" id="1_2y680"]
 [ext_resource type="Script" uid="uid://b043yk1psn77o" path="res://scripts/game_elements/interactbles/wall_doorway.gd" id="2_wxa38"]
@@ -6,6 +6,12 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wxa38"]
 size = Vector3(0.0185522, 0.00415039, 0.0258105)
+
+[sub_resource type="QuadMesh" id="QuadMesh_6w7ef"]
+size = Vector2(0.02, 0.002)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r46s6"]
+albedo_color = Color(0.219608, 0.117647, 0.105882, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6w7ef"]
 size = Vector3(0.01, 0.01, 0.04)
@@ -65,6 +71,16 @@ _data = {
 &"door_open": SubResource("Animation_6w7ef")
 }
 
+[sub_resource type="QuadMesh" id="QuadMesh_r46s6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cw6nt"]
+albedo_color = Color(0.113725, 0.133333, 0.164706, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ovojy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbe2g"]
+albedo_color = Color(0.113725, 0.137255, 0.168627, 1)
+
 [node name="wall_doorway" instance=ExtResource("1_2y680")]
 script = ExtResource("2_wxa38")
 
@@ -75,6 +91,11 @@ script = ExtResource("2_wxa38")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall_doorway/wall_doorway_door/StaticBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.84217e-14, 0, 2.84217e-14, 1, 0.00817994, -1.1921e-09, 0.013208)
 shape = SubResource("BoxShape3D_wxa38")
+
+[node name="AAA3" type="MeshInstance3D" parent="wall_doorway/wall_doorway_door" index="1"]
+transform = Transform3D(1, 0, 0, 0, -1, 4.29154e-08, 0, -4.29154e-08, -1, 0.00816338, 0, 0)
+mesh = SubResource("QuadMesh_6w7ef")
+surface_material_override/0 = SubResource("StandardMaterial3D_r46s6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="wall_doorway" index="1"]
 
@@ -94,3 +115,13 @@ shape = SubResource("BoxShape3D_r46s6")
 libraries = {
 &"": SubResource("AnimationLibrary_ovojy")
 }
+
+[node name="AAA" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.49545, 0, 0)
+mesh = SubResource("QuadMesh_r46s6")
+surface_material_override/0 = SubResource("StandardMaterial3D_cw6nt")
+
+[node name="AAA2" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.49605, 0, 0)
+mesh = SubResource("QuadMesh_ovojy")
+surface_material_override/0 = SubResource("StandardMaterial3D_rbe2g")

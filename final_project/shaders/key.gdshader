@@ -19,7 +19,7 @@ void fragment() {
 		discard;
 	}
 	else if (pick > x - 0.1){
-		ALBEDO = vec3(0.2);
+		ALBEDO = vec3(1.0, 1.0, 0.0);
 	}
 }
 

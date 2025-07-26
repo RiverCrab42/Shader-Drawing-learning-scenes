@@ -1,6 +1,7 @@
 shader_type spatial;
 render_mode unshaded;
 uniform float speed;
+uniform float cutoff = 4.0;
 uniform sampler2D color : source_color;
 void vertex() {
 	float x = VERTEX.x;
@@ -12,6 +13,9 @@ void vertex() {
 }
 
 void fragment() {
+	vec4 vertex_w = INV_VIEW_MATRIX * vec4(VERTEX, 1.0);
+	if (vertex_w.y > cutoff)
+		discard;
 	vec2 pos = 2.0*UV-1.0;
 	if (length(pos) < 0.5 + sin(sin(TIME*2.0)*(UV.x+UV.y)*5.0)/10.0){
 		ALBEDO = vec3(mix(vec3(0.0),texture(color,UV).rgb,length(pos)));
@@ -19,7 +23,7 @@ void fragment() {
 	else{
 		ALBEDO = texture(color,UV).rgb;
 	}
-	
+
 }
 
 //void light() {

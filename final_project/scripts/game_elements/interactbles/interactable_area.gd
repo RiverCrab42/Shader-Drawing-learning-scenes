@@ -10,11 +10,7 @@ func _ready() -> void:
 	active = false
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if (body.get_meta("character")):
-		print("enter")
-		active = true
+	active = true
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
-	if (body.get_meta("character")):
-		print("exit")
-		active = false
+	active = false

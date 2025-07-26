@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://0lcaycmgddiv"]
+
+[ext_resource type="Script" uid="uid://dh3hgp33apgy" path="res://scripts/utility/post_effect_activator.gd" id="1_prh1u"]
+
+[node name="PostEffectActivator" type="Area3D"]
+script = ExtResource("1_prh1u")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

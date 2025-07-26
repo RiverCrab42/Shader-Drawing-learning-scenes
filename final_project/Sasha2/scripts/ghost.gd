@@ -26,18 +26,18 @@ func _process(delta: float) -> void:
 		#GHOST.set_shader_parameter("see", see)
 		
 		time += delta
-		if time >= 100*delta:
-			var ghost_clone = GHOST.instantiate()
-			get_tree().root.add_child(ghost_clone)
-			(ghost_clone as Node3D).global_position = ghost.global_position + Vector3(20.0*randf()-10.0, 20.0*randf()-10.0, 20.0*randf()-10.0)
-			ghost_clone.targets = targets
-			ghost_clone.target = target
-			time = -600 * delta
-			ghost_clone.speed = speed / 2
-			ghost_clone.target_radius = target_radius / 2
-			ghost_clone.scale = ghost.scale / 2
-			ghost_clone.time = -900 * delta
-			print("clon sozdan")
+		#if time >= 100*delta:
+			#var ghost_clone = GHOST.instantiate()
+			#get_tree().root.add_child(ghost_clone)
+			#(ghost_clone as Node3D).global_position = ghost.global_position + Vector3(20.0*randf()-10.0, 20.0*randf()-10.0, 20.0*randf()-10.0)
+			#ghost_clone.targets = targets
+			#ghost_clone.target = target
+			#time = -600 * delta
+			#ghost_clone.speed = speed / 2
+			#ghost_clone.target_radius = target_radius / 2
+			#ghost_clone.scale = ghost.scale / 2
+			#ghost_clone.time = -900 * delta
+			#print("clon sozdan")
 			
 			
 		ghost.look_at(target.global_position);

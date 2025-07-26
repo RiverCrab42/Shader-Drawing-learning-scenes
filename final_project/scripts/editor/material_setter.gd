@@ -2,7 +2,7 @@
 extends EditorScript
 
 var object_groups : Array
-var material_to_set = preload("res://Namarich/Materials/dithering.tres")
+var material_to_set = preload("res://assets/materials/ghost_reacting_material.tres")
 
 var dith = "res://Namarich/Materials/dithering.tres"
 var blu = "res://Namarich/Materials/blue_noise.tres"
