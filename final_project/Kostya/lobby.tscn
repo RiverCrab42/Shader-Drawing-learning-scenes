@@ -94,7 +94,7 @@ subdivide_depth = 200
 size = Vector3(11, 2.42139, 11)
 
 [sub_resource type="QuadMesh" id="QuadMesh_thd4f"]
-size = Vector2(4, 4)
+size = Vector2(5, 5)
 
 [sub_resource type="Gradient" id="Gradient_f8a82"]
 colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1)
@@ -833,7 +833,7 @@ path_to_scene = "res://alex/2levelVer2.tscn"
 [node name="floor_dirt_large_rocky5" parent="Doors" instance=ExtResource("2_xum5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -0.885026, -11)
 script = ExtResource("24_thd4f")
-path_to_scene = "res://Sasha2/Sasha2"
+path_to_scene = "res://Sasha2/Sasha2.tscn"
 
 [node name="ActivatableArea" parent="Doors/floor_dirt_large_rocky5" instance=ExtResource("25_f8a82")]
 
@@ -849,10 +849,10 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 0, 
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, 15)
 
 [node name="banner_yellow" parent="Doors" instance=ExtResource("34_t6wkh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -17)
 
 [node name="banner_yellow2" parent="Doors" instance=ExtResource("34_t6wkh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -17)
 
 [node name="banner_red" parent="Doors" instance=ExtResource("35_hksvp")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, -3)

@@ -18,7 +18,7 @@ void vertex() {
 }
 
 void fragment() {
-	
+
 	float noise_val = texture(noise,UV + TIME/5.0).x - 0.5;
 	float noise_val_death = sin(texture(noise, UV + vec2(TIME * cos(PI/4.0)/15.0, TIME * sin(PI/4.0)/15.0))).x;
 	float sh = noise_val / scr_shaking;
@@ -36,7 +36,7 @@ void fragment() {
 		ALBEDO = mix(sss, vec3(0.0), t);
 	}
 	vec3 vin = ALBEDO;
-	
+
 
 	vec4 depth_tex_nds = texture(depth_tex, SCREEN_UV + sh);
 	vec4 depth_tex_ndsXY = vec4((SCREEN_UV.x + sh)* 2.0 - 1.0, (SCREEN_UV.y + sh) * 2.0 - 1.0, 0.0, 0.0);
@@ -50,10 +50,10 @@ void fragment() {
 	vec3 tex_color = texture(scr_tex,vec2(SCREEN_UV.x + sh, SCREEN_UV.y + sh)).rgb;
 	vec3 shaking_fog = mix(tex_color,fog_color,x+0.1);
 	ALBEDO = shaking_fog;
-	
+
 	ALBEDO = mix(shaking_fog,vin,clamp((underwater_timer - drowning_start) * 0.5 / (drown_time - drowning_start), 0.0, 0.5));
 	//ALBEDO = tex_color;
-	
+
 	//ALBEDO = texture(scr_tex, SCREEN_UV).rgb;
 	//vec2 pixel_size = 1.0 / VIEWPORT_SIZE;
 	// Called for every pixel the material is visible on.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cafv51pnunw10"]
+[gd_scene load_steps=34 format=3 uid="uid://cafv51pnunw10"]
 
 [ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="1_3qgcu"]
 [ext_resource type="Script" uid="uid://dh3hgp33apgy" path="res://scripts/utility/post_effect_activator.gd" id="1_n2ynn"]
@@ -19,9 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://cet0ahagu3cnk" path="res://scenes/assets/walls/wall_corner_small.tscn" id="15_n2ynn"]
 [ext_resource type="PackedScene" uid="uid://cuctrxuw83jed" path="res://Kostya/labirint.tscn" id="16_3auqs"]
 [ext_resource type="Shader" uid="uid://diw8qv2olj2ef" path="res://alex/shaders/water_surface.gdshader" id="18_73kt3"]
-[ext_resource type="Shader" uid="uid://dysjm87y7h30m" path="res://alex/shaders/water_post_process_shake.gdshader" id="18_n2ynn"]
+[ext_resource type="Shader" uid="uid://bjlm475rsx4ro" path="res://alex/shaders/water_post_process.gdshader" id="18_ojogh"]
 [ext_resource type="PackedScene" uid="uid://c1mi2d7dhivny" path="res://scenes/assets/level_complition/chest_gold.tscn" id="20_8ilef"]
-[ext_resource type="Shader" uid="uid://dtcnfuekx86mr" path="res://VLADIMIR/PixelTeleport.gdshader" id="22_ojogh"]
 [ext_resource type="Script" uid="uid://b4sqaiii3wap" path="res://scripts/utility/level_changer.gd" id="23_ayiw3"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_6f7rb"]
@@ -38,10 +37,15 @@ noise = SubResource("FastNoiseLite_dajvi")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ojogh"]
 render_priority = 0
-shader = ExtResource("18_n2ynn")
+shader = ExtResource("18_ojogh")
 shader_parameter/noise = SubResource("NoiseTexture2D_6f7rb")
-shader_parameter/scr_shaking = 50.0
 shader_parameter/fog_color = Color(0.117647, 0.145098, 0.945098, 1)
+shader_parameter/silaha = 0.0
+shader_parameter/centr = Vector2(0.5, 0.5)
+shader_parameter/scr_shaking = 50.0
+shader_parameter/underwater_timer = 0.0
+shader_parameter/drown_time = 10.0
+shader_parameter/drowning_start = 4.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_lmuiv"]
 size = Vector2(30, 20)
@@ -68,69 +72,11 @@ shader_parameter/xk = PackedFloat32Array(0.5, 0.6)
 shader_parameter/jxk = PackedFloat32Array(0.1, 0.14)
 shader_parameter/lkm = PackedFloat32Array(0.5, 0.6)
 
-[sub_resource type="QuadMesh" id="QuadMesh_ayiw3"]
-flip_faces = true
-size = Vector2(2, 2)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_48hbk"]
-render_priority = 0
-shader = ExtResource("22_ojogh")
-shader_parameter/stepPix = 1.0
-shader_parameter/start = false
-
 [sub_resource type="Animation" id="Animation_sa2dy"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PortalPostEffect:surface_material_override/0:shader_parameter/stepPix")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PortalPostEffect:surface_material_override/0:shader_parameter/start")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_xpnbg"]
 resource_name = "TP"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PortalPostEffect:surface_material_override/0:shader_parameter/stepPix")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PortalPostEffect:surface_material_override/0:shader_parameter/start")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q1w1s"]
 _data = {
@@ -697,6 +643,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_ojogh")
 [node name="foam" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0086, -2.76424, 0.00903225)
 visibility_parent = NodePath(".")
+extra_cull_margin = 16384.0
 mesh = SubResource("PlaneMesh_lmuiv")
 surface_material_override/0 = SubResource("ShaderMaterial_8ilef")
 
@@ -716,12 +663,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 33, 0,
 
 [node name="wall_doorway3" parent="Doors" instance=ExtResource("2_73kt3")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 38, 0, 0)
-
-[node name="PortalPostEffect" type="MeshInstance3D" parent="."]
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_ayiw3")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_48hbk")
 
 [node name="LevelLoader" type="AnimationPlayer" parent="."]
 libraries = {

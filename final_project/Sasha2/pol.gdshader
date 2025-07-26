@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode cull_disabled;
-global uniform vec3 player_pos_w;
 
+global uniform vec3 player_pos_w;
 uniform sampler2D tex : source_color;
 
 instance uniform float x_l;

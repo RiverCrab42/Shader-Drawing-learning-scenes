@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://nt8gvxptkrbw"]
 
-[ext_resource type="Shader" uid="uid://dklb83pw7ut0m" path="res://Namarich/Materials/dithering.gdshader" id="1_77esf"]
+[ext_resource type="Shader" uid="uid://cp0kgcbu2o5oi" path="res://Namarich/Materials/dithering.gdshader" id="1_77esf"]
 
 [resource]
 render_priority = 0

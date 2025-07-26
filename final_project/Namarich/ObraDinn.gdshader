@@ -5,6 +5,8 @@ uniform sampler2D scr_tex: hint_screen_texture;
 
 uniform sampler2D blue_noise : repeat_enable, filter_nearest;
 
+uniform float cc : hint_range(10.0, 30.0, 0.5);
+
 uniform vec3 dark_color: source_color;
 uniform vec3 bright_color: source_color;
 uniform vec3 outline_color: source_color;
@@ -130,7 +132,7 @@ void fragment() {
 	float camera_rot_y = -angle_between_vec2(normalize(camera_forward.xz), normalize(world_forward.xz));
   
 	float fovX = radians(FOV) * 2.0;
-	float dither_offset_x = VIEWPORT_SIZE.x * camera_rot_y / fovX * 14.0;
+	float dither_offset_x = VIEWPORT_SIZE.x * camera_rot_y / fovX * cc;
 	
 	vec3 cam3 = (INV_VIEW_MATRIX*vec4(0.0,0.0,-1.0,0.0)).xyz;
 	vec2 cam = vec2(cam3.y, -length(cam3.xz));

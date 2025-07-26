@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://drei5opvjnku4"]
+[gd_scene load_steps=40 format=3 uid="uid://drei5opvjnku4"]
 
 [ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="1_3rt4w"]
 [ext_resource type="PackedScene" uid="uid://dxt8eiwd4kuk5" path="res://scenes/assets/floors/floor_tile_large.tscn" id="2_b4i1d"]
@@ -20,15 +20,16 @@
 [ext_resource type="PackedScene" uid="uid://34d7gs4v6tca" path="res://scenes/assets/barriers/barrier_corner.tscn" id="16_2lbj4"]
 [ext_resource type="PackedScene" uid="uid://ctrwoktx44fox" path="res://scenes/assets/stairs/stairs.tscn" id="17_2lbj4"]
 [ext_resource type="PackedScene" uid="uid://c1mi2d7dhivny" path="res://scenes/assets/level_complition/chest_gold.tscn" id="17_j12ct"]
-[ext_resource type="Texture2D" uid="uid://cdk2britfq2e3" path="res://Namarich/textures/BlueNoise64.png" id="19_2kgaf"]
+[ext_resource type="Texture2D" uid="uid://ds8tpw8pb20kj" path="res://Namarich/textures/BlueNoise64.png" id="19_2kgaf"]
 [ext_resource type="PackedScene" uid="uid://bu2oxh51r7hl4" path="res://scenes/assets/extras/keg.tscn" id="19_is2f8"]
-[ext_resource type="Shader" uid="uid://cudbr72sis7wb" path="res://Namarich/Materials/gambling.gdshader" id="22_is2f8"]
-[ext_resource type="CompressedCubemap" uid="uid://dsfk6s3oeogp1" path="res://Namarich/textures/BlueNoise64_cubemap.png" id="23_ug3o8"]
+[ext_resource type="Shader" uid="uid://3uf0lepdl311" path="res://Namarich/Materials/gambling.gdshader" id="22_is2f8"]
+[ext_resource type="CompressedCubemap" uid="uid://cbuirgc2xy3mj" path="res://Namarich/textures/BlueNoise64_cubemap.png" id="23_ug3o8"]
 [ext_resource type="PackedScene" uid="uid://dq67wllwyganm" path="res://scenes/assets/floors/floor_tile_small.tscn" id="24_4pgc7"]
 [ext_resource type="PackedScene" uid="uid://bq0dcihhlbc05" path="res://scenes/assets/key/key.tscn" id="25_nyq75"]
-[ext_resource type="Shader" uid="uid://dvhhq2jduuei2" path="res://Namarich/ObraDinn.gdshader" id="25_ow2gt"]
-[ext_resource type="Shader" uid="uid://b5e8xnb7moci4" path="res://Namarich/Pixelization.gdshader" id="26_gal5l"]
-[ext_resource type="Script" uid="uid://dl51togyrq7sn" path="res://scripts/utility/camera_follower.gd" id="28_j12ct"]
+[ext_resource type="Shader" uid="uid://bucowicufc1fv" path="res://Namarich/ObraDinn.gdshader" id="25_ow2gt"]
+[ext_resource type="Shader" uid="uid://dhjvgxtu7mdp2" path="res://Namarich/Pixelization.gdshader" id="26_gal5l"]
+[ext_resource type="Script" uid="uid://2ig0ywpl5sbm" path="res://scripts/utility/camera_follower.gd" id="28_j12ct"]
+[ext_resource type="Script" uid="uid://glbegeynlocw" path="res://scripts/utility/menu.gd" id="30_akdtr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_is2f8"]
 shader = ExtResource("22_is2f8")
@@ -73,6 +74,14 @@ size = Vector2(2, 2)
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("26_gal5l")
+
+[sub_resource type="Animation" id="Animation_j12ct"]
+resource_name = "TP"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_akdtr"]
+_data = {
+&"TP": SubResource("Animation_j12ct")
+}
 
 [node name="Aaaaaa" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -835,12 +844,6 @@ surface_material_override/0 = ExtResource("3_eix4s")
 [node name="chest_gold" parent="LevelLayout/Props" instance=ExtResource("17_j12ct")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, -1, -3)
 
-[node name="chest_gold" parent="LevelLayout/Props/chest_gold" index="0"]
-surface_material_override/0 = ExtResource("3_eix4s")
-
-[node name="chest_gold_lid" parent="LevelLayout/Props/chest_gold/chest_gold" index="0"]
-surface_material_override/0 = ExtResource("3_eix4s")
-
 [node name="Barriers" type="Node3D" parent="LevelLayout"]
 
 [node name="barrier_column" parent="LevelLayout/Barriers" instance=ExtResource("15_7b3ok")]
@@ -1339,7 +1342,7 @@ surface_material_override/0 = ExtResource("5_eix4s")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -48)
 
 [node name="key" parent="Parkour/key" index="0"]
-surface_material_override/0 = ExtResource("5_eix4s")
+surface_material_override/0 = null
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Parkour"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -48)
@@ -1358,7 +1361,6 @@ mesh = SubResource("QuadMesh_6mlib")
 surface_material_override/0 = SubResource("ShaderMaterial_w7er6")
 
 [node name="Pixelization" type="MeshInstance3D" parent="."]
-visible = false
 layers = 2
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_ow2gt")
@@ -1374,6 +1376,61 @@ visible = false
 cull_mask = 1048574
 script = ExtResource("28_j12ct")
 camera_3d = NodePath("../../CharacterBody3D/Camera3D")
+
+[node name="LevelLoader" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_akdtr")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("30_akdtr")
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuButton" type="MenuButton" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -64.0
+offset_right = 43.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load level"
+item_count = 5
+popup/item_0/text = "Water"
+popup/item_0/id = 0
+popup/item_1/text = "Dithering"
+popup/item_1/id = 1
+popup/item_2/text = "Moebius"
+popup/item_2/id = 2
+popup/item_3/text = "ASCII"
+popup/item_3/id = 3
+popup/item_4/text = "Ghost"
+popup/item_4/id = 4
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [editable path="CharacterBody3D"]
 [editable path="LevelLayout/Floor/floor_tile_large2"]

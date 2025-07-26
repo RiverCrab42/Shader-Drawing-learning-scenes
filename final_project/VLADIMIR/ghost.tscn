@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://w5oc8ruyl8lo"]
 
-[ext_resource type="Script" uid="uid://cespbquou56x0" path="res://Sasha2/scripts/ghost.gd" id="1_endsm"]
+[ext_resource type="Script" uid="uid://cespbquou56x0" path="res://scripts/ghost_monster.gd" id="1_endsm"]
 [ext_resource type="Texture2D" uid="uid://dsfq363fk0yae" path="res://VLADIMIR/ghost.png" id="2_endsm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uqsp0"]

@@ -1,13 +1,13 @@
-[gd_scene load_steps=63 format=3 uid="uid://mes7ivao5n6t"]
+[gd_scene load_steps=66 format=3 uid="uid://mes7ivao5n6t"]
 
-[ext_resource type="Script" uid="uid://bhsrdg72keahf" path="res://Sasha2/scripts/ghost_setter.gd" id="1_v8td7"]
-[ext_resource type="PackedScene" uid="uid://r0msufcf13c6" path="res://VLADIMIR/ghost.tscn" id="2_v8td7"]
-[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://Sasha2/scripts/character.tscn" id="3_d0aca"]
-[ext_resource type="PackedScene" uid="uid://bp8us8trdoxn8" path="res://Sasha2/torch.tscn" id="4_cv3f0"]
+[ext_resource type="Script" uid="uid://dil8lw5jvwmnh" path="res://Sasha2/scripts/ghost_setter.gd" id="1_v8td7"]
+[ext_resource type="PackedScene" uid="uid://w5oc8ruyl8lo" path="res://VLADIMIR/ghost.tscn" id="2_v8td7"]
+[ext_resource type="PackedScene" uid="uid://ba5celflb58ax" path="res://scenes/game_elements/character.tscn" id="3_d0aca"]
+[ext_resource type="PackedScene" uid="uid://bp8us8trdoxn8" path="res://scenes/assets/lights/torch.tscn" id="4_cv3f0"]
 [ext_resource type="PackedScene" uid="uid://c4ome1rfnjcj1" path="res://scenes/assets/lights/torch_mounted.tscn" id="5_wa03a"]
 [ext_resource type="PackedScene" uid="uid://bq0dcihhlbc05" path="res://scenes/assets/key/key.tscn" id="6_kxbfs"]
 [ext_resource type="PackedScene" uid="uid://difxijpdmy4rm" path="res://scenes/assets/floors/floor_dirt_large.tscn" id="7_ga2xj"]
-[ext_resource type="Material" uid="uid://byf6fqunhbcb7" path="res://assets/materials/ghost_reacting_material.tres" id="8_khjl0"]
+[ext_resource type="Material" uid="uid://b32w05e3k5iw2" path="res://assets/materials/ghost_reacting_material.tres" id="8_khjl0"]
 [ext_resource type="PackedScene" uid="uid://dsg3nri2j2a8v" path="res://scenes/assets/floors/floor_foundation_diagonal_corner.tscn" id="9_pm1qn"]
 [ext_resource type="PackedScene" uid="uid://bsiwjnxp5nopy" path="res://scenes/assets/floors/floor_dirt_large_rocky.tscn" id="10_ilnub"]
 [ext_resource type="PackedScene" uid="uid://2k5ag4miss8c" path="res://scenes/assets/floors/floor_tile_big_grate.tscn" id="11_khjl0"]
@@ -46,16 +46,17 @@
 [ext_resource type="PackedScene" uid="uid://cb1t8bm0kfse0" path="res://scenes/assets/extras/barrel_large.tscn" id="44_bq54t"]
 [ext_resource type="PackedScene" uid="uid://bmdlijldyr2jw" path="res://Sasha2/mirror-x.tscn" id="45_ewmn5"]
 [ext_resource type="PackedScene" uid="uid://c1mi2d7dhivny" path="res://scenes/assets/level_complition/chest_gold.tscn" id="46_tu1su"]
-[ext_resource type="PackedScene" uid="uid://vp1amcipq8mp" path="res://VDVVAH/noise_terrain/terrain2.tscn" id="47_pm1qn"]
-[ext_resource type="Shader" path="res://VDVVAH/noise_terrain/terrain2.gdshader" id="48_ilnub"]
-[ext_resource type="Texture2D" uid="uid://e6vdywsmydxd" path="res://VDVVAH/textures/grass.jpg" id="49_khjl0"]
-[ext_resource type="Texture2D" uid="uid://c28ybqa245nb8" path="res://VDVVAH/textures/sand.webp" id="50_kryrn"]
-[ext_resource type="Texture2D" uid="uid://bfh8iyfho47f0" path="res://VDVVAH/textures/snow.webp" id="51_5d05p"]
-[ext_resource type="Texture2D" uid="uid://bgfltu2d25wv6" path="res://VDVVAH/textures/stone.jpg" id="52_534hl"]
-[ext_resource type="Texture2D" uid="uid://cnigsshiga016" path="res://VDVVAH/textures/water.webp" id="53_4lnxx"]
-[ext_resource type="Script" path="res://scripts/utility/level_changer.gd" id="54_ilnub"]
-[ext_resource type="Shader" uid="uid://dyxrslnnqjnvg" path="res://Sasha2/pol.gdshader" id="54_khjl0"]
-[ext_resource type="Texture2D" uid="uid://bdnt4kw1in6ye" path="res://assets/fbx/dungeon_texture.png" id="55_kryrn"]
+[ext_resource type="PackedScene" uid="uid://daci5id4gcjtn" path="res://VDVVAH/noise_terrain/terrain2.tscn" id="47_pm1qn"]
+[ext_resource type="Shader" uid="uid://dpumw0l54m6w5" path="res://VDVVAH/noise_terrain/terrain2.gdshader" id="48_ilnub"]
+[ext_resource type="Texture2D" uid="uid://x84rcgyp01yu" path="res://VDVVAH/textures/grass.jpg" id="49_khjl0"]
+[ext_resource type="Texture2D" uid="uid://cg00o8mrgue2t" path="res://VDVVAH/textures/sand.webp" id="50_kryrn"]
+[ext_resource type="Texture2D" uid="uid://5kmlclco408i" path="res://VDVVAH/textures/snow.webp" id="51_5d05p"]
+[ext_resource type="Texture2D" uid="uid://itm0i2tvkrrw" path="res://VDVVAH/textures/stone.jpg" id="52_534hl"]
+[ext_resource type="Texture2D" uid="uid://d3ujett7stk1i" path="res://VDVVAH/textures/water.webp" id="53_4lnxx"]
+[ext_resource type="Script" uid="uid://b4sqaiii3wap" path="res://scripts/utility/level_changer.gd" id="54_ilnub"]
+[ext_resource type="Shader" uid="uid://dmuw5p72ahdwt" path="res://Sasha2/pol.gdshader" id="54_khjl0"]
+[ext_resource type="Texture2D" uid="uid://cpf24mpwvaw6x" path="res://assets/fbx/dungeon_texture.png" id="55_kryrn"]
+[ext_resource type="Shader" uid="uid://dwl7au06cgjct" path="res://alex/shaders/fog.gdshader" id="57_5d05p"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_67so1"]
 size = Vector2(200, 200)
@@ -95,6 +96,17 @@ _data = {
 &"TP": SubResource("Animation_khjl0")
 }
 
+[sub_resource type="QuadMesh" id="QuadMesh_kryrn"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5d05p"]
+render_priority = 0
+shader = ExtResource("57_5d05p")
+shader_parameter/fog_color = Color(0.775063, 0.775063, 0.775063, 1)
+shader_parameter/start_fog = 40.0
+shader_parameter/end_fog = 50.0
+
 [node name="Node3D" type="Node3D" node_paths=PackedStringArray("ghost", "player")]
 script = ExtResource("1_v8td7")
 ghost = NodePath("Ghost")
@@ -118,7 +130,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, -1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0638275, 0.589615, 0.359745)
 
 [node name="key" parent="." instance=ExtResource("6_kxbfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 5)
 
 [node name="Node3D" type="Node3D" parent="."]
 
@@ -549,9 +561,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 [node name="keg" parent="." instance=ExtResource("36_lcgnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
 
-[node name="banner_blue" parent="." instance=ExtResource("37_lalhs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
-
 [node name="pillar" parent="." instance=ExtResource("24_7fnf6")]
 transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 3, 3, 10)
 
@@ -562,7 +571,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, 7)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 9, 10)
 
 [node name="key2" parent="." instance=ExtResource("6_kxbfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 4, 11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 5, 10)
 
 [node name="barrier_column2" parent="." instance=ExtResource("29_vjeiq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, 6)
@@ -620,20 +629,6 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 31, 110, 58)
 
 [node name="Mirror" parent="." instance=ExtResource("45_ewmn5")]
 transform = Transform3D(-0.5, 0, 7.54979e-08, 0, 0.5, 0, -7.54979e-08, 0, -0.5, 2, 2, 10)
-
-[node name="Mirror2" parent="." instance=ExtResource("45_ewmn5")]
-transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 2, 6, 5)
-instance_shader_parameters/tex_index = 1
-mirror_index = 1
-
-[node name="Mirror3" parent="." instance=ExtResource("45_ewmn5")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 3, 10)
-instance_shader_parameters/tex_index = 0
-mirror_index = 2
-
-[node name="Mirror4" parent="." instance=ExtResource("45_ewmn5")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 7, 5)
-mirror_index = 4
 
 [node name="torch3" parent="." instance=ExtResource("4_cv3f0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 19, -35)
@@ -750,6 +745,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_kryrn")
 }
 script = ExtResource("54_ilnub")
+
+[node name="Fog" type="MeshInstance3D" parent="."]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_kryrn")
+surface_material_override/0 = SubResource("ShaderMaterial_5d05p")
 
 [editable path="CharacterBody3D"]
 [editable path="Node3D/floor_dirt_large18"]
