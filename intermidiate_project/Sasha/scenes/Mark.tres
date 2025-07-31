@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dnn246fx6y7r3"]
+
+[ext_resource type="Shader" uid="uid://cq458iwrx6ebp" path="res://Sasha/scenes/Mark.gdshader" id="1_jx7dp"]
+[ext_resource type="Texture2D" uid="uid://btlmqmgb3soan" path="res://Sasha/МАРК.png" id="2_pmgqm"]
+
+[resource]
+shader = ExtResource("1_jx7dp")
+shader_parameter/mark_tex = ExtResource("2_pmgqm")
+shader_parameter/uron = 0
+shader_parameter/zdox = 0

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://clavlc1qvvvxk"]
+
+[ext_resource type="PackedScene" uid="uid://cwtod7k2pw84g" path="res://scenes/enemies/slime.tscn" id="1_c4xnh"]
+[ext_resource type="Material" uid="uid://dnn246fx6y7r3" path="res://Sasha/scenes/Mark.tres" id="2_c4xnh"]
+[ext_resource type="Script" uid="uid://c8jrq1essupsl" path="res://Sasha/scenes/mark.gd" id="3_i4h1o"]
+
+[node name="Mark" instance=ExtResource("1_c4xnh")]
+material = ExtResource("2_c4xnh")
+position = Vector2(-1, 15)
+scale = Vector2(2, 2.025)
+script = ExtResource("3_i4h1o")
+SPEED = 50.0
+health = 42.0
+clon_life_time = 5.0
+clon_spawn_time = 7.0
+clon_when_die = 2
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, 0)
+scale = Vector2(1.6, 1.2)
+one_way_collision_margin = 0.0
